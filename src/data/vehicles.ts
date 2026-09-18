@@ -1,0 +1,1010 @@
+import { Vehicle, BrandInfo, ServiceItem } from '../types';
+
+export const OFFICIAL_BRANDS: BrandInfo[] = [
+  {
+    id: 'toyota',
+    name: 'Toyota',
+    origin: 'Japón',
+    vehicleCount: 42,
+    models: ['Corolla', 'Hilux', 'Corolla Cross', 'Yaris', 'SW4', 'RAV4'],
+  },
+  {
+    id: 'volkswagen',
+    name: 'Volkswagen',
+    origin: 'Alemania',
+    vehicleCount: 38,
+    models: ['Amarok', 'Taos', 'Nivus', 'Polo', 'T-Cross', 'Vento'],
+  },
+  {
+    id: 'ford',
+    name: 'Ford',
+    origin: 'Estados Unidos',
+    vehicleCount: 31,
+    models: ['Ranger', 'Territory', 'Maverick', 'Bronco Sport', 'Mustang'],
+  },
+  {
+    id: 'chevrolet',
+    name: 'Chevrolet',
+    origin: 'Estados Unidos',
+    vehicleCount: 29,
+    models: ['Tracker', 'Cruze', 'S10', 'Onix', 'Montana', 'Trailblazer'],
+  },
+  {
+    id: 'peugeot',
+    name: 'Peugeot',
+    origin: 'Francia',
+    vehicleCount: 26,
+    models: ['208', '2008', '3008', 'Partner', 'Expert'],
+  },
+  {
+    id: 'fiat',
+    name: 'Fiat',
+    origin: 'Italia',
+    vehicleCount: 35,
+    models: ['Cronos', 'Toro', 'Pulse', 'Fastback', 'Strada', 'Fiorino'],
+  },
+  {
+    id: 'renault',
+    name: 'Renault',
+    origin: 'Francia',
+    vehicleCount: 28,
+    models: ['Duster', 'Kardian', 'Alaskan', 'Sandero', 'Kangoo', 'Oroch'],
+  },
+  {
+    id: 'jeep',
+    name: 'Jeep',
+    origin: 'Estados Unidos',
+    vehicleCount: 22,
+    models: ['Compass', 'Renegade', 'Commander', 'Wrangler', 'Gladiator'],
+  },
+  {
+    id: 'nissan',
+    name: 'Nissan',
+    origin: 'Japón',
+    vehicleCount: 24,
+    models: ['Frontier', 'Kicks', 'Versa', 'Sentra', 'X-Trail'],
+  },
+  {
+    id: 'citroen',
+    name: 'Citroën',
+    origin: 'Francia',
+    vehicleCount: 20,
+    models: ['C3', 'C3 Aircross', 'C4 Cactus', 'Berlingo', 'Jumpy'],
+  },
+  {
+    id: 'ram',
+    name: 'RAM',
+    origin: 'Estados Unidos',
+    vehicleCount: 14,
+    models: ['1500 Rebel', 'Rampage', '2500 Heavy Duty'],
+  },
+  {
+    id: 'mitsubishi',
+    name: 'Mitsubishi',
+    origin: 'Japón',
+    vehicleCount: 12,
+    models: ['L200 Triton', 'Outlander Sport', 'Eclipse Cross', 'Montero'],
+  },
+];
+
+export const VEHICLES_DATA: Vehicle[] = [
+  // 1. Exact requested model: Toyota Corolla 2024, 15.000 km, $35.000.000
+  {
+    id: 'toyota-corolla-2024',
+    brand: 'Toyota',
+    model: 'Corolla',
+    version: '2.0 SEG CVT DirectShift',
+    year: 2024,
+    mileage: 15000,
+    condition: 'Usado',
+    bodyType: 'Sedán',
+    price: 35000000,
+    installmentPrice: 595000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: 'Dynamic Force 2.0L Dual VVT-iE',
+    power: '170 CV / 200 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 4,
+    color: 'Gris Plata Metalizado',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1623869675781-80aa31012a5a?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Toyota Safety Sense (frenado autónomo de emergencia)',
+        'Control de velocidad crucero adaptativo (ACC)',
+        'Alerta de cambio de carril involuntario con asistencia activa',
+        '7 airbags (frontales, laterales, de cortina y de rodilla conductor)',
+        'Control de estabilidad (VSC) y tracción (TRC)',
+        'Anclajes ISOFIX para sillas infantiles',
+      ],
+      comfort: [
+        'Climatizador automático bi-zona con salidas traseras',
+        'Tapizados en cuero ecológico microperforado',
+        'Asiento de conductor con regulación eléctrica en 8 posiciones',
+        'Techo solar eléctrico con apertura One-Touch',
+        'Encendido por botón Smart Entry & Start System',
+        'Sensores de estacionamiento delanteros y traseros con cámara HD',
+      ],
+      multimedia: [
+        'Pantalla táctil de 9" con conectividad inalámbrica Apple CarPlay y Android Auto',
+        'Tablero digital configurable a color de 12.3"',
+        'Sistema de audio Premium de 6 parlantes',
+        'Cargador inductivo inalámbrico para smartphones',
+        '3 puertos USB de carga rápida tipo C',
+      ],
+    },
+  },
+
+  // 2. Toyota Hilux 0KM Pick-up
+  {
+    id: 'toyota-hilux-2024',
+    brand: 'Toyota',
+    model: 'Hilux',
+    version: '2.8 TDI SRV 4x4 Automática',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'Pick-up',
+    price: 48500000,
+    installmentPrice: 820000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: '1GD 2.8L Turbo Intercooler 16V',
+    power: '204 CV / 500 Nm',
+    traction: 'Integral con reductora (4x4)',
+    doors: 4,
+    color: 'Blanco Perlado',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Bloqueo de diferencial trasero con accionamiento electrónico',
+        'Asistente de arranque y descenso en pendientes (HAC/DAC)',
+        '7 airbags y control de balanceo de tráiler (TSC)',
+        'Frenos de disco ventilados delanteros de alto rendimiento',
+      ],
+      comfort: [
+        'Butacas calefaccionadas y tapizado de cuero de fábrica',
+        'Climatizador digital automático bi-zona',
+        'Llantas de aleación de 18 pulgadas diamantadas',
+        'Control de velocidad crucero',
+      ],
+      multimedia: [
+        'Audio con pantalla táctil de 8" y compatibilidad móvil',
+        'Cámara de marcha atrás con guías dinámicas',
+        'Computadora de abordo de 4.2" en cluster instrumental',
+      ],
+    },
+  },
+
+  // 3. Volkswagen Amarok V6 Extreme
+  {
+    id: 'vw-amarok-v6-2023',
+    brand: 'Volkswagen',
+    model: 'Amarok',
+    version: '3.0 TDI V6 258 CV Extreme 4Motion',
+    year: 2023,
+    mileage: 28000,
+    condition: 'Usado',
+    bodyType: 'Pick-up',
+    price: 44900000,
+    installmentPrice: 760000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: '3.0L V6 Turbodiésel TDI 24V',
+    power: '258 CV (Overboost 272 CV) / 580 Nm',
+    traction: '4Motion Permanente',
+    doors: 4,
+    color: 'Azul Ravenna Metalizado',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Frenado automático post-colisión',
+        'Frenos a disco en las 4 ruedas con ABS Off-Road',
+        'Control de tracción ASR y estabilidad ESP',
+        'Faros bixenón con luz diurna LED integrada',
+      ],
+      comfort: [
+        'Butacas ergoComfort con regulación eléctrica de 14 vías',
+        'Barra deportiva Extreme y estribos planos de aluminio',
+        'Cobertor de caja marítimo original enrollable',
+        'Llantas de aleación Talca de 20 pulgadas',
+      ],
+      multimedia: [
+        'Sistema Discover Media con navegación GPS nativa',
+        'App-Connect con MirrorLink, CarPlay y Android Auto',
+        'Volante multifunción con levas de cambio tipo F1',
+      ],
+    },
+  },
+
+  // 4. Volkswagen Taos Highline 0 KM
+  {
+    id: 'vw-taos-2024',
+    brand: 'Volkswagen',
+    model: 'Taos',
+    version: '250 TSI Highline Tiptronic',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'SUV',
+    price: 39200000,
+    installmentPrice: 660000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.4L TSI Turbo 16V',
+    power: '150 CV / 250 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Gris Indium',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Control crucero adaptativo Stop & Go',
+        'Detector de punto ciego y tráfico cruzado trasero',
+        'Faros IQ.Light Matrix LED adaptativos',
+        'Freno autónomo con detector de peatones',
+      ],
+      comfort: [
+        'Techo solar panorámico corredizo eléctrico',
+        'Iluminación ambiental personalizable en 10 colores',
+        'Apertura de baúl con pedal virtual Easy Open',
+      ],
+      multimedia: [
+        'VW Play pantalla táctil de 10" con app store integrada',
+        'Active Info Display digital de 10.25"',
+        'Cargador de celular por inducción',
+      ],
+    },
+  },
+
+  // 5. Ford Ranger Limited+ 0 KM
+  {
+    id: 'ford-ranger-2024',
+    brand: 'Ford',
+    model: 'Ranger',
+    version: '3.0L V6 Limited Plus 4WD 10AT',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'Pick-up',
+    price: 54000000,
+    installmentPrice: 915000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: 'Lion 3.0L V6 Turbodiésel',
+    power: '250 CV / 600 Nm',
+    traction: '4WD Inteligente con reductora electrónica',
+    doors: 4,
+    color: 'Gris Magnetico',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Paquete Ford Co-Pilot 360 con centrado de carril',
+        'Asistente de frenado en reversa y dirección evasiva',
+        'Cámara 360 grados de visualización completa',
+      ],
+      comfort: [
+        'Selector de modos de conducción (Arena, Barro, Nieve, Remolque)',
+        'Butaca de conductor con ajuste eléctrico de 8 posiciones',
+        'Caja de carga con peldaño de acceso integrado',
+      ],
+      multimedia: [
+        'Pantalla vertical táctil SYNC 4 de 12 pulgadas',
+        'Clúster instrumental 100% digital de 12.4"',
+        'Conexión inalámbrica Apple CarPlay y Android Auto',
+      ],
+    },
+  },
+
+  // 6. Ford Territory Titanium Usado
+  {
+    id: 'ford-territory-2023',
+    brand: 'Ford',
+    model: 'Territory',
+    version: '1.8 Ecoboost Titanium AT7',
+    year: 2023,
+    mileage: 19000,
+    condition: 'Usado',
+    bodyType: 'SUV',
+    price: 32800000,
+    installmentPrice: 555000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.8L EcoBoost Turbo GTDI',
+    power: '185 CV / 320 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Blanco Oxford',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Frenado autónomo de emergencia con detector de peatones',
+        'Control crucero adaptativo con función Stop & Go',
+        '6 airbags y control de estabilidad de última generación',
+      ],
+      comfort: [
+        'Techo solar panorámico con apertura doble',
+        'Butacas delanteras ventiladas y calefaccionadas',
+        'Portón trasero con apertura manos libres',
+      ],
+      multimedia: [
+        'Doble pantalla panorámica digital de 12" integrada',
+        'Sistema de audio Hi-Fi con 8 parlantes',
+      ],
+    },
+  },
+
+  // 7. Chevrolet Tracker Premier 0 KM
+  {
+    id: 'chevrolet-tracker-2024',
+    brand: 'Chevrolet',
+    model: 'Tracker',
+    version: '1.2 Turbo Premier AT',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'SUV',
+    price: 29800000,
+    installmentPrice: 505000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.2L Turbo 3 Cilindros 12V',
+    power: '132 CV / 190 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Rojo Carmín Metalizado',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Alerta de colisión frontal con frenado de emergencia',
+        'Alerta de punto ciego en espejos retrovisores',
+        '6 airbags de serie y anclajes ISOFIX',
+      ],
+      comfort: [
+        'Asistente de estacionamiento semi-autónomo Easy Park',
+        'Techo solar panorámico de cristal corredizo',
+        'Climatizador automático y tapizado bitono en cuero Jet Black',
+      ],
+      multimedia: [
+        'Chevrolet MyLink con pantalla táctil de 8" y Wi-Fi nativo 4G',
+        'Servicio telemático de seguridad OnStar 24/7',
+      ],
+    },
+  },
+
+  // 8. Chevrolet S10 High Country Usado
+  {
+    id: 'chevrolet-s10-2022',
+    brand: 'Chevrolet',
+    model: 'S10',
+    version: '2.8 Turbo Diésel High Country 4x4 AT',
+    year: 2022,
+    mileage: 42000,
+    condition: 'Usado',
+    bodyType: 'Pick-up',
+    price: 36500000,
+    installmentPrice: 620000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: '2.8L Duramax Turbodiésel',
+    power: '200 CV / 500 Nm',
+    traction: '4x4 con reductora electrónica',
+    doors: 4,
+    color: 'Negro Shadow',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Alerta de cambio de carril y colisión frontal',
+        'Frenos ABS todoterreno con control de tracción y estabilidad',
+      ],
+      comfort: [
+        'Barra deportiva exclusiva High Country con lona marítima',
+        'Estribos laterales cromados y llantas diamantadas de 18"',
+      ],
+      multimedia: [
+        'MyLink con proyección inalámbrica y cámara de retroceso',
+      ],
+    },
+  },
+
+  // 9. Fiat Cronos Precision 0 KM
+  {
+    id: 'fiat-cronos-2024',
+    brand: 'Fiat',
+    model: 'Cronos',
+    version: '1.3 GSE Precision CVT',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'Sedán',
+    price: 22400000,
+    installmentPrice: 380000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: 'Firefly 1.3L 8V',
+    power: '99 CV / 127 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 4,
+    color: 'Rojo Montecarlo',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Control de estabilidad (ESP) y tracción (TC)',
+        'Asistente al arranque en pendientes (Hill Holder)',
+        'Monitoreo de presión de neumáticos (TPMS)',
+      ],
+      comfort: [
+        'Climatizador automático monozona',
+        'Tapizados en cuero con costuras reforzadas',
+        'Baúl cavernoso de 525 litros de capacidad',
+        'Modo de conducción Sport con levas al volante',
+      ],
+      multimedia: [
+        'Central multimedia Uconnect de 7" con CarPlay y Android Auto',
+        'Cámara de estacionamiento trasera con líneas dinámicas',
+      ],
+    },
+  },
+
+  // 10. Fiat Toro Volcano Usado
+  {
+    id: 'fiat-toro-2023',
+    brand: 'Fiat',
+    model: 'Toro',
+    version: '2.0 Multijet Volcano 4x4 AT9',
+    year: 2023,
+    mileage: 31000,
+    condition: 'Usado',
+    bodyType: 'Pick-up',
+    price: 28900000,
+    installmentPrice: 490000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: '2.0L 16V MultiJet II Turbodiésel',
+    power: '170 CV / 350 Nm',
+    traction: 'Integral 4x4 bajo demanda con bloqueo 4WD',
+    doors: 4,
+    color: 'Gris Sting',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        '7 airbags y frenado autónomo de emergencia (AEB)',
+        'Faros Full LED delanteros con antiniebla integrados',
+      ],
+      comfort: [
+        'Portón trasero de doble hoja con apertura lateral',
+        'Cargador inalámbrico para smartphone',
+        'Asiento conductor regulable eléctricamente',
+      ],
+      multimedia: [
+        'Central multimedia vertical de 10.1" con GPS nativo',
+        'Tablero full digital de 7 pulgadas',
+      ],
+    },
+  },
+
+  // 11. Peugeot 208 Feline 0 KM
+  {
+    id: 'peugeot-208-2024',
+    brand: 'Peugeot',
+    model: '208',
+    version: 'T200 Feline CVT Turbo',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'Hatchback',
+    price: 24800000,
+    installmentPrice: 420000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: 'Turbo 200 1.0L GSE 12V',
+    power: '120 CV / 200 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Gris Artense',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Peugeot Driver Assist (mantenimiento de carril activo)',
+        'Frenado automático de emergencia y lector de señales de tránsito',
+        'Detector de fatiga del conductor',
+      ],
+      comfort: [
+        'Puesto de conducción i-Cockpit 3D con volante compacto',
+        'Techo panorámico cielo con iluminación LED lateral',
+        'Cámara de visión trasera VisioPark 180°',
+      ],
+      multimedia: [
+        'Pantalla táctil de 10" HD con Mirror Screen inalámbrico',
+        'Cargador por inducción y 2 puertos USB',
+      ],
+    },
+  },
+
+  // 12. Peugeot 3008 GT Pack Usado
+  {
+    id: 'peugeot-3008-2022',
+    brand: 'Peugeot',
+    model: '3008',
+    version: '1.6 THP GT Pack Tiptronic',
+    year: 2022,
+    mileage: 35000,
+    condition: 'Usado',
+    bodyType: 'SUV',
+    price: 41000000,
+    installmentPrice: 695000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.6L THP Turbo Inyección Directa',
+    power: '165 CV / 240 Nm',
+    traction: 'Delantera con Advanced Grip Control',
+    doors: 5,
+    color: 'Blanco Nacarado',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Night Vision con cámara infrarroja para peatones en oscuridad',
+        'Frenos a disco ventilados y 6 airbags de protección integral',
+      ],
+      comfort: [
+        'Butacas de cuero Nappa con función de masajes múltiples',
+        'Techo panorámico corredizo eléctrico con cortina blackout',
+      ],
+      multimedia: [
+        'Sistema de sonido Hi-Fi FOCAL de 10 parlantes y 515 Watts',
+        'Pantalla central HD de 10" con navegación 3D',
+      ],
+    },
+  },
+
+  // 13. Renault Duster Iconic 4x4 Usado
+  {
+    id: 'renault-duster-2023',
+    brand: 'Renault',
+    model: 'Duster',
+    version: '1.3 TCe Iconic 4x4 Manual 6MT',
+    year: 2023,
+    mileage: 22000,
+    condition: 'Usado',
+    bodyType: 'SUV',
+    price: 26700000,
+    installmentPrice: 450000,
+    transmission: 'Manual',
+    fuel: 'Nafta',
+    engine: '1.3L Turbo TCe co-desarrollado con Daimler',
+    power: '155 CV / 250 Nm',
+    traction: '4x4 con selector Lock / Auto / 2WD',
+    doors: 5,
+    color: 'Marrón Visón',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Control de descenso pronunciado (HDC)',
+        'Monitor de ángulos de inclinación y brújula 4x4 en pantalla',
+      ],
+      comfort: [
+        'Climatizador automático digital',
+        'Tapizado mixto cuero ecológico y tela reforzada',
+      ],
+      multimedia: [
+        'Easy Link con pantalla táctil de 8" con réplica de smartphone',
+      ],
+    },
+  },
+
+  // 14. Renault Kardian 0 KM
+  {
+    id: 'renault-kardian-2024',
+    brand: 'Renault',
+    model: 'Kardian',
+    version: 'TCe 120 Premiere Edition EDC',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'SUV',
+    price: 27900000,
+    installmentPrice: 470000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.0L Turbo TCe 3 cilindros',
+    power: '120 CV / 200 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Naranja Energy Bi-tono',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        '13 sistemas de asistencia avanzada a la conducción (ADAS)',
+        'Frenado automático de emergencia y alerta de distancia segura',
+      ],
+      comfort: [
+        'Consola central elevada con selector e-shifter tipo joystick',
+        'Freno de mano eléctrico con función Auto-Hold',
+      ],
+      multimedia: [
+        'Pantalla multimedia flotante de 8" con replicación inalámbrica',
+      ],
+    },
+  },
+
+  // 15. Jeep Compass Limited 0 KM
+  {
+    id: 'jeep-compass-2024',
+    brand: 'Jeep',
+    model: 'Compass',
+    version: 'T270 Limited Plus AT6',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'SUV',
+    price: 45600000,
+    installmentPrice: 775000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.3L Turbo GSE T270',
+    power: '175 CV / 270 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Gris Granito',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Reconocimiento de señales de tránsito y detector de fatiga',
+        'Control de velocidad crucero adaptativo y 7 airbags',
+      ],
+      comfort: [
+        'Techo solar panorámico CommandView de doble panel',
+        'Asiento de pasajero y conductor eléctricos',
+        'Sonido Premium Alpine de 9 parlantes con subwoofer',
+      ],
+      multimedia: [
+        'Central multimedia Uconnect de 10.1" con Apple CarPlay inalámbrico',
+        'Cuadro de instrumentos Full Digital de 10.25"',
+      ],
+    },
+  },
+
+  // 16. Jeep Renegade Longitude Usado
+  {
+    id: 'jeep-renegade-2023',
+    brand: 'Jeep',
+    model: 'Renegade',
+    version: 'T270 Longitude AT6',
+    year: 2023,
+    mileage: 18500,
+    condition: 'Usado',
+    bodyType: 'SUV',
+    price: 31200000,
+    installmentPrice: 530000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.3L Turbo GSE T270',
+    power: '175 CV / 270 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Colorado Red',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Asistente de frenado de emergencia y mantenimiento de carril',
+        'Faros delanteros y traseros 100% LED con firma lumínica Jeep',
+      ],
+      comfort: [
+        'Climatizador digital bi-zona automático',
+        'Tapizado de cuero ecológico con logo bordado en butacas',
+      ],
+      multimedia: [
+        'Uconnect de 8.4" y cuadro digital de 7 pulgadas en tablero',
+      ],
+    },
+  },
+
+  // 17. RAM 1500 Rebel V8
+  {
+    id: 'ram-1500-rebel-2023',
+    brand: 'RAM',
+    model: '1500 Rebel',
+    version: '5.7L HEMI V8 eTorque Mild-Hybrid 4x4',
+    year: 2023,
+    mileage: 16000,
+    condition: 'Usado',
+    bodyType: 'Pick-up',
+    price: 78000000,
+    installmentPrice: 1320000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '5.7L HEMI V8 con sistema eTorque',
+    power: '395 CV / 556 Nm',
+    traction: '4x4 con reductora y diferencial autoblocante',
+    doors: 4,
+    color: 'Hydro Blue con bajos negros',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Suspensión neumática activa regulable en altura en 5 niveles',
+        'Frenos de disco de 378 mm con pinzas dobles reforzadas',
+        'Monitoreo de ángulo muerto con cobertura extendida de tráiler',
+      ],
+      comfort: [
+        'Compartimentos laterales RamBox con iluminación LED y drenaje',
+        'Audio Harman Kardon de 19 parlantes y 900W de potencia pura',
+        'Techo solar panorámico corredizo integral',
+      ],
+      multimedia: [
+        'Pantalla táctil vertical gigante Uconnect 5 de 12 pulgadas',
+        'Head-Up Display a color proyectado en parabrisas',
+      ],
+    },
+  },
+
+  // 18. Nissan Frontier PRO-4X 0 KM
+  {
+    id: 'nissan-frontier-2024',
+    brand: 'Nissan',
+    model: 'Frontier',
+    version: '2.3 Bi-Turbo PRO-4X 4x4 AT7',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'Pick-up',
+    price: 52000000,
+    installmentPrice: 880000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: '2.3L Bi-Turbodiésel Intercooler',
+    power: '190 CV / 450 Nm',
+    traction: '4x4 con reductora electrónica y bloqueo de diferencial',
+    doors: 4,
+    color: 'Gris Volcánico PRO',
+    featured: true,
+    images: [
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Nissan Intelligent Mobility (frenado inteligente de emergencia)',
+        'Cámara 360° Around View Monitor con detector de objetos móviles',
+      ],
+      comfort: [
+        'Suspensión trasera Multi-Link con eje rígido y resortes helicoidales',
+        'Butacas con tecnología Zero Gravity inspiradas en la NASA',
+      ],
+      multimedia: [
+        'NissanConnect de 8" con conectividad inalámbrica para smartphones',
+      ],
+    },
+  },
+
+  // 19. Citroën C3 Aircross 7 Plazas 0 KM
+  {
+    id: 'citroen-c3-aircross-2024',
+    brand: 'Citroën',
+    model: 'C3 Aircross',
+    version: 'Turbo 200 Shine 7 Plazas CVT',
+    year: 2024,
+    mileage: 0,
+    condition: '0 KM',
+    bodyType: 'SUV',
+    price: 25500000,
+    installmentPrice: 430000,
+    transmission: 'Automática',
+    fuel: 'Nafta',
+    engine: '1.0L Turbo 3 cilindros T200',
+    power: '120 CV / 200 Nm',
+    traction: 'Delantera (4x2)',
+    doors: 5,
+    color: 'Gris Artense con techo blanco',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Control de estabilidad y tracción con 4 airbags de fábrica',
+        'Luces diurnas LED en firma de doble chevron distintivo',
+      ],
+      comfort: [
+        'Configuración familiar de 7 plazas modulares desmontables',
+        'Ventilador de techo exclusivo para la segunda y tercera fila',
+      ],
+      multimedia: [
+        'Pantalla táctil Citroën Connect de 10" con Android Auto y CarPlay',
+      ],
+    },
+  },
+
+  // 20. Mitsubishi L200 Triton GLS Usado
+  {
+    id: 'mitsubishi-l200-2023',
+    brand: 'Mitsubishi',
+    model: 'L200 Triton',
+    version: '2.4 DI-D GLS Full 4WD AT',
+    year: 2023,
+    mileage: 24000,
+    condition: 'Usado',
+    bodyType: 'Pick-up',
+    price: 43500000,
+    installmentPrice: 735000,
+    transmission: 'Automática',
+    fuel: 'Diésel',
+    engine: '2.4L MIVEC Turbodiésel Clean Diésel',
+    power: '190 CV / 430 Nm',
+    traction: 'Super Select 4WD-II con bloqueo central y trasero',
+    doors: 4,
+    color: 'Plata Sterling',
+    featured: false,
+    images: [
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+    ],
+    features: {
+      safety: [
+        'Estructura RISE (Reinforced Impact Safety Evolution)',
+        'Control activo de estabilidad y tracción ASTC',
+      ],
+      comfort: [
+        'Sistema Super Select 4WD con acople en marcha hasta 100 km/h',
+        'Tapizados de cuero de alta resistencia',
+      ],
+      multimedia: [
+        'Central multimedia táctil con cámara trasera y comandos por voz',
+      ],
+    },
+  },
+];
+
+// Exact 8 services requested:
+// Autos 0 KM, Autos usados, Financiación, Planes de ahorro, Taller, Repuestos, Accesorios y Seguros.
+export const SERVICES_DATA: ServiceItem[] = [
+  {
+    id: '0km',
+    title: 'Autos 0 KM',
+    description: 'Accedé a unidades 0 KM de las 12 marcas líderes oficiales con entrega inmediata garantizada y patentamiento bonificado.',
+    iconName: 'Sparkles',
+    actionText: 'Ver catálogo 0 KM',
+    badge: 'Entrega Inmediata',
+  },
+  {
+    id: 'usados',
+    title: 'Autos usados',
+    description: 'Vehículos usados seleccionados con peritaje exhaustivo en 150 puntos mecánicos, kilometraje real y garantía escrita.',
+    iconName: 'Car',
+    actionText: 'Ver usados certificados',
+    badge: 'Garantía 1 Año',
+  },
+  {
+    id: 'financiacion',
+    title: 'Financiación',
+    description: 'Líneas de crédito a tasa fija y preferencial en pesos argentinos. Financiá hasta el 70% del valor de tu vehículo en 12 a 60 cuotas.',
+    iconName: 'BadgePercent',
+    actionText: 'Simular financiación',
+    badge: 'Tasa Fija ARS',
+  },
+  {
+    id: 'planes-ahorro',
+    title: 'Planes de ahorro',
+    description: 'Planes directos de fábrica en cuotas accesibles en pesos con adjudicaciones aseguradas en cuota 2, 3 o pactada.',
+    iconName: 'PiggyBank',
+    actionText: 'Consultar planes',
+    badge: '100% Financiado',
+  },
+  {
+    id: 'taller',
+    title: 'Taller',
+    description: 'Servicio técnico de postventa oficial con mecánicos especializados certificados y herramental de diagnóstico computarizado.',
+    iconName: 'Wrench',
+    actionText: 'Solicitar turno',
+    badge: 'Servicio Oficial',
+  },
+  {
+    id: 'repuestos',
+    title: 'Repuestos',
+    description: 'Stock permanente de repuestos legítimos originales directo de fábrica con garantía de procedencia y envíos a todo el país.',
+    iconName: 'Cpu',
+    actionText: 'Pedir repuestos',
+    badge: '100% Originales',
+  },
+  {
+    id: 'accesorios',
+    title: 'Accesorios',
+    description: 'Equipamiento homologado: polarizados reglamentarios, enganches, cobertores, llantas, barras portaequipaje y kits estéticos.',
+    iconName: 'ShieldCheck',
+    actionText: 'Equipar mi auto',
+    badge: 'Homologados',
+  },
+  {
+    id: 'seguros',
+    title: 'Seguros',
+    description: 'Cotizaciones comparativas al instante con las compañías aseguradoras más prestigiosas del país con coberturas Todo Riesgo.',
+    iconName: 'FileCheck2',
+    actionText: 'Cotizar póliza',
+    badge: 'Mejor Cobertura',
+  },
+];
+
+export const formatPriceARS = (val: number): string => {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    maximumFractionDigits: 0,
+  }).format(val).replace('ARS', '$').trim();
+};
+
+export const formatKM = (km: number): string => {
+  if (km === 0) return '0 KM';
+  return `${new Intl.NumberFormat('es-AR').format(km)} km`;
+};

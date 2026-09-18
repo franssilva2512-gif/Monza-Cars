@@ -1,0 +1,8 @@
+{
+  "name": "CAR ONE - Concesionaria Automotriz Oficial",
+  "description": "Concesionaria automotriz líder en Argentina. Catálogo de vehículos 0 KM y Usados seleccionados, financiación exclusiva, peritaje certificado y venta de vehículos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
