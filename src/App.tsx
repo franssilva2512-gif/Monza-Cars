@@ -208,7 +208,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-red-600 selection:text-white">
+    <div className="min-h-screen bg-[#0D0D0D] text-[#F5F0E6] flex flex-col selection:bg-[#5A4636] selection:text-[#F5F0E6]">
       {/* 1. Header Sticky */}
       <Header
         onNavigate={scrollToSection}
@@ -225,32 +225,32 @@ export default function App() {
         />
 
         {/* 3 & 5. Catálogo de Vehículos & Buscador y Filtros Dinámicos */}
-        <section id="catalogo" className="py-16 sm:py-20 bg-neutral-950">
+        <section id="catalogo" className="py-16 sm:py-20 bg-[#0D0D0D]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             {/* Catalog Section Heading */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
-                <p className="text-xs sm:text-sm font-bold tracking-widest text-red-500 uppercase mb-1">
+                <p className="text-xs sm:text-sm font-bold tracking-widest text-[#D6C2A3] uppercase mb-1">
                   Catálogo Oficial Seleccionado
                 </p>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5F0E6] tracking-tight">
                   Vehículos Disponibles
                 </h2>
-                <p className="text-sm text-neutral-400 mt-1">
+                <p className="text-sm text-[#D6C2A3]/70 mt-1">
                   Unidades 0 KM con entrega inmediata y Usados certificados con peritaje integral.
                 </p>
               </div>
 
               {/* Sorting selector */}
               <div className="flex items-center gap-2 self-start md:self-auto">
-                <span className="text-xs text-neutral-400 flex items-center gap-1 font-medium">
+                <span className="text-xs text-[#D6C2A3]/70 flex items-center gap-1 font-medium">
                   <ArrowUpDown className="w-3.5 h-3.5" />
                   Ordenar por:
                 </span>
                 <select
                   value={filters.sortBy}
                   onChange={(e) => updateFilters({ sortBy: e.target.value as FilterState['sortBy'] })}
-                  className="bg-neutral-900 border border-neutral-800 text-xs text-neutral-200 font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-red-500 cursor-pointer"
+                  className="bg-[#211A16] border border-[#5A4636]/50 text-xs text-[#F5F0E6] font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-[#D6C2A3] cursor-pointer"
                   id="catalog-sort"
                 >
                   <option value="featured">Destacados primero</option>
@@ -274,31 +274,31 @@ export default function App() {
 
             {/* Filtered Results Status / Active Tag Badges */}
             {(filters.brand || filters.bodyType || filters.quickCategory !== 'all') && (
-              <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-400 pt-1">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-[#D6C2A3]/80 pt-1">
                 <span>Filtros activos:</span>
                 {filters.quickCategory !== 'all' && (
-                  <span className="bg-neutral-800 text-neutral-200 px-3 py-1 rounded-lg border border-neutral-700 flex items-center gap-1">
+                  <span className="bg-[#211A16] text-[#F5F0E6] px-3 py-1 rounded-lg border border-[#5A4636]/60 flex items-center gap-1">
                     Categoría: {filters.quickCategory.toUpperCase()}
                   </span>
                 )}
                 {filters.brand && (
-                  <span className="bg-red-950/60 text-red-300 px-3 py-1 rounded-lg border border-red-800/60 flex items-center gap-1 font-semibold">
+                  <span className="bg-[#5A4636]/40 text-[#D6C2A3] px-3 py-1 rounded-lg border border-[#D6C2A3]/40 flex items-center gap-1 font-semibold">
                     Marca: {filters.brand}
                   </span>
                 )}
                 {filters.model && (
-                  <span className="bg-neutral-800 text-neutral-200 px-3 py-1 rounded-lg border border-neutral-700 flex items-center gap-1">
+                  <span className="bg-[#211A16] text-[#F5F0E6] px-3 py-1 rounded-lg border border-[#5A4636]/60 flex items-center gap-1">
                     Modelo: {filters.model}
                   </span>
                 )}
                 {filters.bodyType && (
-                  <span className="bg-neutral-800 text-neutral-200 px-3 py-1 rounded-lg border border-neutral-700 flex items-center gap-1">
+                  <span className="bg-[#211A16] text-[#F5F0E6] px-3 py-1 rounded-lg border border-[#5A4636]/60 flex items-center gap-1">
                     Tipo: {filters.bodyType}
                   </span>
                 )}
                 <button
                   onClick={resetFilters}
-                  className="text-red-400 hover:text-red-300 underline underline-offset-2 ml-2 cursor-pointer font-medium"
+                  className="text-[#D6C2A3] hover:text-[#F5F0E6] underline underline-offset-2 ml-2 cursor-pointer font-medium"
                 >
                   Restablecer todos
                 </button>
@@ -320,19 +320,19 @@ export default function App() {
                   ))}
                 </div>
               ) : (
-                <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-12 text-center max-w-lg mx-auto space-y-4">
-                  <div className="w-14 h-14 rounded-2xl bg-red-950/40 text-red-500 border border-red-800/40 flex items-center justify-center mx-auto">
+                <div className="bg-[#211A16] border border-[#5A4636]/50 rounded-3xl p-12 text-center max-w-lg mx-auto space-y-4">
+                  <div className="w-14 h-14 rounded-2xl bg-[#5A4636]/40 text-[#D6C2A3] border border-[#D6C2A3]/30 flex items-center justify-center mx-auto">
                     <AlertCircle className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-[#F5F0E6]">
                     No encontramos vehículos con esos filtros
                   </h3>
-                  <p className="text-sm text-neutral-400">
+                  <p className="text-sm text-[#D6C2A3]/70">
                     Probá cambiando el rango de precio, año o seleccioná "Todas las marcas" para ver el inventario completo.
                   </p>
                   <button
                     onClick={resetFilters}
-                    className="inline-flex items-center justify-center px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-sm rounded-xl transition-colors cursor-pointer"
+                    className="inline-flex items-center justify-center px-6 py-2.5 bg-[#5A4636] hover:bg-[#D6C2A3] hover:text-[#0D0D0D] text-[#F5F0E6] font-bold text-sm rounded-xl transition-colors cursor-pointer"
                   >
                     Restablecer filtros
                   </button>

@@ -7,8 +7,8 @@ interface LogoProps {
 
 export const CarOneLogo: React.FC<LogoProps> = ({ className = 'h-9', size }) => (
   <div className={`flex items-center gap-2.5 font-bold tracking-tight select-none ${className}`}>
-    {/* Isotipo automotor en rojo CAR ONE: estilizado velocímetro / alerón aerodinámico */}
-    <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-red-600 to-red-700 shadow-md shadow-red-950/50 text-white flex-shrink-0">
+    {/* Isotipo automotor con paleta bronce y arena */}
+    <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-[#5A4636] to-[#211A16] border border-[#5A4636]/60 shadow-md shadow-[#0D0D0D] text-[#F5F0E6] flex-shrink-0">
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -16,21 +16,21 @@ export const CarOneLogo: React.FC<LogoProps> = ({ className = 'h-9', size }) => 
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-5 h-5 text-white drop-shadow"
+        className="w-5 h-5 text-[#D6C2A3] drop-shadow"
       >
         <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
-        <circle cx="7" cy="17" r="2" fill="white" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="17" cy="17" r="2" fill="white" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M5 17h10" stroke="#dc2626" strokeWidth="2" />
+        <circle cx="7" cy="17" r="2" fill="#F5F0E6" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="17" cy="17" r="2" fill="#F5F0E6" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M5 17h10" stroke="#D6C2A3" strokeWidth="2" />
       </svg>
-      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-400 rounded-full animate-ping opacity-75" />
-      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border border-neutral-900" />
+      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#D6C2A3] rounded-full animate-ping opacity-75" />
+      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#D6C2A3] rounded-full border border-[#0D0D0D]" />
     </div>
     <div className="flex flex-col leading-none">
-      <div className="flex items-center text-xl tracking-wider font-extrabold text-white">
-        CAR<span className="text-red-500 ml-1">ONE</span>
+      <div className="flex items-center text-xl tracking-wider font-extrabold text-[#F5F0E6]">
+        CAR<span className="text-[#D6C2A3] ml-1">ONE</span>
       </div>
-      <span className="text-[9px] tracking-widest text-neutral-400 uppercase font-medium">
+      <span className="text-[9px] tracking-widest text-[#D6C2A3]/70 uppercase font-medium">
         Argentina · Oficial
       </span>
     </div>
