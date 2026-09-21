@@ -1,260 +1,190 @@
-import React, { useState } from 'react';
-import { X, KeyRound, CheckCircle2, ShieldAlert, Car, MapPin, Building2 } from 'lucide-react';
-import { Vehicle } from '../types';
-import { formatPriceARS } from '../data/vehicles';
+import { useState, type FormEvent } from 'react';
+import { X, CheckCircle2, ShieldCheck, Sparkles, Car } from 'lucide-react';
+import { Vehicle } from '../types/vehicle';
 
 interface ReservationModalProps {
   vehicle: Vehicle;
   onClose: () => void;
 }
 
-export const ReservationModal: React.FC<ReservationModalProps> = ({ vehicle, onClose }) => {
-  const [isReserved, setIsReserved] = useState(false);
-  const [reservationCode, setReservationCode] = useState('');
-  const [formData, setFormData] = useState({
-    nombre: '',
-    dni: '',
-    telefono: '',
-    email: '',
-    sucursal: 'Av. Principal 1234, Buenos Aires (Casa Central)',
-    metodo: 'seña_online',
-  });
+export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) => {
+  const [buyerName, setBuyerName] = useState('');
+  const [buyerPhone, setBuyerPhone] = useState('');
+  const [buyerEmail, setBuyerEmail] = useState('');
+  const [buyerDni, setBuyerDni] = useState('');
+  const [paymentOption, setPaymentOption] = useState('efectivo');
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const handleReserve = (e: FormEvent) => {
     e.preventDefault();
-    const code = `RES-${vehicle.brand.slice(0, 3).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    setReservationCode(code);
-    setIsReserved(true);
+    if (!buyerName || !buyerPhone || !buyerEmail) return;
+    setIsSuccess(true);
+    setTimeout(() => {
+      setIsSuccess(false);
+      onClose();
+    }, 3500);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
-      <div className="fixed inset-0 bg-black/85 backdrop-blur-md" onClick={onClose} />
-
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-[#161616]/85 backdrop-blur-md flex items-center justify-center p-4"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-xl bg-neutral-900 border border-neutral-800 rounded-3xl shadow-2xl overflow-hidden z-10 animate-in fade-in zoom-in-95 duration-200"
-        id="reservation-modal"
+        className="relative bg-[#303030] w-full max-w-xl rounded-3xl shadow-2xl p-6 sm:p-8 border border-[#686868] text-[#E4E0D8]"
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800 bg-neutral-900/95">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-red-600 text-white shadow-md shadow-red-950/50">
-              <KeyRound className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white leading-tight">
-                Reserva Provisoria de Unidad
-              </h3>
-              <p className="text-xs text-neutral-400">
-                Congelá el precio y bloqueá la unidad por 48 horas hábiles
-              </p>
-            </div>
-          </div>
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-full bg-[#686868] hover:bg-[#A6A39E]/30 text-[#E4E0D8] transition-colors cursor-pointer border border-[#686868]"
+          aria-label="Cerrar modal"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-          <button
-            onClick={onClose}
-            className="p-2 rounded-full bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-[#161616] text-[#E4E0D8] flex items-center justify-center border border-[#686868]/40">
+            <Car className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-[#E4E0D8] font-display">
+              Reserva de Unidad
+            </h3>
+            <p className="text-xs text-[#A6A39E]">
+              {vehicle.brand} {vehicle.model} {vehicle.version} ({vehicle.year})
+            </p>
+          </div>
         </div>
 
-        {/* Modal Body */}
-        {!isReserved ? (
-          <form onSubmit={handleSubmit} className="p-6 space-y-5 max-h-[80vh] overflow-y-auto">
-            {/* Vehicle Summary Card */}
-            <div className="flex items-center gap-4 bg-neutral-950 p-3.5 rounded-2xl border border-neutral-800">
+        {isSuccess ? (
+          <div className="text-center py-8">
+            <CheckCircle2 className="w-16 h-16 text-[#E4E0D8] mx-auto mb-3" />
+            <h4 className="text-2xl font-bold text-[#E4E0D8] mb-2 font-display">
+              ¡Vehículo Reservado Provisoriamente!
+            </h4>
+            <p className="text-sm text-[#A6A39E] max-w-md mx-auto leading-relaxed">
+              Bloqueamos temporalmente la unidad para vos con código <strong className="text-[#E4E0D8]">CO-{Math.floor(100000 + Math.random() * 900000)}</strong>. Nuestro jefe de salón te llamará al {buyerPhone} para formalizar el boleto de reserva.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleReserve} className="space-y-4">
+            {/* Vehicle Summary Box */}
+            <div className="p-3.5 bg-[#161616] rounded-2xl border border-[#686868]/40 flex items-center gap-3">
               <img
                 src={vehicle.images[0]}
                 alt={vehicle.model}
-                className="w-20 h-14 object-cover rounded-xl border border-neutral-800"
+                className="w-20 h-14 object-cover rounded-xl shrink-0 border border-[#686868]/40"
               />
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-bold text-red-500 uppercase tracking-wider">
-                  {vehicle.brand}
+                <span className="text-[10px] font-bold text-[#A6A39E] uppercase">
+                  {vehicle.condition} • {vehicle.brand}
                 </span>
-                <h4 className="font-bold text-white text-sm truncate">
+                <h4 className="font-bold text-[#E4E0D8] text-sm truncate">
                   {vehicle.model} {vehicle.version}
                 </h4>
-                <div className="text-xs text-neutral-400">
-                  Año {vehicle.year} · {formatPriceARS(vehicle.price)}
-                </div>
+                <p className="text-xs font-black text-[#E4E0D8]">
+                  {formatPrice(vehicle.price)}
+                </p>
               </div>
             </div>
 
-            {/* Buyer Details */}
             <div className="space-y-3">
-              <span className="text-xs font-bold text-neutral-300 uppercase tracking-wider block">
-                Datos del Comprador
-              </span>
+              <div>
+                <label className="block text-xs font-semibold text-[#E4E0D8] mb-1">
+                  Nombre y Apellido *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Ej: Laura González"
+                  value={buyerName}
+                  onChange={(e) => setBuyerName(e.target.value)}
+                  className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
+                />
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-xs text-neutral-400">Nombre completo *</label>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#E4E0D8] mb-1">
+                    Teléfono / WhatsApp *
+                  </label>
                   <input
-                    required
-                    type="text"
-                    value={formData.nombre}
-                    onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                    placeholder="Juan Carlos Pérez"
-                    className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-xs text-neutral-400">DNI o CUIT *</label>
-                  <input
-                    required
-                    type="text"
-                    value={formData.dni}
-                    onChange={(e) => setFormData({ ...formData, dni: e.target.value })}
-                    placeholder="34.123.456"
-                    className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-xs text-neutral-400">Teléfono Celular *</label>
-                  <input
-                    required
                     type="tel"
-                    value={formData.telefono}
-                    onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                    placeholder="+54 11 5566-7788"
-                    className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-xs text-neutral-400">Correo Electrónico *</label>
-                  <input
                     required
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="juan@correo.com"
-                    className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none"
+                    placeholder="+54 11 ..."
+                    value={buyerPhone}
+                    onChange={(e) => setBuyerPhone(e.target.value)}
+                    className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#E4E0D8] mb-1">
+                    DNI *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="35.678.900"
+                    value={buyerDni}
+                    onChange={(e) => setBuyerDni(e.target.value)}
+                    className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
                   />
                 </div>
               </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#E4E0D8] mb-1">
+                  Correo Electrónico *
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="laura@ejemplo.com"
+                  value={buyerEmail}
+                  onChange={(e) => setBuyerEmail(e.target.value)}
+                  className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#E4E0D8] mb-1">
+                  Modalidad de compra prevista:
+                </label>
+                <select
+                  value={paymentOption}
+                  onChange={(e) => setPaymentOption(e.target.value)}
+                  className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] cursor-pointer"
+                >
+                  <option value="efectivo" className="bg-[#161616] text-[#E4E0D8]">Contado / Transferencia bancaria</option>
+                  <option value="financiado" className="bg-[#161616] text-[#E4E0D8]">Financiación bancaria en cuotas fijas</option>
+                  <option value="permuta" className="bg-[#161616] text-[#E4E0D8]">Entrega de usado como parte de pago</option>
+                  <option value="plan" className="bg-[#161616] text-[#E4E0D8]">Plan de ahorro o adjudicación</option>
+                </select>
+              </div>
             </div>
 
-            {/* Sucursal de entrega preferida */}
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider block">
-                Sucursal de entrega / inspección
-              </label>
-              <select
-                value={formData.sucursal}
-                onChange={(e) => setFormData({ ...formData, sucursal: e.target.value })}
-                className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none cursor-pointer"
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="w-full py-3.5 rounded-xl bg-[#E4E0D8] hover:bg-[#E4E0D8] text-[#161616] font-bold text-sm tracking-wide transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
               >
-                <option value="Av. Principal 1234, Buenos Aires (Casa Central)">
-                  Av. Principal 1234, Buenos Aires (Casa Central)
-                </option>
-                <option value="Sucursal Norte - Panamericana Km 38, Tortuguitas">
-                  Sucursal Norte - Panamericana Km 38, Tortuguitas
-                </option>
-                <option value="Sucursal Oeste - Autopista del Oeste Km 26, Castelar">
-                  Sucursal Oeste - Autopista del Oeste Km 26, Castelar
-                </option>
-                <option value="Sucursal Pilar - Colectora Este Km 51">
-                  Sucursal Pilar - Colectora Este Km 51
-                </option>
-              </select>
+                <Sparkles className="w-4 h-4 text-[#161616]" />
+                <span>Confirmar intención de compra</span>
+              </button>
+              <div className="flex items-center justify-center gap-2 mt-3 text-[11px] text-[#A6A39E]">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#A6A39E]" />
+                <span>Sin compromiso de pago online. Atención personalizada en salón.</span>
+              </div>
             </div>
-
-            {/* Modalidad de Reserva Provisoria */}
-            <div className="space-y-2 bg-neutral-950/70 p-4 rounded-xl border border-neutral-800">
-              <span className="text-xs font-bold text-neutral-300 uppercase tracking-wider block">
-                Modalidad de Bloqueo
-              </span>
-
-              <label className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-neutral-900 transition-colors cursor-pointer">
-                <input
-                  type="radio"
-                  name="metodo"
-                  checked={formData.metodo === 'seña_online'}
-                  onChange={() => setFormData({ ...formData, metodo: 'seña_online' })}
-                  className="mt-1 accent-red-600 cursor-pointer"
-                />
-                <div className="text-xs">
-                  <span className="font-bold text-white block">Seña mínima con transferencia / tarjeta ($ 100.000 ARS)</span>
-                  <span className="text-neutral-400">100% reembolsable si decidís no avanzar tras la prueba de manejo.</span>
-                </div>
-              </label>
-
-              <label className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-neutral-900 transition-colors cursor-pointer">
-                <input
-                  type="radio"
-                  name="metodo"
-                  checked={formData.metodo === 'visita_presencial'}
-                  onChange={() => setFormData({ ...formData, metodo: 'visita_presencial' })}
-                  className="mt-1 accent-red-600 cursor-pointer"
-                />
-                <div className="text-xs">
-                  <span className="font-bold text-white block">Prioridad de visita y prueba en sucursal (Sin cargo)</span>
-                  <span className="text-neutral-400">Te asignamos un asesor exclusivo para coordinar la inspección hoy mismo.</span>
-                </div>
-              </label>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full py-3.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl shadow-xl shadow-red-950/60 border border-red-500/40 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              id="btn-confirmar-reserva"
-            >
-              <KeyRound className="w-4 h-4" />
-              <span>Confirmar Reserva de Unidad</span>
-            </button>
           </form>
-        ) : (
-          <div className="p-8 text-center space-y-6">
-            <div className="w-16 h-16 rounded-full bg-red-600/15 border border-red-500/40 text-red-500 mx-auto flex items-center justify-center">
-              <CheckCircle2 className="w-10 h-10" />
-            </div>
-
-            <div>
-              <span className="text-xs font-bold text-red-500 uppercase tracking-widest block mb-1">
-                Unidad Bloqueada con Éxito
-              </span>
-              <h4 className="text-2xl font-black text-white mb-2">
-                ¡Felicitaciones, {formData.nombre}!
-              </h4>
-              <p className="text-sm text-neutral-300 max-w-md mx-auto">
-                Tu reserva provisoria para el{' '}
-                <strong className="text-white">{vehicle.brand} {vehicle.model}</strong> ha quedado asentada en nuestro sistema central.
-              </p>
-            </div>
-
-            <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800 text-left max-w-md mx-auto space-y-2 text-xs">
-              <div className="flex justify-between items-center border-b border-neutral-800 pb-2">
-                <span className="text-neutral-400">Código de Reserva:</span>
-                <span className="font-mono text-sm font-bold text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-800/40">
-                  {reservationCode}
-                </span>
-              </div>
-              <div className="flex justify-between text-neutral-300">
-                <span>Sucursal designada:</span>
-                <span className="font-semibold text-white truncate max-w-[220px]">{formData.sucursal}</span>
-              </div>
-              <div className="flex justify-between text-neutral-300">
-                <span>Plazo de validez:</span>
-                <span className="font-semibold text-emerald-400">48 Horas Hábiles</span>
-              </div>
-              <p className="text-neutral-400 pt-2 border-t border-neutral-800 leading-relaxed">
-                Te enviamos la constancia de reserva a <strong className="text-white">{formData.email}</strong>. Tu ejecutivo de cuenta te llamará a la brevedad.
-              </p>
-            </div>
-
-            <button
-              onClick={onClose}
-              className="px-8 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors cursor-pointer"
-            >
-              Finalizar y Volver al Catálogo
-            </button>
-          </div>
         )}
       </div>
     </div>

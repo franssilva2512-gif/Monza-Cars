@@ -1,417 +1,254 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { SearchFilters } from './components/SearchFilters';
+import { VehicleFilter } from './components/VehicleFilter';
 import { BrandsSection } from './components/BrandsSection';
-import { VehicleCard } from './components/VehicleCard';
-import { VehicleModal } from './components/VehicleModal';
-import { FinancingModal } from './components/FinancingModal';
-import { ReservationModal } from './components/ReservationModal';
+import { FeaturedVehicles } from './components/FeaturedVehicles';
+import { VehicleDetailModal } from './components/VehicleDetailModal';
 import { SellCarSection } from './components/SellCarSection';
 import { ServicesSection } from './components/ServicesSection';
-import { WhyChooseUsSection } from './components/WhyChooseUsSection';
+import { WhyChooseUs } from './components/WhyChooseUs';
 import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
-import { FloatingButtons } from './components/FloatingButtons';
-import { FavoritesDrawer } from './components/FavoritesDrawer';
-import { VEHICLES_DATA, OFFICIAL_BRANDS } from './data/vehicles';
-import { FilterState, Vehicle } from './types';
-import { SlidersHorizontal, Sparkles, AlertCircle, ArrowUpDown } from 'lucide-react';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { BackToTop } from './components/BackToTop';
+import { FinancingSimulatorModal } from './components/FinancingSimulatorModal';
+import { ReservationModal } from './components/ReservationModal';
+import { MOCK_VEHICLES } from './data/mockVehicles';
+import { Vehicle, VehicleFilterState } from './types/vehicle';
 
 export default function App() {
-  // Filters state
-  const [filters, setFilters] = useState<FilterState>({
-    quickCategory: 'all',
+  // Vehicle filter state
+  const [filters, setFilters] = useState<VehicleFilterState>({
     brand: '',
     model: '',
-    yearMin: '',
-    priceMin: '',
-    priceMax: '',
-    bodyType: '',
-    sortBy: 'featured',
+    year: '',
+    minPrice: '',
+    maxPrice: '',
+    vehicleType: '',
+    searchQuery: '',
   });
 
-  // Favorites state (persisted locally)
-  const [favorites, setFavorites] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('carone_favorites');
-      return saved ? JSON.parse(saved) : ['toyota-corolla-2024'];
-    } catch {
-      return ['toyota-corolla-2024'];
-    }
-  });
+  // Active modals
+  const [selectedVehicleForDetail, setSelectedVehicleForDetail] = useState<Vehicle | null>(null);
+  const [vehicleForFinancing, setVehicleForFinancing] = useState<Vehicle | null>(null);
+  const [vehicleForReservation, setVehicleForReservation] = useState<Vehicle | null>(null);
 
-  const [favoritesDrawerOpen, setFavoritesDrawerOpen] = useState(false);
+  // Filter vehicles based on active filter state
+  const filteredVehicles = useMemo(() => {
+    return MOCK_VEHICLES.filter((item) => {
+      // Filter by Brand
+      if (filters.brand && item.brand.toLowerCase() !== filters.brand.toLowerCase()) {
+        return false;
+      }
 
-  // Modals state
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
-  const [financingVehicle, setFinancingVehicle] = useState<Vehicle | null>(null);
-  const [reservationVehicle, setReservationVehicle] = useState<Vehicle | null>(null);
+      // Filter by Model
+      if (filters.model && item.model.toLowerCase() !== filters.model.toLowerCase()) {
+        return false;
+      }
 
-  // Sync favorites to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem('carone_favorites', JSON.stringify(favorites));
-    } catch (e) {
-      console.warn('Storage error', e);
-    }
-  }, [favorites]);
+      // Filter by Year
+      if (filters.year && item.year.toString() !== filters.year) {
+        return false;
+      }
 
-  const toggleFavorite = (id: string) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+      // Filter by Min Price
+      if (filters.minPrice && item.price < parseInt(filters.minPrice, 10)) {
+        return false;
+      }
+
+      // Filter by Max Price
+      if (filters.maxPrice && item.price > parseInt(filters.maxPrice, 10)) {
+        return false;
+      }
+
+      // Filter by Vehicle Type (Condition or BodyType)
+      if (filters.vehicleType) {
+        if (filters.vehicleType === '0 KM' || filters.vehicleType === 'Usado') {
+          if (item.condition !== filters.vehicleType) return false;
+        } else {
+          // Check BodyType like SUV, Pick-up, Sedán, Hatchback
+          if (item.bodyType.toLowerCase() !== filters.vehicleType.toLowerCase()) {
+            return false;
+          }
+        }
+      }
+
+      return true;
+    });
+  }, [filters]);
+
+  const handleResetFilters = () => {
+    setFilters({
+      brand: '',
+      model: '',
+      year: '',
+      minPrice: '',
+      maxPrice: '',
+      vehicleType: '',
+      searchQuery: '',
+    });
   };
 
-  const clearAllFavorites = () => {
-    setFavorites([]);
+  const handleSelectBrand = (brandName: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      brand: prev.brand.toLowerCase() === brandName.toLowerCase() ? '' : brandName,
+      model: '', // reset model on brand switch
+    }));
+
+    // Smooth scroll down to vehicle catalog
+    const catalog = document.getElementById('vehiculos');
+    if (catalog) {
+      catalog.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  // Smooth navigation helper
-  const scrollToSection = (sectionId: string) => {
+  const handleSelectConditionFilter = (condition: 'all' | '0 KM' | 'Usado') => {
+    setFilters((prev) => ({
+      ...prev,
+      vehicleType: condition === 'all' ? '' : condition,
+    }));
+  };
+
+  const handleHeroBuyClick = () => {
+    const catalog = document.getElementById('vehiculos');
+    if (catalog) {
+      catalog.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleHeroSellClick = () => {
+    const sellSection = document.getElementById('vender');
+    if (sellSection) {
+      sellSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (sectionId: string) => {
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Handle brand selection from Brands section
-  const handleSelectBrand = (brandName: string) => {
-    if (filters.brand.toLowerCase() === brandName.toLowerCase()) {
-      setFilters((prev) => ({ ...prev, brand: '', model: '' }));
+  const handleOpenGeneralWhatsApp = () => {
+    const msg = encodeURIComponent(
+      '¡Hola CAR ONE! Me gustaría recibir información y asesoramiento sobre vehículos y planes disponibles.'
+    );
+    window.open(`https://wa.me/5491112345678?text=${msg}`, '_blank');
+  };
+
+  const handleServiceAction = (serviceTitle: string) => {
+    if (serviceTitle.includes('0 KM')) {
+      handleSelectConditionFilter('0 KM');
+      handleNavClick('vehiculos');
+    } else if (serviceTitle.includes('usados')) {
+      handleSelectConditionFilter('Usado');
+      handleNavClick('vehiculos');
+    } else if (serviceTitle.includes('Financiación')) {
+      // Open financing simulator with first available vehicle as baseline
+      setVehicleForFinancing(MOCK_VEHICLES[0]);
     } else {
-      setFilters((prev) => ({
-        ...prev,
-        brand: brandName,
-        model: '',
-      }));
-    }
-    scrollToSection('catalogo');
-  };
-
-  // Quick category filter handler from header or hero
-  const handleQuickFilter = (category: 'all' | '0km' | 'used') => {
-    setFilters((prev) => ({
-      ...prev,
-      quickCategory: category,
-      brand: '',
-      model: '',
-    }));
-  };
-
-  // Filter change helper
-  const updateFilters = (newFilters: Partial<FilterState>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
-  };
-
-  const resetFilters = () => {
-    setFilters({
-      quickCategory: 'all',
-      brand: '',
-      model: '',
-      yearMin: '',
-      priceMin: '',
-      priceMax: '',
-      bodyType: '',
-      sortBy: 'featured',
-    });
-  };
-
-  // Models available dynamically based on selected brand
-  const availableModels = useMemo(() => {
-    if (filters.brand) {
-      const b = OFFICIAL_BRANDS.find(
-        (brand) => brand.name.toLowerCase() === filters.brand.toLowerCase()
-      );
-      if (b) return b.models;
-    }
-    // If no brand selected, aggregate unique models from dataset
-    const unique = Array.from(new Set(VEHICLES_DATA.map((v) => v.model)));
-    return unique.sort();
-  }, [filters.brand]);
-
-  // Filtered & Sorted vehicles list
-  const filteredVehicles = useMemo(() => {
-    return VEHICLES_DATA.filter((v) => {
-      // Quick Category
-      if (filters.quickCategory === '0km' && v.condition !== '0 KM') return false;
-      if (filters.quickCategory === 'used' && v.condition !== 'Usado') return false;
-      if (filters.quickCategory === 'suv' && v.bodyType !== 'SUV') return false;
-      if (filters.quickCategory === 'pickup' && v.bodyType !== 'Pick-up') return false;
-
-      // Brand
-      if (filters.brand && v.brand.toLowerCase() !== filters.brand.toLowerCase()) {
-        return false;
-      }
-
-      // Model
-      if (filters.model && !v.model.toLowerCase().includes(filters.model.toLowerCase())) {
-        return false;
-      }
-
-      // Year Min
-      if (filters.yearMin && v.year < filters.yearMin) {
-        return false;
-      }
-
-      // Price Max
-      if (filters.priceMax && v.price > filters.priceMax) {
-        return false;
-      }
-
-      // Price Min
-      if (filters.priceMin && v.price < filters.priceMin) {
-        return false;
-      }
-
-      // Body Type
-      if (filters.bodyType && v.bodyType !== filters.bodyType) {
-        return false;
-      }
-
-      return true;
-    }).sort((a, b) => {
-      if (filters.sortBy === 'price-asc') return a.price - b.price;
-      if (filters.sortBy === 'price-desc') return b.price - a.price;
-      if (filters.sortBy === 'year-desc') return b.year - a.year;
-      if (filters.sortBy === 'km-asc') return a.mileage - b.mileage;
-      // Default: featured first
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return 0;
-    });
-  }, [filters]);
-
-  // Favorite vehicles objects
-  const favoriteVehicles = useMemo(() => {
-    return VEHICLES_DATA.filter((v) => favorites.includes(v.id));
-  }, [favorites]);
-
-  // Service action router
-  const handleServiceAction = (serviceId: string) => {
-    if (serviceId === '0km') {
-      handleQuickFilter('0km');
-      scrollToSection('catalogo');
-    } else if (serviceId === 'usados') {
-      handleQuickFilter('used');
-      scrollToSection('catalogo');
-    } else if (serviceId === 'financiacion') {
-      // Open financing simulation for featured Corolla or first vehicle
-      const vehicleToFinance = filteredVehicles[0] || VEHICLES_DATA[0];
-      setFinancingVehicle(vehicleToFinance);
+      // Direct to contact with pre-filled subject
+      handleNavClick('contacto');
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-[#F5F0E6] flex flex-col selection:bg-[#5A4636] selection:text-[#F5F0E6]">
-      {/* 1. Header Sticky */}
+    <div className="min-h-screen bg-[#161616] text-[#E4E0D8] flex flex-col font-sans selection:bg-[#303030] selection:text-[#E4E0D8]">
+      {/* 1. Header (Sticky with navigation and mobile drawer) */}
       <Header
-        onNavigate={scrollToSection}
-        onFilterQuick={handleQuickFilter}
-        favoritesCount={favorites.length}
-        onOpenFavorites={() => setFavoritesDrawerOpen(true)}
+        onSelectConditionFilter={handleSelectConditionFilter}
+        onOpenWhatsApp={handleOpenGeneralWhatsApp}
       />
 
-      <main className="flex-grow">
-        {/* 2. Hero Section */}
+      {/* Main Content Sections */}
+      <main className="flex-1">
+        {/* 2. Hero (Impactful visual with luxury background, dark overlay, exact texts and action buttons) */}
         <Hero
-          onBuyClick={() => scrollToSection('catalogo')}
-          onSellClick={() => scrollToSection('vender')}
+          onBuyClick={handleHeroBuyClick}
+          onSellClick={handleHeroSellClick}
         />
 
-        {/* 3 & 5. Catálogo de Vehículos & Buscador y Filtros Dinámicos */}
-        <section id="catalogo" className="py-16 sm:py-20 bg-[#0D0D0D]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            {/* Catalog Section Heading */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <p className="text-xs sm:text-sm font-bold tracking-widest text-[#D6C2A3] uppercase mb-1">
-                  Catálogo Oficial Seleccionado
-                </p>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5F0E6] tracking-tight">
-                  Vehículos Disponibles
-                </h2>
-                <p className="text-sm text-[#D6C2A3]/70 mt-1">
-                  Unidades 0 KM con entrega inmediata y Usados certificados con peritaje integral.
-                </p>
-              </div>
+        {/* 3. Buscador de Vehículos (JavaScript dynamic filtering) */}
+        <VehicleFilter
+          filters={filters}
+          onFilterChange={setFilters}
+          onResetFilters={handleResetFilters}
+          resultsCount={filteredVehicles.length}
+        />
 
-              {/* Sorting selector */}
-              <div className="flex items-center gap-2 self-start md:self-auto">
-                <span className="text-xs text-[#D6C2A3]/70 flex items-center gap-1 font-medium">
-                  <ArrowUpDown className="w-3.5 h-3.5" />
-                  Ordenar por:
-                </span>
-                <select
-                  value={filters.sortBy}
-                  onChange={(e) => updateFilters({ sortBy: e.target.value as FilterState['sortBy'] })}
-                  className="bg-[#211A16] border border-[#5A4636]/50 text-xs text-[#F5F0E6] font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-[#D6C2A3] cursor-pointer"
-                  id="catalog-sort"
-                >
-                  <option value="featured">Destacados primero</option>
-                  <option value="price-asc">Menor precio</option>
-                  <option value="price-desc">Mayor precio</option>
-                  <option value="year-desc">Más recientes (Año)</option>
-                  <option value="km-asc">Menor kilometraje</option>
-                </select>
-              </div>
-            </div>
-
-            {/* 3. Buscador y Filtros Dinámicos Component */}
-            <SearchFilters
-              filters={filters}
-              onFilterChange={updateFilters}
-              onResetFilters={resetFilters}
-              totalAvailable={filteredVehicles.length}
-              availableModels={availableModels}
-              onSearchSubmit={() => scrollToSection('catalogo-grid')}
-            />
-
-            {/* Filtered Results Status / Active Tag Badges */}
-            {(filters.brand || filters.bodyType || filters.quickCategory !== 'all') && (
-              <div className="flex flex-wrap items-center gap-2 text-xs text-[#D6C2A3]/80 pt-1">
-                <span>Filtros activos:</span>
-                {filters.quickCategory !== 'all' && (
-                  <span className="bg-[#211A16] text-[#F5F0E6] px-3 py-1 rounded-lg border border-[#5A4636]/60 flex items-center gap-1">
-                    Categoría: {filters.quickCategory.toUpperCase()}
-                  </span>
-                )}
-                {filters.brand && (
-                  <span className="bg-[#5A4636]/40 text-[#D6C2A3] px-3 py-1 rounded-lg border border-[#D6C2A3]/40 flex items-center gap-1 font-semibold">
-                    Marca: {filters.brand}
-                  </span>
-                )}
-                {filters.model && (
-                  <span className="bg-[#211A16] text-[#F5F0E6] px-3 py-1 rounded-lg border border-[#5A4636]/60 flex items-center gap-1">
-                    Modelo: {filters.model}
-                  </span>
-                )}
-                {filters.bodyType && (
-                  <span className="bg-[#211A16] text-[#F5F0E6] px-3 py-1 rounded-lg border border-[#5A4636]/60 flex items-center gap-1">
-                    Tipo: {filters.bodyType}
-                  </span>
-                )}
-                <button
-                  onClick={resetFilters}
-                  className="text-[#D6C2A3] hover:text-[#F5F0E6] underline underline-offset-2 ml-2 cursor-pointer font-medium"
-                >
-                  Restablecer todos
-                </button>
-              </div>
-            )}
-
-            {/* 5. Catálogo de Vehículos Destacados Grid */}
-            <div id="catalogo-grid" className="scroll-mt-24">
-              {filteredVehicles.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {filteredVehicles.map((vehicle) => (
-                    <VehicleCard
-                      key={vehicle.id}
-                      vehicle={vehicle}
-                      isFavorite={favorites.includes(vehicle.id)}
-                      onToggleFavorite={toggleFavorite}
-                      onSelectVehicle={(v) => setSelectedVehicle(v)}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="bg-[#211A16] border border-[#5A4636]/50 rounded-3xl p-12 text-center max-w-lg mx-auto space-y-4">
-                  <div className="w-14 h-14 rounded-2xl bg-[#5A4636]/40 text-[#D6C2A3] border border-[#D6C2A3]/30 flex items-center justify-center mx-auto">
-                    <AlertCircle className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-xl font-bold text-[#F5F0E6]">
-                    No encontramos vehículos con esos filtros
-                  </h3>
-                  <p className="text-sm text-[#D6C2A3]/70">
-                    Probá cambiando el rango de precio, año o seleccioná "Todas las marcas" para ver el inventario completo.
-                  </p>
-                  <button
-                    onClick={resetFilters}
-                    className="inline-flex items-center justify-center px-6 py-2.5 bg-[#5A4636] hover:bg-[#D6C2A3] hover:text-[#0D0D0D] text-[#F5F0E6] font-bold text-sm rounded-xl transition-colors cursor-pointer"
-                  >
-                    Restablecer filtros
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* 4. Sección de Marcas Oficiales con Logos Vectoriales */}
+        {/* 4. Marcas (All 12 requested brands with smooth hover animation) */}
         <BrandsSection
-          selectedBrand={filters.brand}
           onSelectBrand={handleSelectBrand}
+          selectedBrand={filters.brand}
         />
 
-        {/* 7. Sección "Vender mi auto" */}
+        {/* 5. Vehículos Destacados (Grid of rich vehicle cards, formatted prices in ARS, financing badges) */}
+        <FeaturedVehicles
+          vehicles={filteredVehicles}
+          onOpenDetail={(vehicle) => setSelectedVehicleForDetail(vehicle)}
+          onResetFilters={handleResetFilters}
+          selectedCondition={filters.vehicleType}
+          onSelectCondition={(cond) => setFilters((prev) => ({ ...prev, vehicleType: cond }))}
+        />
+
+        {/* 7. Vender Mi Auto (Eye-catching section and JS validated appraisal form) */}
         <SellCarSection />
 
-        {/* 8. Sección de Servicios (8 servicios) */}
-        <ServicesSection onSelectServiceAction={handleServiceAction} />
+        {/* 8. Servicios (Cards for 0KM, Usados, Financiación, Planes, Taller, Repuestos, Accesorios, Seguros) */}
+        <ServicesSection onServiceAction={handleServiceAction} />
 
-        {/* 9. Sección "Por qué elegirnos" */}
-        <WhyChooseUsSection />
+        {/* 9. Por qué elegirnos (Statistics: +10.000, +15, +20, +50) */}
+        <WhyChooseUs />
 
-        {/* 10. Ubicación y Contacto ("Encontranos") */}
+        {/* 10. Ubicación (Encontranos, Av. Principal 1234, Teléfono, Email, Visual Map) */}
         <LocationSection />
       </main>
 
-      {/* 11. Footer y Elementos Flotantes */}
+      {/* 11. Footer (Dark, CAR ONE, Links, Socials, Copyright 2026) */}
       <Footer
-        onNavigate={scrollToSection}
-        onSelectBrand={handleSelectBrand}
+        onNavClick={handleNavClick}
+        onFilterClick={handleSelectConditionFilter}
+        onOpenWhatsApp={handleOpenGeneralWhatsApp}
       />
 
-      <FloatingButtons />
-
-      {/* Favorites Drawer */}
-      <FavoritesDrawer
-        isOpen={favoritesDrawerOpen}
-        onClose={() => setFavoritesDrawerOpen(false)}
-        favorites={favoriteVehicles}
-        onRemoveFavorite={toggleFavorite}
-        onClearAll={clearAllFavorites}
-        onSelectVehicle={(v) => setSelectedVehicle(v)}
-      />
-
-      {/* 6. Modal de Detalle de Vehículo Completo */}
-      {selectedVehicle && (
-        <VehicleModal
-          vehicle={selectedVehicle}
-          onClose={() => setSelectedVehicle(null)}
-          isFavorite={favorites.includes(selectedVehicle.id)}
-          onToggleFavorite={toggleFavorite}
-          onOpenFinancing={(v) => {
-            setSelectedVehicle(null);
-            setFinancingVehicle(v);
+      {/* 6. Detalle del Vehículo Modal (Gallery, Specs, Description, 3 required action buttons) */}
+      {selectedVehicleForDetail && (
+        <VehicleDetailModal
+          vehicle={selectedVehicleForDetail}
+          onClose={() => setSelectedVehicleForDetail(null)}
+          onRequestFinancing={(veh) => {
+            setSelectedVehicleForDetail(null);
+            setVehicleForFinancing(veh);
           }}
-          onOpenReservation={(v) => {
-            setSelectedVehicle(null);
-            setReservationVehicle(v);
+          onReserveVehicle={(veh) => {
+            setSelectedVehicleForDetail(null);
+            setVehicleForReservation(veh);
           }}
         />
       )}
 
-      {/* Modal Financiación Interactivo */}
-      {financingVehicle && (
-        <FinancingModal
-          vehicle={financingVehicle}
-          onClose={() => setFinancingVehicle(null)}
+      {/* Financing Simulator Modal */}
+      {vehicleForFinancing && (
+        <FinancingSimulatorModal
+          vehicle={vehicleForFinancing}
+          onClose={() => setVehicleForFinancing(null)}
         />
       )}
 
-      {/* Modal Reserva Provisoria Interactivo */}
-      {reservationVehicle && (
+      {/* Vehicle Reservation Modal ("Quiero este vehículo") */}
+      {vehicleForReservation && (
         <ReservationModal
-          vehicle={reservationVehicle}
-          onClose={() => setReservationVehicle(null)}
+          vehicle={vehicleForReservation}
+          onClose={() => setVehicleForReservation(null)}
         />
       )}
+
+      {/* Floating interactive utilities */}
+      <FloatingWhatsApp onClick={handleOpenGeneralWhatsApp} />
+      <BackToTop />
     </div>
   );
 }

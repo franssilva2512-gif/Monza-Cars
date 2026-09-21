@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { CheckCircle2, Shield, DollarSign, Clock, FileCheck, ArrowRight, Sparkles } from 'lucide-react';
-import { SellFormData } from '../types';
-import { OFFICIAL_BRANDS } from '../data/vehicles';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { CheckCircle, AlertCircle, Send, DollarSign, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import { SellCarFormData } from '../types/vehicle';
 
-export const SellCarSection: React.FC = () => {
-  const [formData, setFormData] = useState<SellFormData>({
+export const SellCarSection = () => {
+  const [formData, setFormData] = useState<SellCarFormData>({
     nombre: '',
     telefono: '',
     email: '',
@@ -16,292 +15,409 @@ export const SellCarSection: React.FC = () => {
     comentarios: '',
   });
 
-  const [submitted, setSubmitted] = useState(false);
-  const [quoteCode, setQuoteCode] = useState('');
+  const [errors, setErrors] = useState<Partial<Record<keyof SellCarFormData, string>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const code = `TAS-${Math.floor(100000 + Math.random() * 900000)}`;
-    setQuoteCode(code);
-    setSubmitted(true);
+  const validate = (): boolean => {
+    const newErrors: Partial<Record<keyof SellCarFormData, string>> = {};
+
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = 'Ingresá tu nombre completo';
+    }
+
+    if (!formData.telefono.trim()) {
+      newErrors.telefono = 'Ingresá un número de teléfono o celular';
+    } else if (formData.telefono.length < 8) {
+      newErrors.telefono = 'El teléfono debe tener al menos 8 dígitos';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Ingresá tu correo electrónico';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Ingresá un email válido (ej: nombre@correo.com)';
+    }
+
+    if (!formData.marca.trim()) {
+      newErrors.marca = 'Ingresá la marca de tu vehículo';
+    }
+
+    if (!formData.modelo.trim()) {
+      newErrors.modelo = 'Ingresá el modelo de tu auto';
+    }
+
+    if (!formData.anio.trim()) {
+      newErrors.anio = 'Ingresá el año';
+    } else {
+      const yearNum = parseInt(formData.anio, 10);
+      const currentYear = new Date().getFullYear();
+      if (isNaN(yearNum) || yearNum < 1990 || yearNum > currentYear + 1) {
+        newErrors.anio = `Año válido entre 1990 y ${currentYear + 1}`;
+      }
+    }
+
+    if (!formData.kilometraje.trim()) {
+      newErrors.kilometraje = 'Ingresá los kilómetros aproximados';
+    }
+
+    if (!formData.precioPretendido.trim()) {
+      newErrors.precioPretendido = 'Ingresá el monto pretendido en pesos o dólares';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const resetForm = () => {
-    setFormData({
-      nombre: '',
-      telefono: '',
-      email: '',
-      marca: '',
-      modelo: '',
-      anio: '',
-      kilometraje: '',
-      precioPretendido: '',
-      comentarios: '',
-    });
-    setSubmitted(false);
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof SellCarFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+
+    // Simulate reliable async submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setFormData({
+        nombre: '',
+        telefono: '',
+        email: '',
+        marca: '',
+        modelo: '',
+        anio: '',
+        kilometraje: '',
+        precioPretendido: '',
+        comentarios: '',
+      });
+    }, 900);
   };
 
   return (
-    <section id="vender" className="py-20 bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950 relative overflow-hidden">
-      {/* Background visual accents */}
-      <div className="absolute top-1/2 -left-48 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-20 right-0 w-80 h-80 bg-neutral-800/20 rounded-full blur-2xl pointer-events-none" />
+    <section id="vender" className="py-20 sm:py-24 bg-[#161616] text-[#E4E0D8] relative overflow-hidden border-t border-[#686868]/30">
+      {/* Subtle background glow */}
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#161616]/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-black/50 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Copy, Value propositions and benefits */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/60 border border-red-800/50 text-red-400 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Cotización Oficial Inmediata</span>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Heading & Value Proposition */}
+          <div className="lg:col-span-5">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-[#E4E0D8]" />
+              Tasación Inmediata
+            </span>
 
-            {/* Exact required title & subtitle */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.15]">
+            {/* Exact requested title: "¿Querés vender tu auto?" */}
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight font-display mb-4 text-[#E4E0D8]">
               ¿Querés vender tu auto?
             </h2>
 
-            <p className="text-lg text-neutral-300 leading-relaxed">
+            {/* Exact requested subtitle: "Te ayudamos a vender tu vehículo de manera rápida y segura." */}
+            <p className="text-[#A6A39E] text-lg sm:text-xl mb-8 leading-relaxed">
               Te ayudamos a vender tu vehículo de manera rápida y segura.
             </p>
 
-            <p className="text-sm text-neutral-400 leading-relaxed">
-              En CAR ONE compramos tu usado al mejor valor del mercado o lo tomamos en parte de pago por un 0 KM o un usado de nuestro catálogo con llave contra llave sin quedarte a pie.
-            </p>
-
-            {/* Value Pillars */}
-            <div className="space-y-4 pt-4 border-t border-neutral-800">
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-red-500 flex-shrink-0">
-                  <DollarSign className="w-5 h-5" />
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#303030] border border-[#686868]/40 flex items-center justify-center shrink-0 text-[#E4E0D8]">
+                  <DollarSign className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-sm">Pago Inmediato y Seguro</h4>
-                  <p className="text-xs text-neutral-400 mt-0.5">
-                    Transferencia bancaria al instante una vez verificada la documentación.
+                  <h3 className="font-bold text-base text-[#E4E0D8]">Mejor cotización garantizada</h3>
+                  <p className="text-sm text-[#A6A39E] mt-0.5">
+                    Valoramos tu usado según estado real y cotizaciones de mercado vigentes.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-red-500 flex-shrink-0">
-                  <Clock className="w-5 h-5" />
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#303030] border border-[#686868]/40 flex items-center justify-center shrink-0 text-[#E4E0D8]">
+                  <Clock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-sm">Tasación en 24 Horas</h4>
-                  <p className="text-xs text-neutral-400 mt-0.5">
-                    Nuestros peritos realizan la valuación técnica con precios de la guía oficial de la DNRPA.
+                  <h3 className="font-bold text-base text-[#E4E0D8]">Pago seguro en 24 horas</h3>
+                  <p className="text-sm text-[#A6A39E] mt-0.5">
+                    Transferencia bancaria inmediata sin vueltas ni demoras innecesarias.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-red-500 flex-shrink-0">
-                  <FileCheck className="w-5 h-5" />
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#303030] border border-[#686868]/40 flex items-center justify-center shrink-0 text-[#E4E0D8]">
+                  <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-sm">Gestoría Notarial Incluida</h4>
-                  <p className="text-xs text-neutral-400 mt-0.5">
-                    Nos encargamos del 100% de los trámites: 08 digital, verificación y libre deuda.
+                  <h3 className="font-bold text-base text-[#E4E0D8]">Gestoría integral sin cargo</h3>
+                  <p className="text-sm text-[#A6A39E] mt-0.5">
+                    Nosotros resolvemos los trámites de transferencia y verificación policial.
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Validated Form */}
+          {/* Right Column: Form with JavaScript Validation */}
           <div className="lg:col-span-7">
-            <div className="bg-neutral-900/90 border border-neutral-800 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
-              {!submitted ? (
-                <form onSubmit={handleSubmit} className="space-y-5" id="form-vender-auto">
-                  <div className="border-b border-neutral-800 pb-4">
-                    <h3 className="text-xl font-bold text-white">Completá los datos de tu vehículo</h3>
-                    <p className="text-xs text-neutral-400 mt-1">
-                      Te enviaremos una estimación de precio y coordinaremos una inspección sin costo.
-                    </p>
+            <div className="bg-[#303030] border border-[#686868]/40 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-black/70 backdrop-blur-sm">
+              {isSuccess ? (
+                <div className="text-center py-10">
+                  <div className="w-16 h-16 rounded-full bg-[#161616] text-[#E4E0D8] flex items-center justify-center mx-auto mb-4 border border-[#686868]/40">
+                    <CheckCircle className="w-8 h-8 text-[#E4E0D8]" />
                   </div>
-
-                  {/* Personal info */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Nombre completo *</label>
-                      <input
-                        required
-                        type="text"
-                        value={formData.nombre}
-                        onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                        placeholder="Ej. Lucas Rossi"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Teléfono celular *</label>
-                      <input
-                        required
-                        type="tel"
-                        value={formData.telefono}
-                        onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                        placeholder="+54 11 9988-7766"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Email *</label>
-                      <input
-                        required
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="lucas@correo.com"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Vehicle details */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Marca *</label>
-                      <select
-                        required
-                        value={formData.marca}
-                        onChange={(e) => setFormData({ ...formData, marca: e.target.value })}
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none cursor-pointer"
-                      >
-                        <option value="">Seleccioná la marca</option>
-                        {OFFICIAL_BRANDS.map((b) => (
-                          <option key={b.id} value={b.name}>
-                            {b.name}
-                          </option>
-                        ))}
-                        <option value="Otra">Otra marca</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Modelo y Versión *</label>
-                      <input
-                        required
-                        type="text"
-                        value={formData.modelo}
-                        onChange={(e) => setFormData({ ...formData, modelo: e.target.value })}
-                        placeholder="Ej. Cruze LTZ 1.4T"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Año *</label>
-                      <input
-                        required
-                        type="number"
-                        min="2000"
-                        max="2026"
-                        value={formData.anio}
-                        onChange={(e) => setFormData({ ...formData, anio: e.target.value })}
-                        placeholder="Ej. 2021"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Kilometraje *</label>
-                      <input
-                        required
-                        type="number"
-                        value={formData.kilometraje}
-                        onChange={(e) => setFormData({ ...formData, kilometraje: e.target.value })}
-                        placeholder="Ej. 45000"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold text-neutral-300">Precio pretendido (ARS)</label>
-                      <input
-                        type="text"
-                        value={formData.precioPretendido}
-                        onChange={(e) => setFormData({ ...formData, precioPretendido: e.target.value })}
-                        placeholder="Ej. $ 28.000.000"
-                        className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-xs font-semibold text-neutral-300">Comentarios adicionales</label>
-                    <textarea
-                      rows={3}
-                      value={formData.comentarios}
-                      onChange={(e) => setFormData({ ...formData, comentarios: e.target.value })}
-                      placeholder="Contanos sobre el estado general del auto, services oficiales realizados, cubiertas, si sos titular directo..."
-                      className="w-full bg-neutral-950 border border-neutral-800 focus:border-red-500 rounded-xl p-3.5 text-sm text-white focus:outline-none resize-none"
-                    />
-                  </div>
-
-                  {/* Exact required button text: "Quiero vender mi auto" */}
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-red-600 hover:bg-red-500 text-white font-bold text-base rounded-xl shadow-xl shadow-red-950/60 border border-red-500/40 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
-                    id="btn-quiero-vender-mi-auto"
-                  >
-                    <span>Quiero vender mi auto</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
-
-                  <p className="text-xs text-neutral-500 text-center">
-                    Tus datos están protegidos bajo confidencialidad comercial CAR ONE.
+                  <h3 className="text-2xl font-bold text-[#E4E0D8] mb-2">
+                    ¡Solicitud recibida con éxito!
+                  </h3>
+                  <p className="text-[#A6A39E] max-w-md mx-auto text-sm mb-6 leading-relaxed">
+                    Un asesor especializado de <strong className="text-[#E4E0D8]">CAR ONE</strong> se comunicará con vos en las próximas horas para coordinar la inspección y cotización definitiva.
                   </p>
-                </form>
-              ) : (
-                <div className="text-center py-6 space-y-6">
-                  <div className="w-16 h-16 rounded-full bg-red-600/15 border border-red-500/30 text-red-500 mx-auto flex items-center justify-center">
-                    <CheckCircle2 className="w-10 h-10" />
-                  </div>
-
-                  <div>
-                    <span className="text-xs font-bold text-red-500 uppercase tracking-widest block mb-1">
-                      Tasación en curso
-                    </span>
-                    <h4 className="text-2xl font-black text-white mb-2">
-                      ¡Recibimos tu solicitud, {formData.nombre}!
-                    </h4>
-                    <p className="text-sm text-neutral-300 max-w-lg mx-auto">
-                      Un especialista del departamento de compras de CAR ONE analizará los datos de tu{' '}
-                      <strong className="text-white">{formData.marca} {formData.modelo} ({formData.anio})</strong>{' '}
-                      y se comunicará con vos para ofrecerte la mejor cotización.
-                    </p>
-                  </div>
-
-                  <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800 text-left max-w-md mx-auto space-y-2 text-xs">
-                    <div className="flex justify-between items-center border-b border-neutral-800 pb-2">
-                      <span className="text-neutral-400">Número de Tasación:</span>
-                      <span className="font-mono text-sm font-bold text-red-400">{quoteCode}</span>
-                    </div>
-                    <div className="flex justify-between text-neutral-300">
-                      <span>Teléfono de contacto:</span>
-                      <span className="font-semibold text-white">{formData.telefono}</span>
-                    </div>
-                    <div className="flex justify-between text-neutral-300">
-                      <span>Kilometraje ingresado:</span>
-                      <span className="font-semibold text-white">{formData.kilometraje} km</span>
-                    </div>
-                    <div className="text-emerald-400 pt-1">
-                      ✓ Te contactaremos vía WhatsApp para solicitarte 4 fotos y enviarte la tasación preliminar.
-                    </div>
-                  </div>
-
                   <button
-                    onClick={resetForm}
-                    className="px-6 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-semibold rounded-xl transition-colors cursor-pointer"
+                    onClick={() => setIsSuccess(false)}
+                    className="px-6 py-3 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-bold text-sm transition-colors cursor-pointer shadow-md"
                   >
-                    Cargar otro vehículo
+                    Cotizar otro vehículo
                   </button>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate>
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold text-[#E4E0D8] font-display">
+                      Completá los datos de tu vehículo
+                    </h3>
+                    <p className="text-xs text-[#A6A39E] mt-1">
+                      Te enviaremos una propuesta formal sin ningún compromiso.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    {/* Nombre */}
+                    <div>
+                      <label htmlFor="sell-nombre" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Nombre y Apellido *
+                      </label>
+                      <input
+                        type="text"
+                        id="sell-nombre"
+                        name="nombre"
+                        value={formData.nombre}
+                        onChange={handleChange}
+                        placeholder="Ej: Martín Rodríguez"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.nombre ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.nombre && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.nombre}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Teléfono */}
+                    <div>
+                      <label htmlFor="sell-telefono" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Teléfono / WhatsApp *
+                      </label>
+                      <input
+                        type="tel"
+                        id="sell-telefono"
+                        name="telefono"
+                        value={formData.telefono}
+                        onChange={handleChange}
+                        placeholder="Ej: +54 11 5555-9999"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.telefono ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.telefono && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.telefono}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Email */}
+                    <div className="sm:col-span-2">
+                      <label htmlFor="sell-email" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Correo Electrónico *
+                      </label>
+                      <input
+                        type="email"
+                        id="sell-email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Ej: martin@gmail.com"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.email ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.email && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.email}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Marca */}
+                    <div>
+                      <label htmlFor="sell-marca" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Marca *
+                      </label>
+                      <input
+                        type="text"
+                        id="sell-marca"
+                        name="marca"
+                        value={formData.marca}
+                        onChange={handleChange}
+                        placeholder="Ej: Volkswagen"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.marca ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.marca && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.marca}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Modelo */}
+                    <div>
+                      <label htmlFor="sell-modelo" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Modelo y Versión *
+                      </label>
+                      <input
+                        type="text"
+                        id="sell-modelo"
+                        name="modelo"
+                        value={formData.modelo}
+                        onChange={handleChange}
+                        placeholder="Ej: Golf 1.4 TSI Highline"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.modelo ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.modelo && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.modelo}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Año */}
+                    <div>
+                      <label htmlFor="sell-anio" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Año de fabricación *
+                      </label>
+                      <input
+                        type="number"
+                        id="sell-anio"
+                        name="anio"
+                        value={formData.anio}
+                        onChange={handleChange}
+                        placeholder="Ej: 2021"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.anio ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.anio && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.anio}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Kilometraje */}
+                    <div>
+                      <label htmlFor="sell-km" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Kilometraje actual *
+                      </label>
+                      <input
+                        type="text"
+                        id="sell-km"
+                        name="kilometraje"
+                        value={formData.kilometraje}
+                        onChange={handleChange}
+                        placeholder="Ej: 45.000 km"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.kilometraje ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.kilometraje && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.kilometraje}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Precio Pretendido */}
+                    <div className="sm:col-span-2">
+                      <label htmlFor="sell-precio" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Precio pretendido (ARS o USD) *
+                      </label>
+                      <input
+                        type="text"
+                        id="sell-precio"
+                        name="precioPretendido"
+                        value={formData.precioPretendido}
+                        onChange={handleChange}
+                        placeholder="Ej: $22.000.000 o USD 18.000"
+                        className={`w-full bg-[#161616] border rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all ${
+                          errors.precioPretendido ? 'border-red-400 ring-1 ring-red-400' : 'border-[#686868]/40 focus:border-[#A6A39E]'
+                        }`}
+                      />
+                      {errors.precioPretendido && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {errors.precioPretendido}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Comentarios */}
+                    <div className="sm:col-span-2">
+                      <label htmlFor="sell-comentarios" className="block text-xs font-bold text-[#A6A39E] mb-1.5">
+                        Comentarios adicionales (opcional)
+                      </label>
+                      <textarea
+                        id="sell-comentarios"
+                        name="comentarios"
+                        rows={3}
+                        value={formData.comentarios}
+                        onChange={handleChange}
+                        placeholder="Contanos sobre el estado del vehículo, services oficiales, agregados o si buscás entregar como parte de pago de otro auto."
+                        className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3.5 py-2.5 text-sm text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Botón especificado: "Quiero vender mi auto" */}
+                  <button
+                    type="submit"
+                    id="btn-submit-sell"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-xl bg-[#E4E0D8] hover:bg-white disabled:bg-[#161616] text-[#161616] disabled:text-[#A6A39E] font-extrabold text-base tracking-wide transition-all duration-200 shadow-xl flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                  >
+                    {isSubmitting ? (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-[#161616]/30 border-t-[#161616] rounded-full animate-spin"></span>
+                        Enviando cotización...
+                      </span>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 text-[#161616]" />
+                        <span>Quiero vender mi auto</span>
+                      </>
+                    )}
+                  </button>
+                </form>
               )}
             </div>
           </div>

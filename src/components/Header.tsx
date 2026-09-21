@@ -1,326 +1,265 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageSquare, Car, ChevronRight, Heart } from 'lucide-react';
-import { CarOneLogo } from './BrandLogos';
+import { useState, useEffect } from 'react';
+import { Menu, X, Phone, MessageCircle, ChevronRight, Car, ShieldCheck } from 'lucide-react';
 
 interface HeaderProps {
-  onNavigate: (sectionId: string) => void;
-  onFilterQuick: (category: 'all' | '0km' | 'used') => void;
-  favoritesCount: number;
-  onOpenFavorites: () => void;
+  onSelectConditionFilter: (condition: 'all' | '0 KM' | 'Usado') => void;
+  onOpenWhatsApp: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  onNavigate,
-  onFilterQuick,
-  favoritesCount,
-  onOpenFavorites,
-}) => {
+export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (sectionId: string) => {
-    setMobileDrawerOpen(false);
-    onNavigate(sectionId);
+    setMobileMenuOpen(false);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleConditionClick = (condition: '0 KM' | 'Usado') => {
+    setMobileMenuOpen(false);
+    onSelectConditionFilter(condition);
+    const element = document.getElementById('vehiculos');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <>
+      {/* Top micro bar for high-end automotive trust */}
+      <div className="bg-[#161616] text-[#A6A39E] text-xs hidden md:block border-b border-[#686868]/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-1.5 text-[#E4E0D8]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#E4E0D8]" />
+              Concesionaria Oficial Multimarca #1 en Argentina
+            </span>
+            <span className="text-[#686868]">•</span>
+            <span className="text-[#A6A39E]">Entrega inmediata &amp; Financiación a tasa preferencial</span>
+          </div>
+          <div className="flex items-center gap-5">
+            <a
+              href="tel:+541112345678"
+              className="flex items-center gap-1.5 text-[#E4E0D8] hover:text-white transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#A6A39E]" />
+              +54 11 1234-5678
+            </a>
+            <button
+              onClick={onOpenWhatsApp}
+              className="flex items-center gap-1 text-[#E4E0D8] hover:text-white transition-colors font-medium cursor-pointer"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              WhatsApp Oficial
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Sticky Header */}
       <header
         id="main-header"
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#0D0D0D]/95 backdrop-blur-md border-b border-[#5A4636]/40 shadow-xl shadow-[#0D0D0D]/70 py-3'
-            : 'bg-gradient-to-b from-[#0D0D0D]/95 via-[#0D0D0D]/80 to-transparent backdrop-blur-sm border-b border-[#5A4636]/20 py-4'
+            ? 'bg-[#161616]/95 backdrop-blur-md shadow-xl shadow-black/50 py-3 border-b border-[#686868]/30'
+            : 'bg-[#161616] py-4.5 border-b border-[#686868]/30'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <a
-              href="#inicio"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('inicio');
-              }}
-              className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D6C2A3] rounded-lg"
-              id="header-logo"
-            >
-              <CarOneLogo />
-            </a>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Logo CAR ONE */}
+          <a
+            href="#inicio"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('inicio');
+            }}
+            className="flex items-center gap-2.5 group"
+            id="header-logo-link"
+          >
+            <div className="w-10 h-10 rounded-lg bg-[#303030] border border-[#686868]/40 flex items-center justify-center text-[#E4E0D8] shadow-sm group-hover:bg-[#E4E0D8] group-hover:text-[#161616] transition-colors duration-300">
+              <Car className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8] leading-none flex items-center gap-1">
+                CAR <span className="text-[#E4E0D8] font-black">ONE</span>
+              </span>
+              <span className="text-[10px] tracking-widest text-[#A6A39E] font-bold uppercase">
+                Concesionaria Oficial
+              </span>
+            </div>
+          </a>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium text-[#D6C2A3]/80" id="desktop-nav">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            <button
+              onClick={() => handleNavClick('inicio')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Inicio
+            </button>
+            <button
+              onClick={() => handleNavClick('vehiculos')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Comprar
+            </button>
+            <button
+              onClick={() => handleNavClick('vender')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Vender
+            </button>
+            <button
+              onClick={() => handleConditionClick('0 KM')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer flex items-center gap-1.5"
+            >
+              0 KM
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E4E0D8] inline-block"></span>
+            </button>
+            <button
+              onClick={() => handleConditionClick('Usado')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Usados
+            </button>
+            <button
+              onClick={() => handleNavClick('servicios')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Servicios
+            </button>
+            <button
+              onClick={() => handleNavClick('nosotros')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Nosotros
+            </button>
+            <button
+              onClick={() => handleNavClick('contacto')}
+              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
+            >
+              Contacto
+            </button>
+          </nav>
+
+          {/* Action CTA Button */}
+          <div className="hidden sm:flex items-center gap-3">
+            <button
+              id="header-cta-button"
+              onClick={() => handleNavClick('vehiculos')}
+              className="px-5 py-2.5 rounded-xl bg-[#E4E0D8] hover:bg-[#E4E0D8] text-[#161616] text-sm font-bold tracking-wide transition-all duration-200 shadow-md flex items-center gap-2 cursor-pointer active:scale-98"
+            >
+              <span>Ver vehículos</span>
+              <ChevronRight className="w-4 h-4 text-[#161616]" />
+            </button>
+          </div>
+
+          {/* Mobile hamburger button */}
+          <button
+            id="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2.5 text-[#E4E0D8] hover:bg-[#303030] rounded-lg transition-colors cursor-pointer"
+            aria-label="Abrir menú"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile menu drawer */}
+        {mobileMenuOpen && (
+          <div
+            id="mobile-menu-dropdown"
+            className="lg:hidden fixed inset-x-0 top-[65px] bg-[#161616] border-b border-[#686868]/40 shadow-2xl px-6 py-6 transition-all duration-300 max-h-[85vh] overflow-y-auto"
+          >
+            <div className="flex flex-col gap-2 pb-6 border-b border-[#686868]/40">
               <button
                 onClick={() => handleNavClick('inicio')}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-inicio"
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Inicio
               </button>
               <button
-                onClick={() => {
-                  onFilterQuick('all');
-                  handleNavClick('catalogo');
-                }}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-comprar"
+                onClick={() => handleNavClick('vehiculos')}
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Comprar
               </button>
               <button
                 onClick={() => handleNavClick('vender')}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-vender"
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Vender
               </button>
               <button
-                onClick={() => {
-                  onFilterQuick('0km');
-                  handleNavClick('catalogo');
-                }}
-                className="px-3 py-1.5 rounded-md text-[#D6C2A3] hover:text-[#F5F0E6] hover:bg-[#5A4636]/30 transition-colors font-semibold flex items-center gap-1"
-                id="nav-0km"
+                onClick={() => handleConditionClick('0 KM')}
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030] flex items-center justify-between"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D6C2A3] animate-pulse"></span>
-                0 KM
+                <span>0 KM</span>
+                <span className="text-xs bg-[#E4E0D8] text-[#161616] px-2 py-0.5 rounded font-bold">Nuevos</span>
               </button>
               <button
-                onClick={() => {
-                  onFilterQuick('used');
-                  handleNavClick('catalogo');
-                }}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-usados"
+                onClick={() => handleConditionClick('Usado')}
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030] flex items-center justify-between"
               >
-                Usados
+                <span>Usados Seleccionados</span>
+                <span className="text-xs bg-[#686868] text-[#E4E0D8] px-2 py-0.5 rounded font-bold">Garantizados</span>
               </button>
               <button
                 onClick={() => handleNavClick('servicios')}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-servicios"
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Servicios
               </button>
               <button
                 onClick={() => handleNavClick('nosotros')}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-nosotros"
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Nosotros
               </button>
               <button
                 onClick={() => handleNavClick('contacto')}
-                className="px-3 py-1.5 rounded-md hover:text-[#F5F0E6] hover:bg-[#211A16] transition-colors"
-                id="nav-contacto"
+                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Contacto
               </button>
-            </nav>
-
-            {/* Actions: Favorites & "Ver vehículos" CTA */}
-            <div className="hidden sm:flex items-center gap-3">
-              <button
-                onClick={onOpenFavorites}
-                className="relative p-2 text-[#D6C2A3] hover:text-[#F5F0E6] bg-[#211A16] hover:bg-[#5A4636]/50 border border-[#5A4636]/50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#D6C2A3]"
-                title="Ver favoritos guardados"
-                id="header-btn-favorites"
-              >
-                <Heart className="w-5 h-5 text-[#D6C2A3]" />
-                {favoritesCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 bg-[#5A4636] text-[#F5F0E6] text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-[#0D0D0D] animate-pulse">
-                    {favoritesCount}
-                  </span>
-                )}
-              </button>
-
-              <button
-                onClick={() => handleNavClick('catalogo')}
-                className="inline-flex items-center gap-2 bg-[#5A4636] hover:bg-[#D6C2A3] text-[#F5F0E6] hover:text-[#0D0D0D] font-semibold text-sm px-4 py-2.5 rounded-lg shadow-lg shadow-[#0D0D0D]/50 border border-[#D6C2A3]/30 transition-all hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#D6C2A3]"
-                id="header-btn-ver-vehiculos"
-              >
-                <Car className="w-4 h-4" />
-                <span>Ver vehículos</span>
-              </button>
             </div>
 
-            {/* Mobile menu trigger */}
-            <div className="flex sm:hidden items-center gap-2">
+            <div className="pt-5 flex flex-col gap-3">
               <button
-                onClick={onOpenFavorites}
-                className="relative p-2 text-[#D6C2A3] bg-[#211A16] border border-[#5A4636]/50 rounded-lg"
-                id="mobile-btn-favorites"
+                onClick={() => handleNavClick('vehiculos')}
+                className="w-full py-3.5 bg-[#E4E0D8] hover:bg-white text-[#161616] rounded-xl font-bold text-center transition-colors shadow-md"
               >
-                <Heart className="w-5 h-5 text-[#D6C2A3]" />
-                {favoritesCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#5A4636] text-[#F5F0E6] text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                    {favoritesCount}
-                  </span>
-                )}
+                Ver todos los vehículos
               </button>
-
               <button
-                onClick={() => setMobileDrawerOpen(true)}
-                className="p-2 text-[#D6C2A3] hover:text-[#F5F0E6] bg-[#211A16] border border-[#5A4636]/50 rounded-lg focus:outline-none"
-                aria-label="Abrir menú"
-                id="mobile-drawer-toggle"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenWhatsApp();
+                }}
+                className="w-full py-3 bg-[#161616] text-[#E4E0D8] border border-[#686868]/40 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-[#303030] transition-colors"
               >
-                <Menu className="w-6 h-6" />
+                <MessageCircle className="w-4 h-4" />
+                Consultar por WhatsApp
               </button>
             </div>
           </div>
-        </div>
+        )}
       </header>
-
-      {/* Mobile Drawer */}
-      {mobileDrawerOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex">
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-[#0D0D0D]/80 backdrop-blur-sm transition-opacity"
-            onClick={() => setMobileDrawerOpen(false)}
-          />
-
-          {/* Drawer Content */}
-          <div
-            className="relative ml-auto w-full max-w-xs bg-[#211A16] border-l border-[#5A4636]/50 p-6 flex flex-col justify-between h-full shadow-2xl overflow-y-auto"
-            id="mobile-drawer"
-          >
-            <div>
-              {/* Drawer Header */}
-              <div className="flex items-center justify-between pb-6 border-b border-[#5A4636]/40">
-                <CarOneLogo />
-                <button
-                  onClick={() => setMobileDrawerOpen(false)}
-                  className="p-2 text-[#D6C2A3]/70 hover:text-[#F5F0E6] rounded-lg hover:bg-[#5A4636]/40"
-                  aria-label="Cerrar menú"
-                  id="mobile-drawer-close"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-
-              {/* Navigation Items */}
-              <nav className="mt-6 flex flex-col gap-1">
-                <button
-                  onClick={() => handleNavClick('inicio')}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Inicio</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-
-                <button
-                  onClick={() => {
-                    onFilterQuick('all');
-                    handleNavClick('catalogo');
-                  }}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Comprar un auto</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-
-                <button
-                  onClick={() => handleNavClick('vender')}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Vender mi auto</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-
-                <button
-                  onClick={() => {
-                    onFilterQuick('0km');
-                    handleNavClick('catalogo');
-                  }}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#D6C2A3] hover:bg-[#5A4636]/30 font-semibold"
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#D6C2A3]"></span>
-                    0 KM Oficiales
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]" />
-                </button>
-
-                <button
-                  onClick={() => {
-                    onFilterQuick('used');
-                    handleNavClick('catalogo');
-                  }}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Usados Seleccionados</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-
-                <button
-                  onClick={() => handleNavClick('servicios')}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Servicios</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-
-                <button
-                  onClick={() => handleNavClick('nosotros')}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Por qué elegirnos</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-
-                <button
-                  onClick={() => handleNavClick('contacto')}
-                  className="flex items-center justify-between py-3 px-3 rounded-lg text-left text-[#F5F0E6] hover:bg-[#5A4636]/40 font-medium"
-                >
-                  <span>Ubicación y Contacto</span>
-                  <ChevronRight className="w-4 h-4 text-[#D6C2A3]/50" />
-                </button>
-              </nav>
-            </div>
-
-            {/* Direct Quick Contact in Drawer */}
-            <div className="pt-6 border-t border-[#5A4636]/40 flex flex-col gap-3">
-              <button
-                onClick={() => handleNavClick('catalogo')}
-                className="w-full py-3 bg-[#5A4636] hover:bg-[#D6C2A3] hover:text-[#0D0D0D] text-[#F5F0E6] font-semibold rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-[#0D0D0D]/50 transition-colors"
-              >
-                <Car className="w-5 h-5" />
-                <span>Ver vehículos</span>
-              </button>
-
-              <a
-                href="https://wa.me/5491112345678?text=Hola%20CAR%20ONE%2C%20quisiera%20recibir%20información%20sobre%20los%20vehículos%20disponibles"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 bg-[#5A4636]/80 hover:bg-[#5A4636] text-[#F5F0E6] font-semibold rounded-lg flex items-center justify-center gap-2 text-sm transition-colors border border-[#D6C2A3]/30"
-                id="mobile-drawer-whatsapp"
-              >
-                <MessageSquare className="w-4 h-4 text-[#D6C2A3]" />
-                <span>WhatsApp Asesor</span>
-              </a>
-
-              <a
-                href="tel:+541112345678"
-                className="w-full py-2.5 bg-[#0D0D0D] hover:bg-[#211A16] text-[#D6C2A3] font-medium rounded-lg flex items-center justify-center gap-2 text-sm transition-colors border border-[#5A4636]/40"
-                id="mobile-drawer-call"
-              >
-                <Phone className="w-4 h-4 text-[#D6C2A3]/70" />
-                <span>+54 11 1234-5678</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };

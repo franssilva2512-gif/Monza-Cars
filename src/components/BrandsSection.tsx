@@ -1,82 +1,90 @@
-import React from 'react';
-import { OFFICIAL_BRANDS } from '../data/vehicles';
-import { getBrandLogo } from './BrandLogos';
 import { ArrowUpRight } from 'lucide-react';
+import { BRANDS_DATA, BrandInfo } from '../data/brands';
+import { BrandLogo } from './BrandLogo';
 
 interface BrandsSectionProps {
-  selectedBrand: string;
   onSelectBrand: (brandName: string) => void;
+  selectedBrand?: string;
 }
 
-export const BrandsSection: React.FC<BrandsSectionProps> = ({
-  selectedBrand,
-  onSelectBrand,
-}) => {
+export const BrandsSection = ({ onSelectBrand, selectedBrand }: BrandsSectionProps) => {
   return (
-    <section id="marcas" className="py-16 sm:py-20 bg-neutral-950 border-t border-neutral-800/80">
+    <section id="marcas" className="py-16 sm:py-20 bg-[#161616] border-y border-[#686868]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header exact requirements */}
+        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <p className="text-xs sm:text-sm font-bold tracking-widest text-red-500 uppercase mb-2">
+          {/* Subtítulo exacto según especificación: "Encontrá tu próximo auto" */}
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#A6A39E] mb-2 inline-block">
             Encontrá tu próximo auto
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          </span>
+
+          {/* Título exacto según especificación: "Todas las marcas" */}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#E4E0D8] tracking-tight font-display mb-4">
             Todas las marcas
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-neutral-400">
-            Somos concesionario oficial de las automotrices más prestigiosas del mundo. Seleccioná una marca para ver los modelos disponibles.
+          <p className="text-[#A6A39E] text-base sm:text-lg">
+            Somos concesionario oficial y multimarca líder. Garantía de fábrica y servicio de postventa integral.
           </p>
         </div>
 
-        {/* 12 Interactive Brand Cards */}
+        {/* Brands Grid - 12 brands */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          {OFFICIAL_BRANDS.map((brand) => {
-            const isSelected = selectedBrand.toLowerCase() === brand.name.toLowerCase();
+          {BRANDS_DATA.map((brand: BrandInfo) => {
+            const isSelected = selectedBrand?.toLowerCase() === brand.name.toLowerCase();
 
             return (
               <button
                 key={brand.id}
-                onClick={() => onSelectBrand(brand.name)}
-                className={`group relative flex flex-col items-center justify-center p-5 rounded-2xl border transition-all duration-300 text-center cursor-pointer ${
-                  isSelected
-                    ? 'bg-neutral-900 border-red-500 ring-2 ring-red-500/30 shadow-xl shadow-red-950/40 -translate-y-1'
-                    : 'bg-neutral-900/60 hover:bg-neutral-900 border-neutral-800 hover:border-neutral-700 hover:shadow-lg hover:shadow-black/50 hover:-translate-y-1'
-                }`}
                 id={`brand-card-${brand.id}`}
+                onClick={() => onSelectBrand(brand.name)}
+                className={`group relative p-5 rounded-2xl bg-[#303030] border transition-all duration-300 flex flex-col items-center text-center justify-between min-h-[140px] cursor-pointer ${
+                  isSelected
+                    ? 'border-[#E4E0D8] ring-2 ring-[#E4E0D8]/30 shadow-xl scale-[1.02] bg-[#303030]'
+                    : 'border-[#686868]/40 hover:border-[#A6A39E] hover:bg-[#303030]/80 hover:shadow-xl hover:-translate-y-1'
+                }`}
               >
-                {/* Visual indicator corner */}
-                <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-red-400 transition-colors" />
+                {/* Arrow indicator on hover */}
+                <div className="absolute top-3 right-3 text-[#A6A39E] group-hover:text-[#E4E0D8] transition-colors">
+                  <ArrowUpRight className="w-4 h-4" />
                 </div>
 
-                {/* Vector Brand Logo Container */}
-                <div
-                  className={`w-14 h-14 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110 ${
-                    isSelected
-                      ? 'text-red-500 bg-red-950/30'
-                      : 'text-neutral-300 group-hover:text-white bg-neutral-800/50'
-                  }`}
-                >
-                  {getBrandLogo(brand.name, 'w-8 h-8')}
+                {/* Brand Logo representation */}
+                <div className="w-14 h-14 rounded-2xl bg-[#161616] group-hover:bg-[#303030] border border-[#686868]/40 flex items-center justify-center p-2.5 transition-all duration-300 mb-2 shadow-xs group-hover:scale-105">
+                  <BrandLogo
+                    brandId={brand.id}
+                    className="w-full h-full object-contain text-[#E4E0D8] group-hover:text-white transition-colors"
+                  />
                 </div>
 
                 {/* Brand Name */}
-                <span className="font-bold text-sm text-neutral-100 group-hover:text-white transition-colors">
-                  {brand.name}
-                </span>
+                <div className="w-full">
+                  <h3 className="font-bold text-[#E4E0D8] text-base tracking-tight group-hover:text-white transition-colors">
+                    {brand.name}
+                  </h3>
+                  <p className="text-[11px] text-[#A6A39E] mt-0.5">
+                    {brand.popularModel}
+                  </p>
+                </div>
 
-                {/* Vehicle count */}
-                <span className="text-[11px] text-neutral-400 mt-1">
-                  {brand.vehicleCount} vehículos
-                </span>
-
-                {/* Active indicator dot */}
-                {isSelected && (
-                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                )}
+                {/* Units badge */}
+                <div className="mt-2">
+                  <span className="inline-block text-[10px] font-bold text-[#A6A39E] bg-[#161616] group-hover:bg-[#E4E0D8] group-hover:text-[#161616] px-2 py-0.5 rounded-full transition-colors border border-[#686868]/30">
+                    {brand.availableCount} unidades
+                  </span>
+                </div>
               </button>
             );
           })}
+        </div>
+
+        {/* Bottom Banner Note */}
+        <div className="mt-10 text-center">
+          <p className="text-xs sm:text-sm text-[#A6A39E]">
+            ¿Buscás una versión o color específico?{' '}
+            <a href="#contacto" className="text-[#E4E0D8] font-bold underline hover:text-white">
+              Contactá a nuestro equipo de asesores comerciales
+            </a>
+          </p>
         </div>
       </div>
     </section>

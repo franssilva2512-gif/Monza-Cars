@@ -1,202 +1,205 @@
-import React from 'react';
-import { CarOneLogo } from './BrandLogos';
-import {
-  Instagram,
-  Facebook,
-  Youtube,
-  MessageSquare,
-  MapPin,
-  Phone,
-  Mail,
-  ShieldAlert,
-  ArrowUpRight,
-} from 'lucide-react';
-import { OFFICIAL_BRANDS } from '../data/vehicles';
+import { Car, Instagram, Facebook, Youtube, MessageCircle, ArrowUp, Phone, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate: (sectionId: string) => void;
-  onSelectBrand: (brandName: string) => void;
+  onNavClick: (id: string) => void;
+  onFilterClick: (cond: '0 KM' | 'Usado') => void;
+  onOpenWhatsApp: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectBrand }) => {
+export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProps) => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-neutral-950 text-neutral-400 border-t border-neutral-800/80 pt-16 pb-12">
+    <footer className="bg-[#161616] text-[#E4E0D8] border-t border-[#686868]/30 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-800/80">
-          {/* Column 1: Brand & Bio */}
-          <div className="lg:col-span-2 space-y-5">
-            <CarOneLogo />
-            <p className="text-sm text-neutral-400 leading-relaxed max-w-sm">
-              Concesionaria automotriz líder en Argentina. Comercializamos vehículos 0 KM oficiales y usados premium certificados con garantía mecánica escrita, financiación preferencial en cuotas fijas y servicio técnico oficial.
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-14 border-b border-[#686868]/30">
+          {/* Brand Column */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-[#303030] border border-[#686868]/40 flex items-center justify-center text-[#E4E0D8] shadow-md">
+                <Car className="w-5 h-5" />
+              </div>
+              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8]">
+                CAR <span className="text-[#E4E0D8]">ONE</span>
+              </span>
+            </div>
+
+            <p className="text-[#A6A39E] text-sm max-w-sm mb-6 leading-relaxed">
+              La red líder multimarca de comercialización de automotores 0 KM y usados certificados en Argentina. Calidad, garantía y financiación en un solo lugar.
             </p>
 
-            {/* Social Media Links: Instagram, Facebook, YouTube, WhatsApp */}
-            <div className="flex items-center gap-3 pt-2">
+            {/* Redes sociales especificadas en prompt: Instagram, Facebook, YouTube, WhatsApp */}
+            <div className="flex items-center gap-3">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram CAR ONE"
-                className="w-10 h-10 rounded-xl bg-neutral-900 hover:bg-red-600 hover:text-white border border-neutral-800 flex items-center justify-center transition-colors cursor-pointer text-neutral-300"
+                aria-label="Instagram de CAR ONE"
+                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors"
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-4 h-4" />
               </a>
 
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook CAR ONE"
-                className="w-10 h-10 rounded-xl bg-neutral-900 hover:bg-red-600 hover:text-white border border-neutral-800 flex items-center justify-center transition-colors cursor-pointer text-neutral-300"
+                aria-label="Facebook de CAR ONE"
+                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors"
               >
-                <Facebook className="w-5 h-5" />
+                <Facebook className="w-4 h-4" />
               </a>
 
               <a
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="YouTube CAR ONE"
-                className="w-10 h-10 rounded-xl bg-neutral-900 hover:bg-red-600 hover:text-white border border-neutral-800 flex items-center justify-center transition-colors cursor-pointer text-neutral-300"
+                aria-label="YouTube de CAR ONE"
+                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors"
               >
-                <Youtube className="w-5 h-5" />
+                <Youtube className="w-4 h-4" />
               </a>
 
-              <a
-                href="https://wa.me/5491112345678"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp Oficial CAR ONE"
-                className="w-10 h-10 rounded-xl bg-neutral-900 hover:bg-emerald-600 hover:text-white border border-neutral-800 flex items-center justify-center transition-colors cursor-pointer text-neutral-300"
+              <button
+                onClick={onOpenWhatsApp}
+                aria-label="WhatsApp de CAR ONE"
+                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors cursor-pointer"
               >
-                <MessageSquare className="w-5 h-5" />
-              </a>
+                <MessageCircle className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
-          {/* Column 2: Navegación Rápida */}
-          <div className="space-y-4">
-            <h4 className="text-white text-sm font-bold uppercase tracking-wider">
-              Navegación
+          {/* Column 2: Navegación Principal (Comprar, Vender, 0 KM, Usados) */}
+          <div>
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#E4E0D8] mb-4">
+              Vehículos
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-2.5 text-sm text-[#A6A39E]">
               <li>
                 <button
-                  onClick={() => onNavigate('inicio')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  onClick={() => onNavClick('vehiculos')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >
-                  Inicio
+                  Comprar
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('catalogo')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  onClick={() => onNavClick('vender')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >
-                  Comprar un Auto
+                  Vender
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('vender')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  onClick={() => onFilterClick('0 KM')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >
-                  Vender mi Auto
+                  0 KM
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('servicios')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  onClick={() => onFilterClick('Usado')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >
-                  Servicios y Taller
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('nosotros')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  Por qué elegirnos
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('contacto')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  Sucursales y Contacto
+                  Usados
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Marcas Oficiales */}
-          <div className="space-y-4">
-            <h4 className="text-white text-sm font-bold uppercase tracking-wider">
-              Marcas Oficiales
+          {/* Column 3: Empresa y Servicios (Servicios, Nosotros, Contacto) */}
+          <div>
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#E4E0D8] mb-4">
+              Institucional
             </h4>
-            <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
-              {OFFICIAL_BRANDS.slice(0, 8).map((b) => (
+            <ul className="space-y-2.5 text-sm text-[#A6A39E]">
+              <li>
                 <button
-                  key={b.id}
-                  onClick={() => onSelectBrand(b.name)}
-                  className="text-left hover:text-white transition-colors truncate cursor-pointer text-xs"
+                  onClick={() => onNavClick('servicios')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >
-                  {b.name}
+                  Servicios
                 </button>
-              ))}
-            </div>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavClick('nosotros')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
+                >
+                  Nosotros
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavClick('contacto')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
+                >
+                  Contacto
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavClick('marcas')}
+                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
+                >
+                  Marcas oficiales
+                </button>
+              </li>
+            </ul>
           </div>
 
-          {/* Column 4: Contacto Inmediato */}
-          <div className="space-y-4">
-            <h4 className="text-white text-sm font-bold uppercase tracking-wider">
+          {/* Column 4: Contacto directo */}
+          <div>
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#E4E0D8] mb-4">
               Atención al Cliente
             </h4>
-            <div className="space-y-3 text-xs leading-relaxed">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                <span>Av. Principal 1234, CABA, Argentina</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-red-500 flex-shrink-0" />
-                <a href="tel:+541112345678" className="hover:text-white">
+            <ul className="space-y-3 text-xs text-[#A6A39E]">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-[#E4E0D8] shrink-0 mt-0.5" />
+                <span className="text-[#E4E0D8]/80">Av. Principal 1234, Buenos Aires</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#E4E0D8] shrink-0" />
+                <a href="tel:+541112345678" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
                   +54 11 1234-5678
                 </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-red-500 flex-shrink-0" />
-                <a href="mailto:contacto@carone.com.ar" className="hover:text-white">
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-[#E4E0D8] shrink-0" />
+                <a href="mailto:contacto@carone.com.ar" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
                   contacto@carone.com.ar
                 </a>
-              </div>
-              <div className="pt-2 text-[11px] text-neutral-500">
-                Atención telefónica: Lun a Vie 9 a 19 hs | Sáb 9 a 17 hs
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Legal & Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-          {/* Exact required copyright text */}
-          <div>
-            © 2026 CAR ONE. Todos los derechos reservados.
-          </div>
+        {/* Bottom Bar with exact specified copyright text */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A6A39E]">
+          {/* Exact specification: "© 2026 CAR ONE. Todos los derechos reservados." */}
+          <p>© 2026 CAR ONE. Todos los derechos reservados.</p>
 
           <div className="flex items-center gap-6">
-            <span className="hover:text-neutral-400 transition-colors cursor-pointer">
+            <a href="#contacto" className="hover:text-[#E4E0D8] transition-colors">
               Términos y Condiciones
-            </span>
-            <span>·</span>
-            <span className="hover:text-neutral-400 transition-colors cursor-pointer">
+            </a>
+            <a href="#contacto" className="hover:text-[#E4E0D8] transition-colors">
               Políticas de Privacidad
-            </span>
-            <span>·</span>
-            <span className="hover:text-neutral-400 transition-colors cursor-pointer">
-              Defensa de las y los Consumidores
-            </span>
+            </a>
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 text-[#A6A39E] hover:text-[#E4E0D8] transition-colors cursor-pointer"
+            >
+              <span>Volver arriba</span>
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </div>
