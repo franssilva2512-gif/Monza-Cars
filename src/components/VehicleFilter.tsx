@@ -228,6 +228,7 @@ export const VehicleFilter = ({
                 <option value="Pick-up" className="bg-[#161616] text-[#E4E0D8]">Pick-up</option>
                 <option value="Sedán" className="bg-[#161616] text-[#E4E0D8]">Sedán</option>
                 <option value="Hatchback" className="bg-[#161616] text-[#E4E0D8]">Hatchback</option>
+                <option value="Utilitario" className="bg-[#161616] text-[#E4E0D8]">Utilitario / Van</option>
               </select>
             </div>
           </div>

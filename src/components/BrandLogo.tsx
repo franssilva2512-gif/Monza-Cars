@@ -10,6 +10,75 @@ export const BrandLogo = ({ brandId, className = 'w-10 h-10' }: BrandLogoProps) 
     : '';
 
   switch (id) {
+    case 'bmw':
+      return (
+        <svg
+          viewBox="0 0 100 100"
+          className={className}
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Logo BMW"
+        >
+          {/* Outer Black / Chrome Ring */}
+          <circle cx="50" cy="50" r="46" fill="#161616" stroke="currentColor" strokeWidth="4" />
+          <circle cx="50" cy="50" r="42" stroke="#A6A39E" strokeWidth="1.5" strokeOpacity="0.6" />
+          {/* BMW Text curved or top placed */}
+          <text
+            x="50"
+            y="21"
+            fill="#FFFFFF"
+            fontSize="10"
+            fontWeight="900"
+            letterSpacing="6"
+            textAnchor="middle"
+            fontFamily="system-ui, -apple-system, sans-serif"
+          >
+            BMW
+          </text>
+          {/* Inner Circle Border */}
+          <circle cx="50" cy="50" r="26" stroke="#FFFFFF" strokeWidth="2" />
+          {/* Quadrants: Top-Left Blue */}
+          <path d="M 50 50 L 50 24 A 26 26 0 0 0 24 50 Z" fill="#0066B1" />
+          {/* Top-Right White */}
+          <path d="M 50 50 L 76 50 A 26 26 0 0 0 50 24 Z" fill="#FFFFFF" />
+          {/* Bottom-Right Blue */}
+          <path d="M 50 50 L 50 76 A 26 26 0 0 0 76 50 Z" fill="#0066B1" />
+          {/* Bottom-Left White */}
+          <path d="M 50 50 L 24 50 A 26 26 0 0 0 50 76 Z" fill="#FFFFFF" />
+          {/* Center Dividing Lines */}
+          <line x1="50" y1="24" x2="50" y2="76" stroke="#161616" strokeWidth="1.5" />
+          <line x1="24" y1="50" x2="76" y2="50" stroke="#161616" strokeWidth="1.5" />
+        </svg>
+      );
+
+    case 'mercedes-benz':
+    case 'mercedes':
+      return (
+        <svg
+          viewBox="0 0 100 100"
+          className={className}
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Logo Mercedes-Benz"
+        >
+          {/* Outer Chrome Ring */}
+          <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="4" />
+          <circle cx="50" cy="50" r="41" stroke="#A6A39E" strokeWidth="1" strokeOpacity="0.4" />
+          {/* Mercedes Three-Pointed Star with 3D Bevel Facets */}
+          {/* Top Ray (50,50 to 50,7) */}
+          <polygon points="50,7 50,50 45,50" fill="#E4E0D8" />
+          <polygon points="50,7 55,50 50,50" fill="#A6A39E" />
+          {/* Bottom Right Ray (50,50 to 87,71) */}
+          <polygon points="87,71 50,50 52,45" fill="#E4E0D8" />
+          <polygon points="87,71 47,53 50,50" fill="#686868" />
+          {/* Bottom Left Ray (50,50 to 13,71) */}
+          <polygon points="13,71 50,50 48,45" fill="#A6A39E" />
+          <polygon points="13,71 53,53 50,50" fill="#E4E0D8" />
+          {/* Central Hub Pin */}
+          <circle cx="50" cy="50" r="4" fill="#E4E0D8" stroke="#161616" strokeWidth="1" />
+        </svg>
+      );
+
     case 'toyota':
       return (
         <svg

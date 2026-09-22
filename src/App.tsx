@@ -38,8 +38,16 @@ export default function App() {
   const filteredVehicles = useMemo(() => {
     return MOCK_VEHICLES.filter((item) => {
       // Filter by Brand
-      if (filters.brand && item.brand.toLowerCase() !== filters.brand.toLowerCase()) {
-        return false;
+      if (filters.brand) {
+        const filterBrand = filters.brand.toLowerCase().trim();
+        const itemBrand = item.brand.toLowerCase().trim();
+        const matchesBrand =
+          itemBrand === filterBrand ||
+          itemBrand.includes(filterBrand) ||
+          filterBrand.includes(itemBrand);
+        if (!matchesBrand) {
+          return false;
+        }
       }
 
       // Filter by Model
@@ -67,11 +75,23 @@ export default function App() {
         if (filters.vehicleType === '0 KM' || filters.vehicleType === 'Usado') {
           if (item.condition !== filters.vehicleType) return false;
         } else {
-          // Check BodyType like SUV, Pick-up, Sedán, Hatchback
+          // Check BodyType like SUV, Pick-up, Sedán, Hatchback, Utilitario
           if (item.bodyType.toLowerCase() !== filters.vehicleType.toLowerCase()) {
             return false;
           }
         }
+      }
+
+      // Filter by Search Query
+      if (filters.searchQuery) {
+        const q = filters.searchQuery.toLowerCase().trim();
+        const matchesQuery =
+          item.brand.toLowerCase().includes(q) ||
+          item.model.toLowerCase().includes(q) ||
+          item.version.toLowerCase().includes(q) ||
+          item.color.toLowerCase().includes(q) ||
+          item.description.toLowerCase().includes(q);
+        if (!matchesQuery) return false;
       }
 
       return true;
