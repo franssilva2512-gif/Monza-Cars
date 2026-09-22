@@ -67,9 +67,9 @@ export const VehicleDetailModal = ({
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `¡Hola CAR ONE! Estoy interesado en el vehículo: ${vehicle.brand} ${vehicle.model} ${vehicle.version} (${vehicle.year}) con precio ${formatPrice(vehicle.price)}. ¿Podrían brindarme más información y disponibilidad para coordinar una visita? Muchas gracias.`
+      `¡Hola! Estoy interesado en el vehículo: ${vehicle.brand} ${vehicle.model} ${vehicle.version} (${vehicle.year}) con precio ${formatPrice(vehicle.price)}. ¿Podrían brindarme más información y disponibilidad para coordinar una visita? Muchas gracias.`
     );
-    window.open(`https://wa.me/5491112345678?text=${message}`, '_blank');
+    window.open(`https://wa.me/5491155922000?text=${message}`, '_blank');
   };
 
   const nextImage = () => {

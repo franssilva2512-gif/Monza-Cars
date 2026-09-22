@@ -54,11 +54,11 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
           </div>
           <div className="flex items-center gap-5">
             <a
-              href="tel:+541112345678"
+              href="tel:+5491155922000"
               className="flex items-center gap-1.5 text-[#E4E0D8] hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5 text-[#A6A39E]" />
-              +54 11 1234-5678
+              +54 911 5592-2000
             </a>
             <button
               onClick={onOpenWhatsApp}

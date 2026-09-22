@@ -134,9 +134,9 @@ export default function App() {
 
   const handleOpenGeneralWhatsApp = () => {
     const msg = encodeURIComponent(
-      '¡Hola CAR ONE! Me gustaría recibir información y asesoramiento sobre vehículos y planes disponibles.'
+      '¡Hola! Me gustaría recibir información y asesoramiento sobre vehículos y planes disponibles.'
     );
-    window.open(`https://wa.me/5491112345678?text=${msg}`, '_blank');
+    window.open(`https://wa.me/5491155922000?text=${msg}`, '_blank');
   };
 
   const handleServiceAction = (serviceTitle: string) => {
@@ -203,7 +203,7 @@ export default function App() {
         {/* 9. Por qué elegirnos (Statistics: +10.000, +15, +20, +50) */}
         <WhyChooseUs />
 
-        {/* 10. Ubicación (Encontranos, Av. Principal 1234, Teléfono, Email, Visual Map) */}
+        {/* 10. Ubicación (Encontranos, Avenida Vergara 2865, Teléfono, Email, Visual Map) */}
         <LocationSection />
       </main>
 

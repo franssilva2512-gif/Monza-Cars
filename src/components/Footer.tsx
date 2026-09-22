@@ -1,4 +1,4 @@
-import { Car, Instagram, Facebook, Youtube, MessageCircle, ArrowUp, Phone, Mail, MapPin } from 'lucide-react';
+import { Car, Instagram, Video, MessageCircle, ArrowUp, Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 interface FooterProps {
   onNavClick: (id: string) => void;
@@ -31,46 +31,45 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
               La red líder multimarca de comercialización de automotores 0 KM y usados certificados en Argentina. Calidad, garantía y financiación en un solo lugar.
             </p>
 
-            {/* Redes sociales especificadas en prompt: Instagram, Facebook, YouTube, WhatsApp */}
-            <div className="flex items-center gap-3">
+            {/* Redes sociales: TikTok e Instagram (@totocampiok) y WhatsApp */}
+            <div className="flex flex-wrap items-center gap-2.5">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/totocampiok"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram de CAR ONE"
-                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors"
+                aria-label="Instagram @totocampiok"
+                title="Instagram @totocampiok"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#E4E0D8] border border-[#686868]/40 text-xs font-semibold transition-colors"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4 text-[#E4E0D8]" />
+                <span>Instagram</span>
               </a>
 
               <a
-                href="https://facebook.com"
+                href="https://www.tiktok.com/@totocampiok"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook de CAR ONE"
-                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors"
+                aria-label="TikTok @totocampiok"
+                title="TikTok @totocampiok"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#E4E0D8] border border-[#686868]/40 text-xs font-semibold transition-colors"
               >
-                <Facebook className="w-4 h-4" />
-              </a>
-
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube de CAR ONE"
-                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors"
-              >
-                <Youtube className="w-4 h-4" />
+                <Video className="w-4 h-4 text-[#E4E0D8]" />
+                <span>TikTok</span>
               </a>
 
               <button
                 onClick={onOpenWhatsApp}
-                aria-label="WhatsApp de CAR ONE"
-                className="w-10 h-10 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#A6A39E] hover:text-[#E4E0D8] border border-[#686868]/40 flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="WhatsApp +54 911 5592-2000"
+                title="WhatsApp Oficial"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#303030] hover:bg-[#686868]/40 text-[#E4E0D8] border border-[#686868]/40 text-xs font-semibold transition-colors cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 text-[#E4E0D8]" />
+                <span>WhatsApp</span>
               </button>
             </div>
+            <p className="text-xs text-[#A6A39E] mt-3">
+              Redes oficiales: <strong className="text-[#E4E0D8]">@totocampiok</strong>
+            </p>
           </div>
 
           {/* Column 2: Navegación Principal (Comprar, Vender, 0 KM, Usados) */}
@@ -163,13 +162,17 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
             <ul className="space-y-3 text-xs text-[#A6A39E]">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#E4E0D8] shrink-0 mt-0.5" />
-                <span className="text-[#E4E0D8]/80">Av. Principal 1234, Buenos Aires</span>
+                <span className="text-[#E4E0D8]/80">Avenida Vergara 2865, Hurlingham</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#E4E0D8] shrink-0" />
-                <a href="tel:+541112345678" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
-                  +54 11 1234-5678
+                <a href="tel:+5491155922000" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
+                  +54 911 5592-2000
                 </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <Clock className="w-4 h-4 text-[#E4E0D8] shrink-0 mt-0.5" />
+                <span className="text-[#E4E0D8]/80">Lun a Vie: 9:00 a 18:00 hs<br />Sáb: 9:00 a 14:00 hs</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#E4E0D8] shrink-0" />

@@ -13,9 +13,9 @@ export const FloatingWhatsApp = ({ onClick }: FloatingWhatsAppProps) => {
       onClick();
     } else {
       const message = encodeURIComponent(
-        '¡Hola CAR ONE! Me gustaría recibir asesoramiento sobre compra, venta o financiación de vehículos.'
+        '¡Hola! Me gustaría recibir asesoramiento sobre compra, venta o financiación de vehículos.'
       );
-      window.open(`https://wa.me/5491112345678?text=${message}`, '_blank');
+      window.open(`https://wa.me/5491155922000?text=${message}`, '_blank');
     }
   };
 

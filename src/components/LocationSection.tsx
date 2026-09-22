@@ -54,7 +54,7 @@ export const LocationSection = () => {
                 Información de contacto
               </h3>
 
-              {/* Dirección exacta según prompt: Av. Principal 1234, Buenos Aires, Argentina */}
+              {/* Dirección: Avenida Vergara 2865, Hurlingham */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5" />
@@ -64,36 +64,36 @@ export const LocationSection = () => {
                     Dirección
                   </span>
                   <p className="text-base font-bold text-[#E4E0D8] mt-0.5">
-                    Av. Principal 1234, Buenos Aires, Argentina
+                    Avenida Vergara 2865, Hurlingham
                   </p>
                   <p className="text-xs text-[#A6A39E] mt-0.5">
-                    Complejo comercial automotor CAR ONE - Estacionamiento exclusivo para clientes.
+                    Showroom oficial - Estacionamiento exclusivo para clientes.
                   </p>
                 </div>
               </div>
 
-              {/* Teléfono exacto según prompt: +54 11 1234-5678 */}
+              {/* Teléfono y WhatsApp: +54 911 5592-2000 */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
-                    Teléfono comercial
+                    Teléfono &amp; WhatsApp
                   </span>
                   <a
-                    href="tel:+541112345678"
+                    href="tel:+5491155922000"
                     className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 block"
                   >
-                    +54 11 1234-5678
+                    +54 911 5592-2000
                   </a>
                   <p className="text-xs text-[#A6A39E] mt-0.5">
-                    Líneas rotativas y conmutador central
+                    Atención directa y asesoramiento personalizado
                   </p>
                 </div>
               </div>
 
-              {/* Email exacto según prompt: contacto@carone.com.ar */}
+              {/* Email */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
@@ -114,7 +114,7 @@ export const LocationSection = () => {
                 </div>
               </div>
 
-              {/* Horarios */}
+              {/* Horarios: Lunes a viernes 9:00 am a 18:00 pm y sabado de 9:00 am a 14:00 pm */}
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
                   <Clock className="w-5 h-5" />
@@ -124,10 +124,10 @@ export const LocationSection = () => {
                     Horarios de atención
                   </span>
                   <p className="text-sm font-semibold text-[#E4E0D8]/90 mt-0.5">
-                    Lunes a Viernes: 09:00 a 19:00 hs
+                    Lunes a Viernes: 09:00 a 18:00 hs
                   </p>
                   <p className="text-sm font-semibold text-[#E4E0D8]/90">
-                    Sábados: 09:00 a 17:00 hs
+                    Sábados: 09:00 a 14:00 hs
                   </p>
                 </div>
               </div>
@@ -211,10 +211,10 @@ export const LocationSection = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-[#E4E0D8]"></div>
                   <div>
                     <span className="text-xs font-extrabold tracking-tight block">
-                      CAR ONE • Central
+                      Showroom Central
                     </span>
                     <span className="text-[10px] text-[#A6A39E]">
-                      Av. Principal 1234, Buenos Aires
+                      Avenida Vergara 2865, Hurlingham
                     </span>
                   </div>
                 </div>
@@ -232,10 +232,10 @@ export const LocationSection = () => {
               <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#303030]/95 backdrop-blur-md p-4 rounded-2xl border border-[#686868]/40 text-[#E4E0D8]">
                 <div className="flex items-center gap-3 text-xs text-[#A6A39E]">
                   <Navigation className="w-4 h-4 text-[#E4E0D8] shrink-0" />
-                  <span className="text-[#E4E0D8]/90">A sólo 15 minutos del centro. Fácil acceso por autopista.</span>
+                  <span className="text-[#E4E0D8]/90">Avenida Vergara 2865, Hurlingham. Fácil acceso.</span>
                 </div>
                 <a
-                  href="https://maps.google.com"
+                  href="https://www.google.com/maps/search/?api=1&query=Avenida+Vergara+2865,+Hurlingham"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 rounded-xl bg-[#E4E0D8] text-[#161616] hover:bg-white text-xs font-bold tracking-wide transition-colors shrink-0 flex items-center gap-1.5 shadow"
