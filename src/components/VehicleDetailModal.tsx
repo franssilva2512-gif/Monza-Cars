@@ -52,7 +52,10 @@ export const VehicleDetailModal = ({
     };
   }, [vehicle]);
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number, currency?: 'ARS' | 'USD') => {
+    if (currency === 'USD') {
+      return `USD ${new Intl.NumberFormat('es-AR').format(price)}`;
+    }
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency: 'ARS',
@@ -67,7 +70,7 @@ export const VehicleDetailModal = ({
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `¡Hola! Estoy interesado en el vehículo: ${vehicle.brand} ${vehicle.model} ${vehicle.version} (${vehicle.year}) con precio ${formatPrice(vehicle.price)}. ¿Podrían brindarme más información y disponibilidad para coordinar una visita? Muchas gracias.`
+      `¡Hola! Estoy interesado en el vehículo: ${vehicle.brand} ${vehicle.model} ${vehicle.version} (${vehicle.year}) con precio ${formatPrice(vehicle.price, vehicle.currency)}. ¿Podrían brindarme más información y disponibilidad para coordinar una visita? Muchas gracias.`
     );
     window.open(`https://wa.me/5491155922000?text=${message}`, '_blank');
   };
@@ -202,7 +205,7 @@ export const VehicleDetailModal = ({
                   Precio de contado
                 </span>
                 <div className="text-3xl font-black text-[#E4E0D8] font-display mt-0.5">
-                  {formatPrice(vehicle.price)}
+                  {formatPrice(vehicle.price, vehicle.currency)}
                 </div>
                 <div className="mt-2 pt-2 border-t border-[#686868]/30 flex items-center justify-between text-xs text-[#A6A39E]">
                   <span>Financiación:</span>

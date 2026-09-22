@@ -60,13 +60,16 @@ export default function App() {
         return false;
       }
 
+      // Normalize price for comparison if in USD
+      const itemPriceInARS = item.currency === 'USD' ? item.price * 1250 : item.price;
+
       // Filter by Min Price
-      if (filters.minPrice && item.price < parseInt(filters.minPrice, 10)) {
+      if (filters.minPrice && itemPriceInARS < parseInt(filters.minPrice, 10)) {
         return false;
       }
 
       // Filter by Max Price
-      if (filters.maxPrice && item.price > parseInt(filters.maxPrice, 10)) {
+      if (filters.maxPrice && itemPriceInARS > parseInt(filters.maxPrice, 10)) {
         return false;
       }
 

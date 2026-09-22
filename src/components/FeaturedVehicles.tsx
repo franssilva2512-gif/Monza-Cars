@@ -28,8 +28,11 @@ export const FeaturedVehicles = ({
     );
   };
 
-  // Format currency in Argentine Pesos: $35.000.000
-  const formatPrice = (price: number) => {
+  // Format currency: ARS ($ 35.000.000) or USD ($ 13.000 USD / USD 13.000)
+  const formatPrice = (price: number, currency?: 'ARS' | 'USD') => {
+    if (currency === 'USD') {
+      return `USD ${new Intl.NumberFormat('es-AR').format(price)}`;
+    }
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency: 'ARS',
@@ -43,10 +46,13 @@ export const FeaturedVehicles = ({
     return `${new Intl.NumberFormat('es-AR').format(km)} km`;
   };
 
+  // Helper to normalize price for sorting
+  const getComparablePrice = (v: Vehicle) => (v.currency === 'USD' ? v.price * 1250 : v.price);
+
   // Sort vehicles
   const sortedVehicles = [...vehicles].sort((a, b) => {
-    if (sortBy === 'price-asc') return a.price - b.price;
-    if (sortBy === 'price-desc') return b.price - a.price;
+    if (sortBy === 'price-asc') return getComparablePrice(a) - getComparablePrice(b);
+    if (sortBy === 'price-desc') return getComparablePrice(b) - getComparablePrice(a);
     if (sortBy === 'year-desc') return b.year - a.year;
     if (sortBy === 'km-asc') return a.mileage - b.mileage;
     return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
@@ -228,7 +234,7 @@ export const FeaturedVehicles = ({
                           Precio al contado
                         </span>
                         <span className="text-2xl font-black text-[#E4E0D8] tracking-tight font-display">
-                          {formatPrice(vehicle.price)}
+                          {formatPrice(vehicle.price, vehicle.currency)}
                         </span>
                       </div>
 

@@ -8,7 +8,8 @@ export interface Vehicle {
   version: string;
   year: number;
   mileage: number; // in km, 0 for 0 KM
-  price: number; // in ARS
+  price: number;
+  currency?: 'ARS' | 'USD';
   condition: VehicleCondition;
   bodyType: BodyType;
   financingType: string;

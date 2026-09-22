@@ -103,10 +103,10 @@ export const LocationSection = () => {
                     Correo electrónico
                   </span>
                   <a
-                    href="mailto:contacto@carone.com.ar"
+                    href="mailto:tomascampi06@gmail.com"
                     className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 block"
                   >
-                    contacto@carone.com.ar
+                    tomascampi06@gmail.com
                   </a>
                   <p className="text-xs text-[#A6A39E] mt-0.5">
                     Respondemos todas las consultas en el día

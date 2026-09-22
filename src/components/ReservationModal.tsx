@@ -15,7 +15,10 @@ export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) =>
   const [paymentOption, setPaymentOption] = useState('efectivo');
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number, currency?: 'ARS' | 'USD') => {
+    if (currency === 'USD') {
+      return `USD ${new Intl.NumberFormat('es-AR').format(price)}`;
+    }
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency: 'ARS',
@@ -91,7 +94,7 @@ export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) =>
                   {vehicle.model} {vehicle.version}
                 </h4>
                 <p className="text-xs font-black text-[#E4E0D8]">
-                  {formatPrice(vehicle.price)}
+                  {formatPrice(vehicle.price, vehicle.currency)}
                 </p>
               </div>
             </div>

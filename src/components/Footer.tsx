@@ -176,8 +176,8 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#E4E0D8] shrink-0" />
-                <a href="mailto:contacto@carone.com.ar" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
-                  contacto@carone.com.ar
+                <a href="mailto:tomascampi06@gmail.com" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
+                  tomascampi06@gmail.com
                 </a>
               </li>
             </ul>
