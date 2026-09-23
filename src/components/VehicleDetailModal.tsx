@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   X,
   MessageCircle,
-  Calculator,
   Check,
   Shield,
   Gauge,
@@ -21,14 +20,13 @@ import { BrandLogo } from './BrandLogo';
 interface VehicleDetailModalProps {
   vehicle: Vehicle;
   onClose: () => void;
-  onRequestFinancing: (vehicle: Vehicle) => void;
+  onRequestFinancing?: (vehicle: Vehicle) => void;
   onReserveVehicle: (vehicle: Vehicle) => void;
 }
 
 export const VehicleDetailModal = ({
   vehicle,
   onClose,
-  onRequestFinancing,
   onReserveVehicle,
 }: VehicleDetailModalProps) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -207,12 +205,6 @@ export const VehicleDetailModal = ({
                 <div className="text-3xl font-black text-[#E4E0D8] font-display mt-0.5">
                   {formatPrice(vehicle.price, vehicle.currency)}
                 </div>
-                <div className="mt-2 pt-2 border-t border-[#686868]/30 flex items-center justify-between text-xs text-[#A6A39E]">
-                  <span>{vehicle.allowsFinancing === false ? 'Condición de pago:' : 'Financiación:'}</span>
-                  <span className={`font-semibold ${vehicle.allowsFinancing === false ? 'text-[#E4E0D8]' : 'text-[#E4E0D8]'}`}>
-                    {vehicle.financingType}
-                  </span>
-                </div>
               </div>
 
               {/* Quick Specs Grid */}
@@ -318,38 +310,14 @@ export const VehicleDetailModal = ({
                 <span>Quiero este vehículo</span>
               </button>
 
-              {vehicle.allowsFinancing === false ? (
-                <button
-                  id="btn-whatsapp-detail"
-                  onClick={handleWhatsAppClick}
-                  className="w-full py-3.5 px-4 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] border border-[#686868]/40 font-semibold text-sm tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-                >
-                  <MessageCircle className="w-4 h-4 shrink-0 text-[#E4E0D8]" />
-                  <span>Consultar compra por WhatsApp</span>
-                </button>
-              ) : (
-                <div className="grid grid-cols-2 gap-2.5">
-                  {/* Button 1: "Consultar por WhatsApp" */}
-                  <button
-                    id="btn-whatsapp-detail"
-                    onClick={handleWhatsAppClick}
-                    className="py-3 px-3 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] border border-[#686868]/40 font-semibold text-xs sm:text-sm tracking-wide transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
-                  >
-                    <MessageCircle className="w-4 h-4 shrink-0 text-[#E4E0D8]" />
-                    <span className="truncate">WhatsApp</span>
-                  </button>
-
-                  {/* Button 2: "Solicitar financiación" */}
-                  <button
-                    id="btn-financing-detail"
-                    onClick={() => onRequestFinancing(vehicle)}
-                    className="py-3 px-3 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] font-semibold text-xs sm:text-sm tracking-wide transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm border border-[#686868]/40"
-                  >
-                    <Calculator className="w-4 h-4 shrink-0 text-[#E4E0D8]" />
-                    <span className="truncate">Financiación</span>
-                  </button>
-                </div>
-              )}
+              <button
+                id="btn-whatsapp-detail"
+                onClick={handleWhatsAppClick}
+                className="w-full py-3.5 px-4 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] border border-[#686868]/40 font-semibold text-sm tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              >
+                <MessageCircle className="w-4 h-4 shrink-0 text-[#E4E0D8]" />
+                <span>Consultar compra por WhatsApp</span>
+              </button>
             </div>
           </div>
         </div>

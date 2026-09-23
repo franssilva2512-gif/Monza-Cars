@@ -159,24 +159,12 @@ export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) =>
 
               <div>
                 <label className="block text-xs font-semibold text-[#E4E0D8] mb-1">
-                  Modalidad de compra prevista:
+                  Modalidad de pago:
                 </label>
-                {vehicle.allowsFinancing === false ? (
-                  <div className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8]">
-                    Contado / Transferencia bancaria (Unidad exclusiva de contado)
-                  </div>
-                ) : (
-                  <select
-                    value={paymentOption}
-                    onChange={(e) => setPaymentOption(e.target.value)}
-                    className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] cursor-pointer"
-                  >
-                    <option value="efectivo" className="bg-[#161616] text-[#E4E0D8]">Contado / Transferencia bancaria</option>
-                    <option value="financiado" className="bg-[#161616] text-[#E4E0D8]">Financiación bancaria en cuotas fijas</option>
-                    <option value="permuta" className="bg-[#161616] text-[#E4E0D8]">Entrega de usado como parte de pago (Permuta)</option>
-                    <option value="plan" className="bg-[#161616] text-[#E4E0D8]">Plan de ahorro o adjudicación</option>
-                  </select>
-                )}
+                <div className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] font-medium flex items-center justify-between">
+                  <span>Precio de contado / Transferencia bancaria</span>
+                  <span className="text-[10px] text-[#A6A39E] uppercase font-bold tracking-wider">Pago único</span>
+                </div>
               </div>
             </div>
 

@@ -1,5 +1,5 @@
 import { useState, type MouseEvent } from 'react';
-import { Heart, Gauge, Calendar, Zap, ArrowRight, Sparkles } from 'lucide-react';
+import { Heart, Gauge, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 import { Vehicle } from '../types/vehicle';
 import { BrandLogo } from './BrandLogo';
 
@@ -72,7 +72,7 @@ export const FeaturedVehicles = ({
               Vehículos Destacados
             </h2>
             <p className="text-[#A6A39E] text-base sm:text-lg mt-2 max-w-xl">
-              Descubrí nuestras unidades 0 KM y usados seleccionados con garantía certificada y financiación personalizada.
+              Descubrí nuestras unidades seleccionadas con precio de contado transparente y garantía certificada.
             </p>
           </div>
 
@@ -230,20 +230,14 @@ export const FeaturedVehicles = ({
                         <span className="truncate">{vehicle.fuel}</span>
                       </div>
 
-                      {/* Price (Formatted as requested: e.g. $35.000.000) */}
-                      <div className="mb-3">
+                      {/* Price (Precio de contado) */}
+                      <div className="pt-2 border-t border-[#686868]/30">
                         <span className="text-[11px] uppercase tracking-wider font-bold text-[#A6A39E] block">
-                          Precio al contado
+                          Precio de contado
                         </span>
                         <span className="text-2xl font-black text-[#E4E0D8] tracking-tight font-display">
                           {formatPrice(vehicle.price, vehicle.currency)}
                         </span>
-                      </div>
-
-                      {/* Financing tag */}
-                      <div className="flex items-center gap-1.5 bg-[#161616] p-2 rounded-lg border border-[#686868]/30 text-[11px] text-[#E4E0D8]/90 font-semibold">
-                        <Zap className="w-3.5 h-3.5 text-[#E4E0D8] shrink-0" />
-                        <span className="truncate">{vehicle.financingType}</span>
                       </div>
                     </div>
                   </div>
