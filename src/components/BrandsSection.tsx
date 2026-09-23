@@ -94,18 +94,18 @@ export const BrandsSection = ({
 
                 {/* Brand Logo representation */}
                 <div
-                  className={`w-14 h-14 rounded-2xl border flex items-center justify-center p-2.5 transition-all duration-300 mb-2 shadow-xs ${
+                  className={`w-16 h-16 rounded-2xl border flex items-center justify-center p-2.5 transition-all duration-300 mb-2 shadow-sm ${
                     hasUnits
-                      ? 'bg-[#161616] group-hover:bg-[#303030] border-[#686868]/40 group-hover:scale-105'
+                      ? 'bg-[#161616] group-hover:bg-[#202020] border-[#686868]/40 group-hover:border-[#E4E0D8]/60 group-hover:scale-105'
                       : 'bg-[#161616]/70 border-[#686868]/20'
                   }`}
                 >
                   <BrandLogo
                     brandId={brand.id}
-                    className={`w-full h-full object-contain transition-colors ${
+                    className={`w-full h-full object-contain ${
                       hasUnits
-                        ? 'text-[#E4E0D8] group-hover:text-white'
-                        : 'text-[#686868]'
+                        ? 'opacity-90 group-hover:opacity-100 filter group-hover:brightness-110'
+                        : 'opacity-35 grayscale'
                     }`}
                   />
                 </div>

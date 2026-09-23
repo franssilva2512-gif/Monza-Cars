@@ -1,5 +1,5 @@
 export type VehicleCondition = '0 KM' | 'Usado';
-export type BodyType = 'Sedán' | 'SUV' | 'Pick-up' | 'Hatchback' | 'Utilitario';
+export type BodyType = 'Sedán' | 'SUV' | 'Pick-up' | 'Hatchback' | 'Utilitario' | 'Clásico';
 
 export interface Vehicle {
   id: string;
