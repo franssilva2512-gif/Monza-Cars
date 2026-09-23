@@ -10,6 +10,23 @@ export const BrandLogo = ({ brandId, className = 'w-10 h-10' }: BrandLogoProps) 
     : '';
 
   switch (id) {
+    case 'audi':
+      return (
+        <svg
+          viewBox="0 0 100 100"
+          className={className}
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Logo Audi"
+        >
+          {/* Four overlapping rings */}
+          <circle cx="23" cy="50" r="14.5" stroke="currentColor" strokeWidth="3" />
+          <circle cx="41" cy="50" r="14.5" stroke="currentColor" strokeWidth="3" />
+          <circle cx="59" cy="50" r="14.5" stroke="currentColor" strokeWidth="3" />
+          <circle cx="77" cy="50" r="14.5" stroke="currentColor" strokeWidth="3" />
+        </svg>
+      );
+
     case 'bmw':
       return (
         <svg

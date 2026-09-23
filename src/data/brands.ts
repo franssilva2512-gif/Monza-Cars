@@ -11,6 +11,7 @@ export const BRANDS_DATA: BrandInfo[] = [
   { id: 'chevrolet', name: 'Chevrolet', country: 'EE.UU.', availableCount: 10, popularModel: 'Cruze LTZ / Tracker', accentColor: '#CD9834' },
   { id: 'bmw', name: 'BMW', country: 'Alemania', availableCount: 5, popularModel: '325i Navi / Serie 3', accentColor: '#0066B1' },
   { id: 'mercedes-benz', name: 'Mercedes-Benz', country: 'Alemania', availableCount: 6, popularModel: 'Vito / Sprinter', accentColor: '#E4E0D8' },
+  { id: 'audi', name: 'Audi', country: 'Alemania', availableCount: 4, popularModel: 'A3 / A4', accentColor: '#BB0A30' },
   { id: 'toyota', name: 'Toyota', country: 'Japón', availableCount: 14, popularModel: 'Corolla / Hilux', accentColor: '#EB0A1E' },
   { id: 'volkswagen', name: 'Volkswagen', country: 'Alemania', availableCount: 18, popularModel: 'Taos / Amarok', accentColor: '#001E50' },
   { id: 'ford', name: 'Ford', country: 'EE.UU.', availableCount: 11, popularModel: 'Ranger / Territory', accentColor: '#102B4E' },
