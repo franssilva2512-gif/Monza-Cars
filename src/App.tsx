@@ -202,10 +202,11 @@ export default function App() {
           resultsCount={filteredVehicles.length}
         />
 
-        {/* 4. Marcas (All 12 requested brands with smooth hover animation) */}
+        {/* 4. Marcas (All brands with real unit counts and disabled state) */}
         <BrandsSection
           onSelectBrand={handleSelectBrand}
           selectedBrand={filters.brand}
+          vehicles={MOCK_VEHICLES}
         />
 
         {/* 5. Vehículos Destacados (Grid of rich vehicle cards, formatted prices in ARS, financing badges) */}

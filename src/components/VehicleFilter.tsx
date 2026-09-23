@@ -122,11 +122,23 @@ export const VehicleFilter = ({
                 className="w-full bg-[#161616] border border-[#686868]/40 hover:border-[#A6A39E]/50 rounded-xl px-3 py-2.5 text-sm text-[#E4E0D8] focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all cursor-pointer"
               >
                 <option value="" className="bg-[#161616] text-[#E4E0D8]">Todas las marcas</option>
-                {BRANDS_DATA.map((b) => (
-                  <option key={b.id} value={b.name} className="bg-[#161616] text-[#E4E0D8]">
-                    {b.name}
-                  </option>
-                ))}
+                {BRANDS_DATA.map((b) => {
+                  const unitCount = MOCK_VEHICLES.filter(
+                    (v) =>
+                      v.brand.toLowerCase() === b.name.toLowerCase() ||
+                      (b.id === 'mercedes-benz' && v.brand.toLowerCase().includes('mercedes'))
+                  ).length;
+                  return (
+                    <option
+                      key={b.id}
+                      value={b.name}
+                      disabled={unitCount === 0}
+                      className={unitCount === 0 ? "bg-[#161616] text-[#686868]" : "bg-[#161616] text-[#E4E0D8]"}
+                    >
+                      {b.name} ({unitCount === 1 ? '1 unidad' : `${unitCount} unidades`})
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
