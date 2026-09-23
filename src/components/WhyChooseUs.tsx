@@ -36,10 +36,10 @@ export const WhyChooseUs = () => {
             Trayectoria y Confianza
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight font-display mb-4 text-[#E4E0D8]">
-            ¿Por qué elegir CAR ONE?
+            ¿Por qué elegir Campi Motors?
           </h2>
           <p className="text-[#A6A39E] text-base sm:text-lg">
-            Somos la red de concesionarios más elegida por su transparencia en las operaciones, solidez financiera y atención posventa certificada.
+            Somos la concesionaria de confianza elegida por nuestra transparencia en las operaciones, seriedad y atención personalizada.
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export const WhyChooseUs = () => {
             <div>
               <h3 className="text-lg font-bold text-[#E4E0D8] mb-1">Garantía escrita transferible</h3>
               <p className="text-sm text-[#A6A39E]">
-                Cobertura oficial en 0 KM y 12 meses de garantía mecánica CAR ONE Certified para tu total tranquilidad.
+                Cobertura oficial y garantía mecánica Campi Motors Certified para tu total tranquilidad.
               </p>
             </div>
           </div>

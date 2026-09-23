@@ -13,6 +13,8 @@ export interface Vehicle {
   condition: VehicleCondition;
   bodyType: BodyType;
   financingType: string;
+  allowsFinancing?: boolean;
+  allowsTradeIn?: boolean;
   fuel: 'Nafta' | 'Diésel' | 'Híbrido' | 'Eléctrico';
   transmission: 'Manual' | 'Automática';
   engine: string;

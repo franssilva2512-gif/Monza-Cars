@@ -85,7 +85,7 @@ export const FinancingSimulatorModal = ({
               ¡Pre-calificación enviada con éxito!
             </h4>
             <p className="text-[#A6A39E] text-sm max-w-sm mx-auto">
-              Un asesor de créditos de <strong className="text-[#E4E0D8]">CAR ONE</strong> revisará tu propuesta y te enviará las tasas personalizadas vía WhatsApp.
+              Un asesor de créditos de <strong className="text-[#E4E0D8]">Campi Motors</strong> revisará tu propuesta y te enviará las tasas personalizadas vía WhatsApp.
             </p>
           </div>
         ) : (

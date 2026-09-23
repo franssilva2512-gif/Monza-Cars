@@ -170,8 +170,9 @@ export default function App() {
       handleSelectConditionFilter('Usado');
       handleNavClick('vehiculos');
     } else if (serviceTitle.includes('Financiación')) {
-      // Open financing simulator with first available vehicle as baseline
-      setVehicleForFinancing(MOCK_VEHICLES[0]);
+      // Open financing simulator with first eligible vehicle as baseline
+      const eligibleVehicle = MOCK_VEHICLES.find((v) => v.allowsFinancing !== false) || MOCK_VEHICLES[0];
+      setVehicleForFinancing(eligibleVehicle);
     } else {
       // Direct to contact with pre-filled subject
       handleNavClick('contacto');
@@ -231,7 +232,7 @@ export default function App() {
         <LocationSection />
       </main>
 
-      {/* 11. Footer (Dark, CAR ONE, Links, Socials, Copyright 2026) */}
+      {/* 11. Footer (Dark, Campi Motors, Links, Socials, Copyright 2026) */}
       <Footer
         onNavClick={handleNavClick}
         onFilterClick={handleSelectConditionFilter}

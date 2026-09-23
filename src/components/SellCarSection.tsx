@@ -176,7 +176,7 @@ export const SellCarSection = () => {
                     ¡Solicitud recibida con éxito!
                   </h3>
                   <p className="text-[#A6A39E] max-w-md mx-auto text-sm mb-6 leading-relaxed">
-                    Un asesor especializado de <strong className="text-[#E4E0D8]">CAR ONE</strong> se comunicará con vos en las próximas horas para coordinar la inspección y cotización definitiva.
+                    Un asesor especializado de <strong className="text-[#E4E0D8]">Campi Motors</strong> se comunicará con vos en las próximas horas para coordinar la inspección y cotización definitiva.
                   </p>
                   <button
                     onClick={() => setIsSuccess(false)}

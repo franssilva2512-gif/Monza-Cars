@@ -1,6 +1,6 @@
 {
-  "name": "CAR ONE - Concesionaria Oficial",
-  "description": "Sitio web moderno de CAR ONE para compra y venta de autos 0KM y usados seleccionados, financiación y servicios oficiales.",
+  "name": "Campi Motors - Concesionaria Oficial",
+  "description": "Sitio web de Campi Motors para compra y venta de autos usados seleccionados, clásicos exclusivos y asesoramiento personalizado.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -81,7 +81,7 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo CAR ONE */}
+          {/* Logo Campi Motors */}
           <a
             href="#inicio"
             onClick={(e) => {
@@ -95,8 +95,8 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
               <Car className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8] leading-none flex items-center gap-1">
-                CAR <span className="text-[#E4E0D8] font-black">ONE</span>
+              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8] leading-none flex items-center gap-1.5">
+                CAMPI <span className="text-[#E4E0D8] font-black">MOTORS</span>
               </span>
               <span className="text-[10px] tracking-widest text-[#A6A39E] font-bold uppercase">
                 Concesionaria Oficial

@@ -104,7 +104,7 @@ export const LocationSection = () => {
                     Correo electrónico
                   </span>
                   <a
-                    href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Monza%20Cars"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Campi%20Motors"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 inline-flex items-center gap-1.5 group"
@@ -202,7 +202,7 @@ export const LocationSection = () => {
               {/* Stylized realistic map background image */}
               <img
                 src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1400&q=80"
-                alt="Mapa satelital de ubicación de CAR ONE"
+                alt="Mapa satelital de ubicación de Campi Motors"
                 className="w-full h-full object-cover opacity-50 filter grayscale contrast-125"
               />
 

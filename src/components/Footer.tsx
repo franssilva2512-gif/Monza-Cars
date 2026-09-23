@@ -23,12 +23,12 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
                 <Car className="w-5 h-5" />
               </div>
               <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8]">
-                CAR <span className="text-[#E4E0D8]">ONE</span>
+                CAMPI <span className="text-[#E4E0D8]">MOTORS</span>
               </span>
             </div>
 
             <p className="text-[#A6A39E] text-sm max-w-sm mb-6 leading-relaxed">
-              La red líder multimarca de comercialización de automotores 0 KM y usados certificados en Argentina. Calidad, garantía y financiación en un solo lugar.
+              Concesionaria boutique especializada en compra y venta de autos usados seleccionados, clásicos restaurados y atención personalizada en Argentina.
             </p>
 
             {/* Redes sociales: TikTok e Instagram (@totocampiok) y WhatsApp */}
@@ -177,7 +177,7 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#E4E0D8] shrink-0" />
                 <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Monza%20Cars"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Campi%20Motors"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#E4E0D8]/80 hover:text-white transition-colors"
@@ -192,8 +192,8 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
 
         {/* Bottom Bar with exact specified copyright text */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A6A39E]">
-          {/* Exact specification: "© 2026 CAR ONE. Todos los derechos reservados." */}
-          <p>© 2026 CAR ONE. Todos los derechos reservados.</p>
+          {/* Exact specification: "© 2026 CAMPI MOTORS. Todos los derechos reservados." */}
+          <p>© 2026 CAMPI MOTORS. Todos los derechos reservados.</p>
 
           <div className="flex items-center gap-6">
             <a href="#contacto" className="hover:text-[#E4E0D8] transition-colors">
