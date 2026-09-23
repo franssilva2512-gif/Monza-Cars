@@ -40,9 +40,8 @@ export const FeaturedVehicles = ({
     }).format(price);
   };
 
-  // Format mileage: 15.000 km or 0 km
+  // Format mileage: 15.000 km
   const formatMileage = (km: number) => {
-    if (km === 0) return '0 km (Nuevo)';
     return `${new Intl.NumberFormat('es-AR').format(km)} km`;
   };
 
@@ -76,29 +75,8 @@ export const FeaturedVehicles = ({
             </p>
           </div>
 
-          {/* Controls: Segment filter tabs & Sort dropdown */}
+          {/* Controls: Sort dropdown */}
           <div className="flex flex-wrap items-center gap-3">
-            {/* Condition pills */}
-            <div className="bg-[#303030] border border-[#686868]/40 p-1 rounded-xl flex items-center gap-1">
-              {[
-                { label: 'Todos', value: '' },
-                { label: '0 KM', value: '0 KM' },
-                { label: 'Usados', value: 'Usado' },
-              ].map((tab) => (
-                <button
-                  key={tab.label}
-                  onClick={() => onSelectCondition(tab.value)}
-                  className={`px-3.5 py-1.5 text-xs sm:text-sm font-bold rounded-lg transition-colors cursor-pointer ${
-                    selectedCondition === tab.value
-                      ? 'bg-[#E4E0D8] text-[#161616] shadow-sm'
-                      : 'text-[#A6A39E] hover:text-[#E4E0D8]'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
             {/* Sort Dropdown */}
             <div className="relative">
               <select
@@ -157,13 +135,7 @@ export const FeaturedVehicles = ({
 
                       {/* Condition badge */}
                       <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-                        <span
-                          className={`text-[11px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-md shadow-sm ${
-                            vehicle.condition === '0 KM'
-                              ? 'bg-[#E4E0D8] text-[#161616]'
-                              : 'bg-[#161616] text-[#E4E0D8] border border-[#686868]/40'
-                          }`}
-                        >
+                        <span className="text-[11px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-md shadow-sm bg-[#161616] text-[#E4E0D8] border border-[#686868]/40">
                           {vehicle.condition}
                         </span>
                         {vehicle.featured && (

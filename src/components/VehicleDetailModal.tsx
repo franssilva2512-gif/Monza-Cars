@@ -62,7 +62,6 @@ export const VehicleDetailModal = ({
   };
 
   const formatMileage = (km: number) => {
-    if (km === 0) return '0 km (Nuevo a estrenar)';
     return `${new Intl.NumberFormat('es-AR').format(km)} km`;
   };
 

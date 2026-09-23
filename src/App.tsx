@@ -73,12 +73,12 @@ export default function App() {
         return false;
       }
 
-      // Filter by Vehicle Type (Condition or BodyType)
+      // Filter by Vehicle Type (BodyType or Condition)
       if (filters.vehicleType) {
-        if (filters.vehicleType === '0 KM' || filters.vehicleType === 'Usado') {
+        if (filters.vehicleType === 'Usado') {
           if (item.condition !== filters.vehicleType) return false;
         } else {
-          // Check BodyType like SUV, Pick-up, Sedán, Hatchback, Utilitario
+          // Check BodyType like SUV, Pick-up, Sedán, Hatchback, Utilitario, Clásico
           if (item.bodyType.toLowerCase() !== filters.vehicleType.toLowerCase()) {
             return false;
           }
@@ -127,7 +127,7 @@ export default function App() {
     }
   };
 
-  const handleSelectConditionFilter = (condition: 'all' | '0 KM' | 'Usado') => {
+  const handleSelectConditionFilter = (condition: 'all' | 'Usado') => {
     setFilters((prev) => ({
       ...prev,
       vehicleType: condition === 'all' ? '' : condition,
@@ -163,10 +163,7 @@ export default function App() {
   };
 
   const handleServiceAction = (serviceTitle: string) => {
-    if (serviceTitle.includes('0 KM')) {
-      handleSelectConditionFilter('0 KM');
-      handleNavClick('vehiculos');
-    } else if (serviceTitle.includes('usados')) {
+    if (serviceTitle.includes('Usados') || serviceTitle.includes('usados') || serviceTitle.includes('catálogo')) {
       handleSelectConditionFilter('Usado');
       handleNavClick('vehiculos');
     } else if (serviceTitle.includes('Financiación')) {
@@ -222,7 +219,7 @@ export default function App() {
         {/* 7. Vender Mi Auto (Eye-catching section and JS validated appraisal form) */}
         <SellCarSection />
 
-        {/* 8. Servicios (Cards for 0KM, Usados, Financiación, Planes, Taller, Repuestos, Accesorios, Seguros) */}
+        {/* 8. Servicios (Cards for Usados Seleccionados, Peritaje, Financiación, Planes, Taller, Repuestos, Accesorios, Seguros) */}
         <ServicesSection onServiceAction={handleServiceAction} />
 
         {/* 9. Por qué elegirnos (Statistics: +10.000, +15, +20, +50) */}

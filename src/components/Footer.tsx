@@ -2,7 +2,7 @@ import { Car, Instagram, Video, MessageCircle, ArrowUp, Phone, Mail, MapPin, Clo
 
 interface FooterProps {
   onNavClick: (id: string) => void;
-  onFilterClick: (cond: '0 KM' | 'Usado') => void;
+  onFilterClick: (cond: 'Usado') => void;
   onOpenWhatsApp: () => void;
 }
 
@@ -72,7 +72,7 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
             </p>
           </div>
 
-          {/* Column 2: Navegación Principal (Comprar, Vender, 0 KM, Usados) */}
+          {/* Column 2: Navegación Principal (Comprar, Vender, Usados) */}
           <div>
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#E4E0D8] mb-4">
               Vehículos
@@ -96,18 +96,10 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
               </li>
               <li>
                 <button
-                  onClick={() => onFilterClick('0 KM')}
-                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
-                >
-                  0 KM
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onFilterClick('Usado')}
                   className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >
-                  Usados
+                  Usados Seleccionados
                 </button>
               </li>
             </ul>

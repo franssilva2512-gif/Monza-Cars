@@ -17,18 +17,18 @@ interface ServicesSectionProps {
 export const ServicesSection = ({ onServiceAction }: ServicesSectionProps) => {
   const services = [
     {
-      id: '0km',
+      id: 'usados-seleccionados',
       icon: Sparkles,
-      title: 'Autos 0 KM',
-      description: 'Concesionaria multimarca oficial. Asesoramiento personalizado, entrega inmediata y garantía de fábrica directa.',
-      buttonText: 'Ver catálogo 0 KM',
+      title: 'Usados Seleccionados',
+      description: 'Vehículos cuidadosamente inspeccionados, kilometraje garantizado, documentación al día y entrega inmediata.',
+      buttonText: 'Ver catálogo disponible',
     },
     {
       id: 'usados',
       icon: BadgeCheck,
-      title: 'Autos usados',
-      description: 'Unidades seleccionadas con peritaje en más de 150 puntos mecánicos, documentación al día y garantía de 12 meses.',
-      buttonText: 'Ver usados garantizados',
+      title: 'Peritaje y Certificación',
+      description: 'Unidades seleccionadas con peritaje integral en más de 150 puntos mecánicos, service al día y garantía de tranquilidad.',
+      buttonText: 'Conocer certificaciones',
     },
     {
       id: 'financiacion',
@@ -40,8 +40,8 @@ export const ServicesSection = ({ onServiceAction }: ServicesSectionProps) => {
     {
       id: 'planes',
       icon: PiggyBank,
-      title: 'Planes de ahorro',
-      description: 'Accedé a tu 0 KM en cuotas accesibles sin interés bancario directo de terminal con adjudicaciones aseguradas pactadas.',
+      title: 'Planes a Medida',
+      description: 'Accedé a tu próximo auto en cómodas modalidades de pago con asesoramiento directo y personalizado.',
       buttonText: 'Consultar planes',
     },
     {

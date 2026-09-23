@@ -83,10 +83,10 @@ export const VehicleFilter = ({
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             {[
               { label: 'Todos', value: '' },
-              { label: '0 KM', value: '0 KM' },
-              { label: 'Usados', value: 'Usado' },
-              { label: 'SUVs', value: 'SUV' },
-              { label: 'Pick-ups', value: 'Pick-up' },
+              { label: 'Sedán', value: 'Sedán' },
+              { label: 'Hatchback', value: 'Hatchback' },
+              { label: 'Utilitario', value: 'Utilitario' },
+              { label: 'Clásico', value: 'Clásico' },
             ].map((tab) => {
               const active = filters.vehicleType === tab.value;
               return (
@@ -234,13 +234,12 @@ export const VehicleFilter = ({
                 className="w-full bg-[#161616] border border-[#686868]/40 hover:border-[#A6A39E]/50 rounded-xl px-3 py-2.5 text-sm text-[#E4E0D8] focus:outline-none focus:ring-1 focus:ring-[#E4E0D8] transition-all cursor-pointer"
               >
                 <option value="" className="bg-[#161616] text-[#E4E0D8]">Todos los tipos</option>
-                <option value="0 KM" className="bg-[#161616] text-[#E4E0D8]">0 KM</option>
-                <option value="Usado" className="bg-[#161616] text-[#E4E0D8]">Usados</option>
-                <option value="SUV" className="bg-[#161616] text-[#E4E0D8]">SUV</option>
-                <option value="Pick-up" className="bg-[#161616] text-[#E4E0D8]">Pick-up</option>
                 <option value="Sedán" className="bg-[#161616] text-[#E4E0D8]">Sedán</option>
                 <option value="Hatchback" className="bg-[#161616] text-[#E4E0D8]">Hatchback</option>
                 <option value="Utilitario" className="bg-[#161616] text-[#E4E0D8]">Utilitario / Van</option>
+                <option value="Clásico" className="bg-[#161616] text-[#E4E0D8]">Clásico</option>
+                <option value="SUV" className="bg-[#161616] text-[#E4E0D8]">SUV</option>
+                <option value="Pick-up" className="bg-[#161616] text-[#E4E0D8]">Pick-up</option>
               </select>
             </div>
           </div>

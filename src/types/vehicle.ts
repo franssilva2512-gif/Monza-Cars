@@ -1,4 +1,4 @@
-export type VehicleCondition = '0 KM' | 'Usado';
+export type VehicleCondition = 'Usado';
 export type BodyType = 'Sedán' | 'SUV' | 'Pick-up' | 'Hatchback' | 'Utilitario' | 'Clásico';
 
 export interface Vehicle {
@@ -7,7 +7,7 @@ export interface Vehicle {
   model: string;
   version: string;
   year: number;
-  mileage: number; // in km, 0 for 0 KM
+  mileage: number; // in km
   price: number;
   currency?: 'ARS' | 'USD';
   condition: VehicleCondition;

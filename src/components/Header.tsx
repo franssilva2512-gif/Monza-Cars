@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Phone, MessageCircle, ChevronRight, Car, ShieldCheck } from 'lucide-react';
 
 interface HeaderProps {
-  onSelectConditionFilter: (condition: 'all' | '0 KM' | 'Usado') => void;
+  onSelectConditionFilter?: (condition: 'all' | 'Usado') => void;
   onOpenWhatsApp: () => void;
 }
 
@@ -30,9 +30,11 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
     }
   };
 
-  const handleConditionClick = (condition: '0 KM' | 'Usado') => {
+  const handleConditionClick = (condition: 'Usado') => {
     setMobileMenuOpen(false);
-    onSelectConditionFilter(condition);
+    if (onSelectConditionFilter) {
+      onSelectConditionFilter(condition);
+    }
     const element = document.getElementById('vehiculos');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -125,17 +127,10 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
               Vender
             </button>
             <button
-              onClick={() => handleConditionClick('0 KM')}
-              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer flex items-center gap-1.5"
-            >
-              0 KM
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E4E0D8] inline-block"></span>
-            </button>
-            <button
               onClick={() => handleConditionClick('Usado')}
               className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
             >
-              Usados
+              Usados Seleccionados
             </button>
             <button
               onClick={() => handleNavClick('servicios')}
@@ -204,13 +199,6 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
                 className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Vender
-              </button>
-              <button
-                onClick={() => handleConditionClick('0 KM')}
-                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030] flex items-center justify-between"
-              >
-                <span>0 KM</span>
-                <span className="text-xs bg-[#E4E0D8] text-[#161616] px-2 py-0.5 rounded font-bold">Nuevos</span>
               </button>
               <button
                 onClick={() => handleConditionClick('Usado')}
