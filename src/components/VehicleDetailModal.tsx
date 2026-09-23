@@ -182,11 +182,11 @@ export const VehicleDetailModal = ({
             <div>
               {/* Brand & Model Title */}
               <div className="mb-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-lg bg-[#161616] p-1 flex items-center justify-center border border-[#686868]/40">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <div className="w-7 h-7 rounded-lg bg-white p-1 flex items-center justify-center shadow-xs border border-white/80 shrink-0">
                     <BrandLogo
                       brandId={vehicle.brand}
-                      className="w-full h-full text-[#E4E0D8]"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <span className="text-xs font-extrabold uppercase tracking-widest text-[#A6A39E]">

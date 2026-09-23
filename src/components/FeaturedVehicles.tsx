@@ -196,11 +196,13 @@ export const FeaturedVehicles = ({
                     <div className="p-5">
                       {/* Brand & Model */}
                       <div className="mb-2">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <BrandLogo
-                            brandId={vehicle.brand}
-                            className="w-4 h-4 text-[#A6A39E] shrink-0"
-                          />
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <div className="w-5 h-5 rounded-md bg-white flex items-center justify-center p-0.5 shadow-xs border border-white/80 shrink-0">
+                            <BrandLogo
+                              brandId={vehicle.brand}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
                           <span className="text-xs font-extrabold uppercase tracking-wider text-[#A6A39E]">
                             {vehicle.brand}
                           </span>
