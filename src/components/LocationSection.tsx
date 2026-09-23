@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   CalendarCheck,
   Send,
+  ExternalLink,
 } from 'lucide-react';
 
 export const LocationSection = () => {
@@ -103,13 +104,17 @@ export const LocationSection = () => {
                     Correo electrónico
                   </span>
                   <a
-                    href="mailto:tomascampi06@gmail.com"
-                    className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 block"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Monza%20Cars"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 inline-flex items-center gap-1.5 group"
+                    title="Redactar correo en Google Mail (Gmail)"
                   >
-                    tomascampi06@gmail.com
+                    <span>tomascampi06@gmail.com</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#A6A39E] group-hover:text-white transition-colors" />
                   </a>
                   <p className="text-xs text-[#A6A39E] mt-0.5">
-                    Respondemos todas las consultas en el día
+                    Hacé clic para redactar directamente desde Google Mail
                   </p>
                 </div>
               </div>

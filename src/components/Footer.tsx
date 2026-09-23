@@ -176,7 +176,13 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#E4E0D8] shrink-0" />
-                <a href="mailto:tomascampi06@gmail.com" className="text-[#E4E0D8]/80 hover:text-white transition-colors">
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Monza%20Cars"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#E4E0D8]/80 hover:text-white transition-colors"
+                  title="Redactar correo en Google Mail (Gmail)"
+                >
                   tomascampi06@gmail.com
                 </a>
               </li>
