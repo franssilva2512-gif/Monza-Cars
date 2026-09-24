@@ -8,7 +8,7 @@ interface BrandLogoProps {
 
 const BRAND_IMAGE_MAP: Record<string, string> = {
   ford: '/assets/brands/ford.png',
-  dodge: '/assets/brands/dodge.svg',
+  dodge: '/assets/brands/dodge.png',
   chevrolet: '/assets/brands/chevrolet.png',
   bmw: '/assets/brands/bmw.png',
   'mercedes-benz': '/assets/brands/mercedes-benz.png',
@@ -27,6 +27,7 @@ const BRAND_IMAGE_MAP: Record<string, string> = {
 
 export const BrandLogo = ({ brandId, className = 'w-10 h-10' }: BrandLogoProps) => {
   const [hasError, setHasError] = useState(false);
+  const [fallbackToSvg, setFallbackToSvg] = useState(false);
 
   const normalized = (brandId || '')
     .toLowerCase()
@@ -42,7 +43,8 @@ export const BrandLogo = ({ brandId, className = 'w-10 h-10' }: BrandLogoProps) 
   else if (normalized.includes('peug')) brandKey = 'peugeot';
   else if (normalized.includes('ford')) brandKey = 'ford';
 
-  const imageSrc = BRAND_IMAGE_MAP[brandKey] || `/assets/brands/${brandKey}.png`;
+  const defaultSrc = BRAND_IMAGE_MAP[brandKey] || `/assets/brands/${brandKey}.png`;
+  const imageSrc = fallbackToSvg ? `/assets/brands/${brandKey}.svg` : defaultSrc;
 
   if (!hasError) {
     return (
@@ -51,7 +53,13 @@ export const BrandLogo = ({ brandId, className = 'w-10 h-10' }: BrandLogoProps) 
         alt={`Logo ${brandId}`}
         className={`${className} object-contain transition-transform duration-300 drop-shadow-sm`}
         loading="lazy"
-        onError={() => setHasError(true)}
+        onError={() => {
+          if (!fallbackToSvg && imageSrc.endsWith('.png')) {
+            setFallbackToSvg(true);
+          } else {
+            setHasError(true);
+          }
+        }}
       />
     );
   }
