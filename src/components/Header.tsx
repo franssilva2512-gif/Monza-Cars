@@ -139,12 +139,6 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
               Servicios
             </button>
             <button
-              onClick={() => handleNavClick('nosotros')}
-              className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
-            >
-              Nosotros
-            </button>
-            <button
               onClick={() => handleNavClick('contacto')}
               className="px-3 py-2 text-sm font-semibold text-[#E4E0D8]/90 hover:text-[#E4E0D8] hover:bg-[#686868]/20 transition-colors rounded-lg cursor-pointer"
             >
@@ -212,12 +206,6 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
                 className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
               >
                 Servicios
-              </button>
-              <button
-                onClick={() => handleNavClick('nosotros')}
-                className="text-left py-3 px-3 rounded-lg text-base font-semibold text-[#E4E0D8] hover:bg-[#303030]"
-              >
-                Nosotros
               </button>
               <button
                 onClick={() => handleNavClick('contacto')}

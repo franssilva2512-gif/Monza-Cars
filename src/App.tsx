@@ -7,7 +7,6 @@ import { FeaturedVehicles } from './components/FeaturedVehicles';
 import { VehicleDetailModal } from './components/VehicleDetailModal';
 import { SellCarSection } from './components/SellCarSection';
 import { ServicesSection } from './components/ServicesSection';
-import { WhyChooseUs } from './components/WhyChooseUs';
 import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
@@ -219,13 +218,10 @@ export default function App() {
         {/* 7. Vender Mi Auto (Eye-catching section and JS validated appraisal form) */}
         <SellCarSection />
 
-        {/* 8. Servicios (Cards for Usados Seleccionados, Peritaje, Financiación, Planes, Taller, Repuestos, Accesorios, Seguros) */}
+        {/* 8. Servicios (Cards for Usados Seleccionados, Financiación, Accesorios, Seguros) */}
         <ServicesSection onServiceAction={handleServiceAction} />
 
-        {/* 9. Por qué elegirnos (Statistics: +10.000, +15, +20, +50) */}
-        <WhyChooseUs />
-
-        {/* 10. Ubicación (Encontranos, Avenida Vergara 2865, Teléfono, Email, Visual Map) */}
+        {/* 9. Ubicación (Encontranos, Avenida Vergara 2865, Teléfono, Email, Visual Map) */}
         <LocationSection />
       </main>
 

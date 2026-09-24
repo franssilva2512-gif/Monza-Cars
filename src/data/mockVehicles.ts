@@ -2,10 +2,10 @@ import { Vehicle } from '../types/vehicle';
 
 export const MOCK_VEHICLES: Vehicle[] = [
   {
-    id: 'audi-a3-gris',
+    id: 'audi-s3-gris',
     brand: 'Audi',
-    model: 'A3',
-    version: '1.4 TFSI S-Tronic',
+    model: 'S3 2.0 TFSI',
+    version: '2.0 TFSI Quattro S-Tronic',
     year: 2017,
     mileage: 85000,
     price: 19500,
@@ -17,11 +17,11 @@ export const MOCK_VEHICLES: Vehicle[] = [
     allowsTradeIn: false,
     fuel: 'Nafta',
     transmission: 'Automática',
-    engine: '1.4 TFSI Turbo 150 CV',
+    engine: '2.0 TFSI Turbo 300 CV',
     color: 'Gris Metalizado',
     featured: true,
     doors: 4,
-    warranty: 'Garantía mecánica 6 meses & Service al día',
+    warranty: 'Documentación al día & Service oficial al día',
     images: [
       '/vehicles/audi/1.jpg',
       '/vehicles/audi/2.jpg',
@@ -36,7 +36,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
       '/vehicles/audi/11.jpg',
       '/vehicles/audi/12.jpg',
     ],
-    description: 'Audi en impecable estado general, color gris metalizado, transmisión automática S-Tronic y motor naftero turbo TFSI. Cuenta con service oficial al día, tapizados premium, climatizador automático digital y todo el confort, dinamismo y tecnología de la marca alemana. Documentación al día y lista para transferir.',
+    description: 'Audi S3 2.0 TFSI en impecable estado general, tracción integral Quattro, color gris metalizado, transmisión automática S-Tronic y motor 2.0 turbo TFSI de 300 CV. Cuenta con service oficial al día, tapizados premium, climatizador automático digital y todo el confort, deportividad y tecnología de la marca alemana. Documentación al día y lista para transferir.',
     features: {
       safety: [
         'Control de Estabilidad (ESC) y Tracción (ASR)',
@@ -79,7 +79,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     color: 'Blanco Summit',
     featured: true,
     doors: 4,
-    warranty: 'Service al día & Garantía mecánica 6 meses',
+    warranty: 'Service al día & Documentación lista para transferir',
     images: [
       '/vehicles/chevrolet-cruze/1.jpg',
       '/vehicles/chevrolet-cruze/2.jpg',
@@ -186,7 +186,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     color: 'Blanco Ártico',
     featured: true,
     doors: 4,
-    warranty: 'Garantía mecánica 6 meses & Service certificado',
+    warranty: 'Documentación al día & Service certificado',
     images: [
       '/vehicles/mercedes-vito/1.jpg',
       '/vehicles/mercedes-vito/2.jpg',
@@ -202,7 +202,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
       '/vehicles/mercedes-vito/12.jpg',
       '/vehicles/mercedes-vito/13.jpg',
     ],
-    description: 'Mercedes-Benz Vito, modelo 2016, usada, con 98.000 km, transmisión manual y motor diesel, color blanco. Una furgoneta que combina la robustez y confiabilidad típicas de Mercedes-Benz con un kilometraje moderado para su año, ideal tanto para uso comercial como familiar. Su motor diesel ofrece excelente rendimiento y bajo consumo, perfecto para trayectos largos o uso diario intensivo. Vehículo en buen estado general, listo para trabajar o para acompañarte en tus próximos viajes, con la garantía de durabilidad, seguridad y mantenimiento accesible que caracteriza a la marca Mercedes-Benz.',
+    description: 'Mercedes-Benz Vito, modelo 2016, usada, con 98.000 km, transmisión manual y motor diesel, color blanco. Una furgoneta que combina la robustez y confiabilidad típicas de Mercedes-Benz con un kilometraje moderado para su año, ideal tanto para uso comercial como familiar. Su motor diesel ofrece excelente rendimiento y bajo consumo, perfecto para trayectos largos o uso diario intensivo. Vehículo en buen estado general, listo para trabajar o para acompañarte en tus próximos viajes, con la durabilidad, seguridad y mantenimiento accesible que caracteriza a la marca Mercedes-Benz.',
     features: {
       safety: [
         'Programa Electrónico de Estabilidad Adaptativo (ESP 9i)',
@@ -301,7 +301,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     color: 'Negro Profundo',
     featured: true,
     doors: 5,
-    warranty: 'Garantía mecánica 6 meses & Verificación técnica al día',
+    warranty: 'Documentación al día & Verificación técnica al día',
     images: [
       '/vehicles/auto-negro/1.jpg',
       '/vehicles/auto-negro/2.jpg',

@@ -1,11 +1,7 @@
 import {
   Sparkles,
   Car,
-  BadgeCheck,
   CreditCard,
-  PiggyBank,
-  Wrench,
-  Cog,
   Shield,
   ArrowRight,
 } from 'lucide-react';
@@ -24,39 +20,11 @@ export const ServicesSection = ({ onServiceAction }: ServicesSectionProps) => {
       buttonText: 'Ver catálogo disponible',
     },
     {
-      id: 'usados',
-      icon: BadgeCheck,
-      title: 'Peritaje y Certificación',
-      description: 'Unidades seleccionadas con peritaje integral en más de 150 puntos mecánicos, service al día y garantía de tranquilidad.',
-      buttonText: 'Conocer certificaciones',
-    },
-    {
       id: 'financiacion',
       icon: CreditCard,
       title: 'Financiación',
       description: 'Planes crediticios a tu medida con tasas promocionales fijas en pesos, líneas UVA y aprobación online en 24 horas.',
       buttonText: 'Simular financiación',
-    },
-    {
-      id: 'planes',
-      icon: PiggyBank,
-      title: 'Planes a Medida',
-      description: 'Accedé a tu próximo auto en cómodas modalidades de pago con asesoramiento directo y personalizado.',
-      buttonText: 'Consultar planes',
-    },
-    {
-      id: 'taller',
-      icon: Wrench,
-      title: 'Taller',
-      description: 'Servicio técnico especializado y postventa homologada con mecánicos certificados, diagnóstico computarizado y turnos online.',
-      buttonText: 'Agendar turno de taller',
-    },
-    {
-      id: 'repuestos',
-      icon: Cog,
-      title: 'Repuestos',
-      description: 'Piezas y repuestos 100% legítimos provistos directamente por terminales automotrices para mantener tu vehículo original.',
-      buttonText: 'Cotizar repuestos',
     },
     {
       id: 'accesorios',
@@ -86,11 +54,11 @@ export const ServicesSection = ({ onServiceAction }: ServicesSectionProps) => {
             Nuestros Servicios
           </h2>
           <p className="text-[#A6A39E] text-base sm:text-lg">
-            Todo lo que tu automóvil necesita en un solo lugar, con el respaldo y la trayectoria del concesionario líder.
+            Todo lo que tu automóvil necesita en un solo lugar, con el respaldo y la calidad de un concesionario líder.
           </p>
         </div>
 
-        {/* 8 Services Cards Grid */}
+        {/* 4 Services Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((srv) => {
             const IconComponent = srv.icon;

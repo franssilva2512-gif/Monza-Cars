@@ -71,7 +71,7 @@ export const FeaturedVehicles = ({
               Vehículos Destacados
             </h2>
             <p className="text-[#A6A39E] text-base sm:text-lg mt-2 max-w-xl">
-              Descubrí nuestras unidades seleccionadas con precio de contado transparente y garantía certificada.
+              Descubrí nuestras unidades seleccionadas con precio de contado transparente y entrega inmediata.
             </p>
           </div>
 

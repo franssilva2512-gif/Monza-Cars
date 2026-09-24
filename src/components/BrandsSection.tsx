@@ -48,7 +48,7 @@ export const BrandsSection = ({
             Todas las marcas
           </h2>
           <p className="text-[#A6A39E] text-base sm:text-lg">
-            Consultá nuestro stock disponible con garantía oficial y servicio integral de postventa.
+            Consultá nuestro stock disponible y recibí atención personalizada para encontrar tu próximo auto.
           </p>
         </div>
 

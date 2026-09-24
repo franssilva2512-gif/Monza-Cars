@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, CheckCircle2, Shield, Award } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface HeroProps {
   onBuyClick: () => void;
@@ -65,16 +65,12 @@ export const Hero = ({ onBuyClick, onSellClick }: HeroProps) => {
           </div>
 
           {/* Trust badges */}
-          <div className="pt-6 border-t border-[#686868]/30 grid grid-cols-2 sm:grid-cols-3 gap-4 text-[#A6A39E] text-xs sm:text-sm">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-[#E4E0D8] shrink-0" />
-              <span className="text-[#E4E0D8]/85">Garantía oficial y mecánica</span>
-            </div>
+          <div className="pt-6 border-t border-[#686868]/30 flex flex-wrap items-center gap-6 text-[#A6A39E] text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-[#E4E0D8] shrink-0" />
               <span className="text-[#E4E0D8]/85">Financiación a tasa preferencial</span>
             </div>
-            <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
+            <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[#E4E0D8] shrink-0" />
               <span className="text-[#E4E0D8]/85">Entrega inmediata asegurada</span>
             </div>

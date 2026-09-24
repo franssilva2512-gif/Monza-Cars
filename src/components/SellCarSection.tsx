@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { CheckCircle, AlertCircle, Send, DollarSign, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import { CheckCircle, AlertCircle, Send, DollarSign, ShieldCheck, Sparkles } from 'lucide-react';
 import { SellCarFormData } from '../types/vehicle';
 
 export const SellCarSection = () => {
@@ -134,18 +134,6 @@ export const SellCarSection = () => {
                   <h3 className="font-bold text-base text-[#E4E0D8]">Mejor cotización garantizada</h3>
                   <p className="text-sm text-[#A6A39E] mt-0.5">
                     Valoramos tu usado según estado real y cotizaciones de mercado vigentes.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#303030] border border-[#686868]/40 flex items-center justify-center shrink-0 text-[#E4E0D8]">
-                  <Clock className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base text-[#E4E0D8]">Pago seguro en 24 horas</h3>
-                  <p className="text-sm text-[#A6A39E] mt-0.5">
-                    Transferencia bancaria inmediata sin vueltas ni demoras innecesarias.
                   </p>
                 </div>
               </div>

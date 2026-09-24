@@ -121,14 +121,6 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
               </li>
               <li>
                 <button
-                  onClick={() => onNavClick('nosotros')}
-                  className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
-                >
-                  Nosotros
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onNavClick('contacto')}
                   className="hover:text-[#E4E0D8] transition-colors cursor-pointer"
                 >

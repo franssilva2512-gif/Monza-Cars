@@ -1,40 +1,19 @@
-import { useState, type FormEvent } from 'react';
 import {
   MapPin,
   Phone,
   Mail,
   Clock,
   Navigation,
-  CheckCircle2,
-  CalendarCheck,
-  Send,
   ExternalLink,
+  MessageCircle,
 } from 'lucide-react';
 
 export const LocationSection = () => {
-  const [testDriveDate, setTestDriveDate] = useState('');
-  const [testDriveName, setTestDriveName] = useState('');
-  const [testDrivePhone, setTestDrivePhone] = useState('');
-  const [testDriveSubmitted, setTestDriveSubmitted] = useState(false);
-
-  const handleTestDriveSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!testDriveName || !testDrivePhone || !testDriveDate) return;
-    setTestDriveSubmitted(true);
-    setTimeout(() => {
-      setTestDriveSubmitted(false);
-      setTestDriveName('');
-      setTestDrivePhone('');
-      setTestDriveDate('');
-    }, 4000);
-  };
-
   return (
     <section id="contacto" className="py-20 sm:py-24 bg-[#161616] border-t border-[#686868]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          {/* Exact specification: "Encontranos" */}
           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#E4E0D8] bg-[#161616] px-3.5 py-1.5 rounded-full border border-[#686868]/40 mb-3 inline-block">
             Punto Central y Showroom
           </span>
@@ -42,160 +21,130 @@ export const LocationSection = () => {
             Encontranos
           </h2>
           <p className="text-[#A6A39E] text-base sm:text-lg">
-            Vení a conocer nuestro predio multimarca, disfrutá de una prueba de manejo y asesorate con nuestros especialistas comerciales.
+            Vení a conocer nuestro predio multimarca y asesorate de forma directa con nuestros especialistas comerciales.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          {/* Left Column: Contact Cards & Test Drive Booking */}
-          <div className="lg:col-span-5 space-y-6">
-            {/* Contact Details Cards */}
-            <div className="bg-[#303030] rounded-2xl p-6 sm:p-7 border border-[#686868]/40 shadow-xl shadow-black/40 space-y-6">
-              <h3 className="text-lg font-bold text-[#E4E0D8] border-b border-[#686868]/30 pb-3">
-                Información de contacto
-              </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+          {/* Left Column: Contact Cards */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            {/* Contact Details Card */}
+            <div className="bg-[#303030] rounded-3xl p-6 sm:p-8 border border-[#686868]/40 shadow-xl shadow-black/40 space-y-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-[#E4E0D8] border-b border-[#686868]/30 pb-3 mb-6">
+                  Información de contacto
+                </h3>
 
-              {/* Dirección: Avenida Vergara 2865, Hurlingham */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
-                    Dirección
-                  </span>
-                  <p className="text-base font-bold text-[#E4E0D8] mt-0.5">
-                    Avenida Vergara 2865, Hurlingham
-                  </p>
-                  <p className="text-xs text-[#A6A39E] mt-0.5">
-                    Showroom oficial - Estacionamiento exclusivo para clientes.
-                  </p>
-                </div>
-              </div>
-
-              {/* Teléfono y WhatsApp: +54 911 5592-2000 */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
-                    Teléfono &amp; WhatsApp
-                  </span>
-                  <a
-                    href="tel:+5491155922000"
-                    className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 block"
-                  >
-                    +54 911 5592-2000
-                  </a>
-                  <p className="text-xs text-[#A6A39E] mt-0.5">
-                    Atención directa y asesoramiento personalizado
-                  </p>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
-                    Correo electrónico
-                  </span>
-                  <a
-                    href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Campi%20Motors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 inline-flex items-center gap-1.5 group"
-                    title="Redactar correo en Google Mail (Gmail)"
-                  >
-                    <span>tomascampi06@gmail.com</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#A6A39E] group-hover:text-white transition-colors" />
-                  </a>
-                  <p className="text-xs text-[#A6A39E] mt-0.5">
-                    Hacé clic para redactar directamente desde Google Mail
-                  </p>
-                </div>
-              </div>
-
-              {/* Horarios: Lunes a viernes 9:00 am a 18:00 pm y sabado de 9:00 am a 14:00 pm */}
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
-                    Horarios de atención
-                  </span>
-                  <p className="text-sm font-semibold text-[#E4E0D8]/90 mt-0.5">
-                    Lunes a Viernes: 09:00 a 18:00 hs
-                  </p>
-                  <p className="text-sm font-semibold text-[#E4E0D8]/90">
-                    Sábados: 09:00 a 14:00 hs
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Interactive Test Drive quick form */}
-            <div className="bg-[#303030] text-[#E4E0D8] rounded-2xl p-6 border border-[#686868]/40 shadow-xl">
-              <div className="flex items-center gap-2 mb-2">
-                <CalendarCheck className="w-5 h-5 text-[#E4E0D8]" />
-                <h4 className="text-base font-bold text-[#E4E0D8]">Agendá un Test Drive</h4>
-              </div>
-              <p className="text-xs text-[#A6A39E] mb-4">
-                Probá el auto de tus sueños en nuestra pista de pruebas antes de tomar tu decisión.
-              </p>
-
-              {testDriveSubmitted ? (
-                <div className="bg-[#161616] border border-[#686868]/40 rounded-xl p-4 text-center">
-                  <CheckCircle2 className="w-6 h-6 text-[#E4E0D8] mx-auto mb-1.5" />
-                  <p className="text-xs font-bold text-white">¡Test Drive agendado con éxito!</p>
-                  <p className="text-[11px] text-[#A6A39E] mt-0.5">
-                    Te contactaremos para confirmar el horario disponible.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleTestDriveSubmit} className="space-y-3">
-                  <input
-                    type="text"
-                    required
-                    placeholder="Tu nombre y apellido"
-                    value={testDriveName}
-                    onChange={(e) => setTestDriveName(e.target.value)}
-                    className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
-                  />
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="tel"
-                      required
-                      placeholder="Teléfono"
-                      value={testDrivePhone}
-                      onChange={(e) => setTestDrivePhone(e.target.value)}
-                      className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] placeholder:text-[#A6A39E]/60 focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
-                    />
-                    <input
-                      type="date"
-                      required
-                      value={testDriveDate}
-                      onChange={(e) => setTestDriveDate(e.target.value)}
-                      className="w-full bg-[#161616] border border-[#686868]/40 rounded-xl px-3 py-2 text-xs text-[#E4E0D8] focus:outline-none focus:ring-1 focus:ring-[#E4E0D8]"
-                    />
+                <div className="space-y-6">
+                  {/* Dirección: Avenida Vergara 2865, Hurlingham */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
+                        Dirección
+                      </span>
+                      <p className="text-base font-bold text-[#E4E0D8] mt-0.5">
+                        Avenida Vergara 2865, Hurlingham
+                      </p>
+                      <p className="text-xs text-[#A6A39E] mt-0.5">
+                        Showroom oficial • Estacionamiento exclusivo para clientes.
+                      </p>
+                    </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="w-full py-2.5 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-extrabold text-xs tracking-wide transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                  >
-                    <Send className="w-3.5 h-3.5 text-[#161616]" />
-                    <span>Reservar fecha para Test Drive</span>
-                  </button>
-                </form>
-              )}
+
+                  {/* Teléfono y WhatsApp: +54 911 5592-2000 */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
+                        Teléfono &amp; WhatsApp
+                      </span>
+                      <a
+                        href="tel:+5491155922000"
+                        className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 block"
+                      >
+                        +54 911 5592-2000
+                      </a>
+                      <p className="text-xs text-[#A6A39E] mt-0.5">
+                        Atención directa y asesoramiento personalizado
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
+                        Correo electrónico
+                      </span>
+                      <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=tomascampi06@gmail.com&su=Consulta%20Campi%20Motors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-base font-bold text-[#E4E0D8] hover:text-white transition-colors mt-0.5 inline-flex items-center gap-1.5 group"
+                        title="Redactar correo en Google Mail (Gmail)"
+                      >
+                        <span>tomascampi06@gmail.com</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-[#A6A39E] group-hover:text-white transition-colors" />
+                      </a>
+                      <p className="text-xs text-[#A6A39E] mt-0.5">
+                        Hacé clic para redactar directamente desde Google Mail
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Horarios: Lunes a viernes 9:00 am a 18:00 pm y sabado de 9:00 am a 14:00 pm */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#161616] border border-[#686868]/40 text-[#E4E0D8] flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-[#A6A39E] uppercase tracking-wider block">
+                        Horarios de atención
+                      </span>
+                      <p className="text-sm font-semibold text-[#E4E0D8]/90 mt-0.5">
+                        Lunes a Viernes: 09:00 a 18:00 hs
+                      </p>
+                      <p className="text-sm font-semibold text-[#E4E0D8]/90">
+                        Sábados: 09:00 a 14:00 hs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Direct Quick Actions */}
+              <div className="pt-6 border-t border-[#686868]/30 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a
+                  href="https://wa.me/5491155922000?text=Hola!%20Quiero%20hacer%20una%20consulta%20en%20Campi%20Motors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-3 px-4 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-md"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Chatear por WhatsApp</span>
+                </a>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Avenida+Vergara+2865,+Hurlingham"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-3 px-4 rounded-xl bg-[#161616] hover:bg-[#161616]/80 text-[#E4E0D8] border border-[#686868]/40 font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                >
+                  <Navigation className="w-4 h-4" />
+                  <span>Abrir en Google Maps</span>
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Visual Styled Map Example as requested in prompt */}
+          {/* Right Column: Visual Styled Map */}
           <div className="lg:col-span-7 bg-[#303030] rounded-3xl overflow-hidden border border-[#686868]/40 shadow-2xl relative min-h-[480px] flex flex-col">
             {/* Visual map preview canvas with interactive elements */}
             <div className="relative flex-1 bg-black overflow-hidden min-h-[380px]">
@@ -262,8 +211,8 @@ export const LocationSection = () => {
                 <span className="text-[#A6A39E] text-[11px]">Espacio de espera VIP</span>
               </div>
               <div>
-                <span className="font-bold text-[#E4E0D8] block">Pista de Pruebas</span>
-                <span className="text-[#A6A39E] text-[11px]">Circuito para Test Drive</span>
+                <span className="font-bold text-[#E4E0D8] block">Atención Personalizada</span>
+                <span className="text-[#A6A39E] text-[11px]">Asesores dedicados</span>
               </div>
             </div>
           </div>
