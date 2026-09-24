@@ -147,12 +147,12 @@ export const LocationSection = () => {
           {/* Right Column: Visual Styled Map */}
           <div className="lg:col-span-7 bg-[#303030] rounded-3xl overflow-hidden border border-[#686868]/40 shadow-2xl relative min-h-[480px] flex flex-col">
             {/* Visual map preview canvas with interactive elements */}
-            <div className="relative flex-1 bg-[#161616] overflow-hidden min-h-[400px]">
+            <div className="relative flex-1 bg-[#161616] overflow-hidden min-h-[480px]">
               {/* Real Interactive Google Map centered exactly on Av. Gobernador Vergara 2865, Hurlingham */}
               <iframe
                 title="Ubicación oficial de Campi Motors en Hurlingham"
                 src="https://maps.google.com/maps?q=-34.608389,-58.635012+(Campi+Motors)&t=&z=16&ie=UTF8&iwloc=B&output=embed"
-                className="w-full h-full min-h-[400px] border-0"
+                className="w-full h-full min-h-[480px] border-0"
                 style={{ filter: 'grayscale(20%) contrast(105%)' }}
                 loading="lazy"
                 allowFullScreen
@@ -199,22 +199,6 @@ export const LocationSection = () => {
                   <span>Cómo llegar (Google Maps)</span>
                   <Navigation className="w-3.5 h-3.5 rotate-45 text-[#161616]" />
                 </a>
-              </div>
-            </div>
-
-            {/* Bottom facilities bar */}
-            <div className="bg-[#303030] p-4 sm:p-5 border-t border-[#686868]/30 grid grid-cols-3 gap-2 text-center text-xs">
-              <div>
-                <span className="font-bold text-[#E4E0D8] block">Estacionamiento</span>
-                <span className="text-[#A6A39E] text-[11px]">Gratuito para clientes</span>
-              </div>
-              <div className="border-x border-[#686868]/30">
-                <span className="font-bold text-[#E4E0D8] block">Café &amp; Lounge</span>
-                <span className="text-[#A6A39E] text-[11px]">Espacio de espera VIP</span>
-              </div>
-              <div>
-                <span className="font-bold text-[#E4E0D8] block">Atención Personalizada</span>
-                <span className="text-[#A6A39E] text-[11px]">Asesores dedicados</span>
               </div>
             </div>
           </div>
