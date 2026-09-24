@@ -1,5 +1,4 @@
 import { Instagram, Video, MessageCircle, ArrowUp, Phone, Mail, MapPin, Clock } from 'lucide-react';
-import { CampiLogo } from './CampiLogo';
 
 interface FooterProps {
   onNavClick: (id: string) => void;
@@ -19,8 +18,17 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-14 border-b border-[#686868]/30">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="mb-4">
-              <CampiLogo size="lg" />
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-10 h-10 rounded-lg overflow-hidden border border-[#686868]/40 bg-black flex items-center justify-center shadow-md shrink-0">
+                <img
+                  src="/assets/campi-motors-logo.jpg"
+                  alt="Logo Campi Motors"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8]">
+                CAMPI <span className="text-[#E4E0D8]">MOTORS</span>
+              </span>
             </div>
 
             <p className="text-[#A6A39E] text-sm max-w-sm mb-6 leading-relaxed">
