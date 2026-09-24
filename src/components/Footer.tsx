@@ -18,12 +18,20 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-14 border-b border-[#686868]/30">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="mb-5">
+            <div className="flex items-center gap-3 mb-5">
               <img
                 src="/assets/campi-motors-logo.jpg"
-                alt="Campi Motors"
-                className="h-14 sm:h-16 w-auto max-w-[180px] object-contain"
+                alt="Logo Campi Motors"
+                className="h-12 w-12 sm:h-14 sm:w-14 object-contain rounded-lg shadow-md shrink-0"
               />
+              <div className="flex flex-col">
+                <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8] leading-none">
+                  CAMPI <span className="text-[#E4E0D8] font-black">MOTORS</span>
+                </span>
+                <span className="text-[10px] tracking-widest text-[#A6A39E] font-bold uppercase mt-1">
+                  Concesionaria Oficial
+                </span>
+              </div>
             </div>
 
             <p className="text-[#A6A39E] text-sm max-w-sm mb-6 leading-relaxed">

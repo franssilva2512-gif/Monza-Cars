@@ -171,7 +171,7 @@ export const LocationSection = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-extrabold tracking-tight text-[#E4E0D8]">
-                      Campi Motors
+                      CAMPI MOTORS
                     </span>
                     <span className="flex h-2 w-2 relative" title="Abierto">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
