@@ -95,7 +95,7 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
             title="Campi Motors - Concesionaria Oficial"
           >
             <img
-              src="/assets/campi-motors-logo.jpg"
+              src="/img logo/tip3.jpg"
               alt="Logo Campi Motors"
               className="h-11 w-11 sm:h-13 sm:w-13 object-contain rounded-lg transition-transform duration-300 group-hover:scale-105 shadow-md shrink-0"
             />

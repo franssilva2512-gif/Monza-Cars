@@ -20,7 +20,7 @@ export const Footer = ({ onNavClick, onFilterClick, onOpenWhatsApp }: FooterProp
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
               <img
-                src="/assets/campi-motors-logo.jpg"
+                src="/img logo/tip3.jpg"
                 alt="Logo Campi Motors"
                 className="h-12 w-12 sm:h-14 sm:w-14 object-contain rounded-lg shadow-md shrink-0"
               />
