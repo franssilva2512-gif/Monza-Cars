@@ -24,8 +24,12 @@ export const Hero = ({ onBuyClick, onSellClick }: HeroProps) => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
         <div className="max-w-3xl">
           {/* Subtle premium badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#303030]/90 backdrop-blur-md border border-[#686868]/40 text-[#E4E0D8] text-xs sm:text-sm font-medium mb-6 animate-fade-in shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#E4E0D8] animate-pulse"></span>
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#303030]/90 backdrop-blur-md border border-[#686868]/40 text-[#E4E0D8] text-xs sm:text-sm font-medium mb-6 animate-fade-in shadow-xl">
+            <img
+              src="/assets/campi-motors-logo.jpg"
+              alt="Campi Motors"
+              className="w-5 h-5 rounded-full object-cover border border-[#C5A059]/60 shrink-0"
+            />
             <span className="tracking-wide">Líder Oficial Multimarca en Argentina</span>
             <span className="text-[#686868]">|</span>
             <span className="text-[#A6A39E] font-normal">Modelos 2024 &amp; Usados Certificados</span>

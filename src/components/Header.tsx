@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageCircle, ChevronRight, Car, ShieldCheck } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, ChevronRight, ShieldCheck } from 'lucide-react';
+import { CampiLogo } from './CampiLogo';
 
 interface HeaderProps {
   onSelectConditionFilter?: (condition: 'all' | 'Usado') => void;
@@ -83,27 +84,18 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo Campi Motors */}
+          {/* Logo Campi Motors Oficial */}
           <a
             href="#inicio"
             onClick={(e) => {
               e.preventDefault();
               handleNavClick('inicio');
             }}
-            className="flex items-center gap-2.5 group"
+            className="group cursor-pointer"
             id="header-logo-link"
+            title="Campi Motors - Concesionaria Oficial"
           >
-            <div className="w-10 h-10 rounded-lg bg-[#303030] border border-[#686868]/40 flex items-center justify-center text-[#E4E0D8] shadow-sm group-hover:bg-[#E4E0D8] group-hover:text-[#161616] transition-colors duration-300">
-              <Car className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8] leading-none flex items-center gap-1.5">
-                CAMPI <span className="text-[#E4E0D8] font-black">MOTORS</span>
-              </span>
-              <span className="text-[10px] tracking-widest text-[#A6A39E] font-bold uppercase">
-                Concesionaria Oficial
-              </span>
-            </div>
+            <CampiLogo size="md" />
           </a>
 
           {/* Desktop Navigation */}

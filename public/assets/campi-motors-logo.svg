@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Silver Metallic Gradient -->
+    <linearGradient id="silver-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="25%" stop-color="#E4E6E8" />
+      <stop offset="55%" stop-color="#A5A8AC" />
+      <stop offset="85%" stop-color="#D1D4D7" />
+      <stop offset="100%" stop-color="#8E9296" />
+    </linearGradient>
+
+    <!-- Gold Luxury Gradient -->
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBE6A2" />
+      <stop offset="30%" stop-color="#DFB560" />
+      <stop offset="60%" stop-color="#9F7326" />
+      <stop offset="85%" stop-color="#D8AC53" />
+      <stop offset="100%" stop-color="#7B5614" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="logo-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.8" />
+    </filter>
+  </defs>
+
+  <!-- Background texture / dark leather tone -->
+  <rect width="800" height="800" fill="#0C0D0E" rx="32" />
+  <rect width="796" height="796" x="2" y="2" fill="none" stroke="url(#gold-grad)" stroke-width="2" stroke-opacity="0.3" rx="30" />
+
+  <g filter="url(#logo-shadow)">
+    <!-- ============================================== -->
+    <!-- MONOGRAM CM (Intertwined Silver C & Gold M)    -->
+    <!-- ============================================== -->
+
+    <!-- C - Brushed Silver -->
+    <path d="M 230 220 
+             C 190 220, 160 250, 160 295 
+             L 160 375 
+             C 160 420, 190 450, 230 450 
+             L 370 450 
+             L 370 405 
+             L 245 405 
+             C 225 405, 212 392, 212 370 
+             L 212 300 
+             C 212 278, 225 265, 245 265 
+             L 370 265 
+             L 370 220 
+             Z" 
+          fill="url(#silver-grad)" />
+
+    <!-- M - Brushed Luxury Gold -->
+    <path d="M 378 220 
+             L 378 450 
+             L 412 450 
+             L 412 285 
+             L 495 385 
+             L 505 385 
+             L 588 285 
+             L 588 450 
+             L 630 450 
+             L 630 220 
+             L 575 220 
+             L 500 315 
+             L 425 220 
+             Z" 
+          fill="url(#gold-grad)" />
+
+    <!-- ============================================== -->
+    <!-- "C A M P I" in Metallic Silver Serif           -->
+    <!-- ============================================== -->
+    <text x="400" y="560" 
+          font-family="'Playfair Display', 'Times New Roman', 'Georgia', serif" 
+          font-size="88" 
+          font-weight="900" 
+          letter-spacing="18" 
+          text-anchor="middle" 
+          fill="url(#silver-grad)">
+      CAMPI
+    </text>
+
+    <!-- ============================================== -->
+    <!-- "— M O T O R S —" in Luxury Gold Sans-serif    -->
+    <!-- ============================================== -->
+    <!-- Left Accent Line -->
+    <line x1="160" y1="612" x2="275" y2="612" stroke="url(#gold-grad)" stroke-width="4" stroke-linecap="round" />
+
+    <!-- Word MOTORS -->
+    <text x="400" y="622" 
+          font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" 
+          font-size="34" 
+          font-weight="800" 
+          letter-spacing="14" 
+          text-anchor="middle" 
+          fill="url(#gold-grad)">
+      MOTORS
+    </text>
+
+    <!-- Right Accent Line -->
+    <line x1="525" y1="612" x2="640" y2="612" stroke="url(#gold-grad)" stroke-width="4" stroke-linecap="round" />
+  </g>
+</svg>
