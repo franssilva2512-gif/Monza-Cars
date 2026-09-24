@@ -90,24 +90,15 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
               e.preventDefault();
               handleNavClick('inicio');
             }}
-            className="flex items-center gap-2.5 group cursor-pointer"
+            className="flex items-center group cursor-pointer"
             id="header-logo-link"
+            title="Campi Motors"
           >
-            <div className="w-10 h-10 rounded-lg overflow-hidden border border-[#686868]/40 bg-black flex items-center justify-center shadow-sm group-hover:border-[#E4E0D8] transition-colors duration-300 shrink-0">
-              <img
-                src="/assets/campi-motors-logo.jpg"
-                alt="Logo Campi Motors"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-2xl tracking-tighter text-[#E4E0D8] leading-none flex items-center gap-1.5">
-                CAMPI <span className="text-[#E4E0D8] font-black">MOTORS</span>
-              </span>
-              <span className="text-[10px] tracking-widest text-[#A6A39E] font-bold uppercase">
-                Concesionaria Oficial
-              </span>
-            </div>
+            <img
+              src="/assets/campi-motors-logo.jpg"
+              alt="Campi Motors"
+              className="h-12 sm:h-14 w-auto max-w-[180px] object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </a>
 
           {/* Desktop Navigation */}

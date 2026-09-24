@@ -161,11 +161,11 @@ export const LocationSection = () => {
 
               {/* Floating Campi Motors Pin / Badge at exact location */}
               <div className="absolute top-4 left-4 z-10 bg-[#161616]/95 backdrop-blur-md text-[#E4E0D8] p-3 rounded-2xl shadow-2xl border border-[#686868]/50 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#303030] border border-[#686868]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-11 h-11 rounded-xl bg-[#161616] border border-[#686868]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-md p-0.5">
                   <img
                     src="/assets/campi-motors-logo.jpg"
                     alt="Campi Motors"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div>
