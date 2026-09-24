@@ -246,7 +246,7 @@ export const VehicleDetailModal = ({
                 <h4 className="text-xs font-bold text-[#E4E0D8] uppercase tracking-wider mb-2">
                   Descripción
                 </h4>
-                <p className="text-xs sm:text-sm text-[#A6A39E] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#A6A39E] leading-relaxed whitespace-pre-line">
                   {vehicle.description}
                 </p>
               </div>

@@ -8,6 +8,7 @@ interface BrandLogoProps {
 
 const BRAND_IMAGE_MAP: Record<string, string> = {
   ford: '/assets/brands/ford.png',
+  dodge: '/assets/brands/dodge.svg',
   chevrolet: '/assets/brands/chevrolet.png',
   bmw: '/assets/brands/bmw.png',
   'mercedes-benz': '/assets/brands/mercedes-benz.png',
@@ -36,6 +37,7 @@ export const BrandLogo = ({ brandId, className = 'w-10 h-10' }: BrandLogoProps) 
   let brandKey = normalized;
   if (normalized.includes('mercedes')) brandKey = 'mercedes-benz';
   else if (normalized.includes('chevr')) brandKey = 'chevrolet';
+  else if (normalized.includes('dodg')) brandKey = 'dodge';
   else if (normalized.includes('volks') || normalized === 'vw') brandKey = 'volkswagen';
   else if (normalized.includes('peug')) brandKey = 'peugeot';
   else if (normalized.includes('ford')) brandKey = 'ford';
