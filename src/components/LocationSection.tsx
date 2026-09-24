@@ -15,7 +15,7 @@ export const LocationSection = () => {
         {/* Section Title */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#E4E0D8] bg-[#161616] px-3.5 py-1.5 rounded-full border border-[#686868]/40 mb-3 inline-block">
-            Punto Central y Showroom
+            Punto Central • Campi Motors
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#E4E0D8] tracking-tight font-display mb-4">
             Encontranos
@@ -49,7 +49,7 @@ export const LocationSection = () => {
                         Avenida Vergara 2865, Hurlingham
                       </p>
                       <p className="text-xs text-[#A6A39E] mt-0.5">
-                        Showroom oficial • Estacionamiento exclusivo para clientes.
+                        Campi Motors • Estacionamiento exclusivo para clientes.
                       </p>
                     </div>
                   </div>
@@ -147,46 +147,48 @@ export const LocationSection = () => {
           {/* Right Column: Visual Styled Map */}
           <div className="lg:col-span-7 bg-[#303030] rounded-3xl overflow-hidden border border-[#686868]/40 shadow-2xl relative min-h-[480px] flex flex-col">
             {/* Visual map preview canvas with interactive elements */}
-            <div className="relative flex-1 bg-black overflow-hidden min-h-[380px]">
-              {/* Stylized realistic map background image */}
-              <img
-                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1400&q=80"
-                alt="Mapa satelital de ubicación de Campi Motors"
-                className="w-full h-full object-cover opacity-50 filter grayscale contrast-125"
+            <div className="relative flex-1 bg-[#161616] overflow-hidden min-h-[400px]">
+              {/* Real Interactive Google Map centered exactly on Av. Gobernador Vergara 2865, Hurlingham */}
+              <iframe
+                title="Ubicación oficial de Campi Motors en Hurlingham"
+                src="https://maps.google.com/maps?q=-34.608389,-58.635012+(Campi+Motors)&t=&z=16&ie=UTF8&iwloc=B&output=embed"
+                className="w-full h-full min-h-[400px] border-0"
+                style={{ filter: 'grayscale(20%) contrast(105%)' }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
               />
 
-              {/* Dark aesthetic overlay */}
-              <div className="absolute inset-0 bg-[#161616]/60 backdrop-blur-[1px]" />
-
-              {/* Pin Marker on Map */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group cursor-pointer">
-                {/* Floating Tooltip */}
-                <div className="bg-[#161616] text-[#E4E0D8] px-4 py-2 rounded-xl shadow-2xl border border-[#686868]/40 flex items-center gap-2 mb-2 animate-bounce">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#E4E0D8]"></div>
-                  <div>
-                    <span className="text-xs font-extrabold tracking-tight block">
-                      Showroom Central
-                    </span>
-                    <span className="text-[10px] text-[#A6A39E]">
-                      Avenida Vergara 2865, Hurlingham
-                    </span>
-                  </div>
+              {/* Floating Campi Motors Pin / Badge at exact location */}
+              <div className="absolute top-4 left-4 z-10 bg-[#161616]/95 backdrop-blur-md text-[#E4E0D8] p-3 rounded-2xl shadow-2xl border border-[#686868]/50 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#303030] border border-[#686868]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-md">
+                  <img
+                    src="/assets/campi-motors-logo.jpg"
+                    alt="Campi Motors"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-
-                {/* Animated Pin */}
-                <div className="relative flex items-center justify-center">
-                  <div className="w-10 h-10 rounded-full bg-white/20 animate-ping absolute" />
-                  <div className="w-10 h-10 rounded-full bg-[#E4E0D8] text-[#161616] flex items-center justify-center shadow-xl border-2 border-[#161616] relative z-10">
-                    <MapPin className="w-5 h-5 fill-current" />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-extrabold tracking-tight text-[#E4E0D8]">
+                      Campi Motors
+                    </span>
+                    <span className="flex h-2 w-2 relative" title="Abierto">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
                   </div>
+                  <span className="text-xs text-[#A6A39E] block">
+                    Avenida Vergara 2865, Hurlingham
+                  </span>
                 </div>
               </div>
 
               {/* Quick Map Controls Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#303030]/95 backdrop-blur-md p-4 rounded-2xl border border-[#686868]/40 text-[#E4E0D8]">
+              <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#161616]/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-[#686868]/50 text-[#E4E0D8] shadow-xl">
                 <div className="flex items-center gap-3 text-xs text-[#A6A39E]">
                   <Navigation className="w-4 h-4 text-[#E4E0D8] shrink-0" />
-                  <span className="text-[#E4E0D8]/90">Avenida Vergara 2865, Hurlingham. Fácil acceso.</span>
+                  <span className="text-[#E4E0D8]/90 font-medium">Avenida Vergara 2865, Hurlingham. Fácil acceso.</span>
                 </div>
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=Avenida+Vergara+2865,+Hurlingham"
