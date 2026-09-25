@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { X, CheckCircle2, ShieldCheck, Sparkles, Car } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Sparkles, Car, MessageCircle } from 'lucide-react';
 import { Vehicle } from '../types/vehicle';
 
 interface ReservationModalProps {
@@ -14,6 +14,7 @@ export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) =>
   const [buyerDni, setBuyerDni] = useState('');
   const [paymentOption, setPaymentOption] = useState('efectivo');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [reservationWhatsappUrl, setReservationWhatsappUrl] = useState('');
 
   const formatPrice = (price: number, currency?: 'ARS' | 'USD') => {
     if (currency === 'USD') {
@@ -28,12 +29,43 @@ export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) =>
 
   const handleReserve = (e: FormEvent) => {
     e.preventDefault();
-    if (!buyerName || !buyerPhone || !buyerEmail) return;
+    if (!buyerName.trim() || !buyerPhone.trim() || !buyerEmail.trim()) return;
+
+    const paymentLabel =
+      paymentOption === 'efectivo'
+        ? 'Contado / Efectivo / Transferencia'
+        : paymentOption === 'financiacion'
+        ? 'Financiación bancaria'
+        : 'Entrega de vehículo usado en parte de pago';
+
+    const messageLines = [
+      '🚗 *SOLICITUD DE RESERVA DE VEHÍCULO - CAMPI MOTORS*',
+      '',
+      `🚘 *Unidad de Interés:* ${vehicle.brand} ${vehicle.model} ${vehicle.version} (${vehicle.year})`,
+      `💰 *Precio publicado:* ${formatPrice(vehicle.price, vehicle.currency)}`,
+      `⚙️ *Motor / Transmisión:* ${vehicle.engine} | ${vehicle.transmission}`,
+      `🎨 *Color:* ${vehicle.color}`,
+      '',
+      '👤 *Datos del Solicitante:*',
+      `• *Nombre y Apellido:* ${buyerName.trim()}`,
+      `• *Teléfono / WhatsApp:* ${buyerPhone.trim()}`,
+      `• *Email:* ${buyerEmail.trim()}`,
+    ];
+
+    if (buyerDni?.trim()) {
+      messageLines.push(`• *DNI / CUIT:* ${buyerDni.trim()}`);
+    }
+
+    messageLines.push(`• *Modalidad de pago:* ${paymentLabel}`);
+    messageLines.push('');
+    messageLines.push('Hola, completé mis datos en la web y deseo coordinar la reserva de este auto. ¡Muchas gracias!');
+
+    const encoded = encodeURIComponent(messageLines.join('\n'));
+    const url = `https://wa.me/5491155922000?text=${encoded}`;
+    setReservationWhatsappUrl(url);
+
     setIsSuccess(true);
-    setTimeout(() => {
-      setIsSuccess(false);
-      onClose();
-    }, 3500);
+    window.open(url, '_blank');
   };
 
   return (
@@ -71,11 +103,30 @@ export const ReservationModal = ({ vehicle, onClose }: ReservationModalProps) =>
           <div className="text-center py-8">
             <CheckCircle2 className="w-16 h-16 text-[#E4E0D8] mx-auto mb-3" />
             <h4 className="text-2xl font-bold text-[#E4E0D8] mb-2 font-display">
-              ¡Vehículo Reservado Provisoriamente!
+              ¡Reserva enviada a WhatsApp!
             </h4>
-            <p className="text-sm text-[#A6A39E] max-w-md mx-auto leading-relaxed">
-              Bloqueamos temporalmente la unidad para vos con código <strong className="text-[#E4E0D8]">CO-{Math.floor(100000 + Math.random() * 900000)}</strong>. Nuestro jefe de salón te llamará al {buyerPhone} para formalizar el boleto de reserva.
+            <p className="text-sm text-[#A6A39E] max-w-md mx-auto leading-relaxed mb-6">
+              Todos los datos de tu reserva para el <strong className="text-[#E4E0D8]">{vehicle.brand} {vehicle.model}</strong> han sido preparados y enviados a nuestro WhatsApp oficial (+54 9 11 5592-2000). Nuestro equipo confirmará tu solicitud de inmediato.
             </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              {reservationWhatsappUrl && (
+                <a
+                  href={reservationWhatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-bold text-sm transition-colors cursor-pointer shadow-md flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#161616]" />
+                  <span>Abrir WhatsApp con mi reserva</span>
+                </a>
+              )}
+              <button
+                onClick={onClose}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] border border-[#686868]/40 font-bold text-sm transition-colors cursor-pointer"
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleReserve} className="space-y-4">

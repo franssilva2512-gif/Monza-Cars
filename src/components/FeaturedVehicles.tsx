@@ -1,7 +1,8 @@
 import { useState, type MouseEvent } from 'react';
-import { Heart, Gauge, Calendar, ArrowRight, Sparkles } from 'lucide-react';
+import { Heart, Gauge, Calendar, ArrowRight, Sparkles, Maximize2 } from 'lucide-react';
 import { Vehicle } from '../types/vehicle';
 import { BrandLogo } from './BrandLogo';
+import { ImageLightboxModal } from './ImageLightboxModal';
 
 interface FeaturedVehiclesProps {
   vehicles: Vehicle[];
@@ -20,6 +21,7 @@ export const FeaturedVehicles = ({
 }: FeaturedVehiclesProps) => {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'year-desc' | 'km-asc'>('featured');
+  const [lightboxVehicle, setLightboxVehicle] = useState<Vehicle | null>(null);
 
   const toggleFavorite = (id: string, e: MouseEvent) => {
     e.stopPropagation();
@@ -162,6 +164,21 @@ export const FeaturedVehicles = ({
                       <div className="absolute bottom-2.5 right-3 bg-[#161616]/85 backdrop-blur-sm text-[#E4E0D8] text-[11px] font-semibold px-2 py-0.5 rounded border border-[#686868]/40">
                         {vehicle.bodyType}
                       </div>
+
+                      {/* Quick Enlarge / Zoom button */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLightboxVehicle(vehicle);
+                        }}
+                        className="absolute bottom-2.5 left-3 px-2.5 py-1 rounded-lg bg-black/80 hover:bg-black text-[#E4E0D8] border border-[#686868]/50 backdrop-blur-md transition-all cursor-pointer flex items-center gap-1.5 text-[11px] font-semibold opacity-90 group-hover:opacity-100 shadow-md hover:scale-105 active:scale-95 z-10"
+                        title="Agrandar fotos en pantalla completa"
+                        aria-label={`Agrandar fotos de ${vehicle.brand} ${vehicle.model}`}
+                      >
+                        <Maximize2 className="w-3 h-3 text-[#E4E0D8]" />
+                        <span>Agrandar fotos</span>
+                      </button>
                     </div>
 
                     {/* Card Body */}
@@ -231,6 +248,17 @@ export const FeaturedVehicles = ({
           </div>
         )}
       </div>
+
+      {/* Fullscreen Lightbox Modal from Featured Vehicles Card */}
+      {lightboxVehicle && (
+        <ImageLightboxModal
+          isOpen={Boolean(lightboxVehicle)}
+          images={lightboxVehicle.images}
+          initialIndex={0}
+          vehicleTitle={`${lightboxVehicle.brand} ${lightboxVehicle.model} ${lightboxVehicle.version}`}
+          onClose={() => setLightboxVehicle(null)}
+        />
+      )}
     </section>
   );
 };

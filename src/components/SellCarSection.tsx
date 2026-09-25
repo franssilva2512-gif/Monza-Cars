@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { CheckCircle, AlertCircle, Send, DollarSign, ShieldCheck, Sparkles } from 'lucide-react';
+import { CheckCircle, AlertCircle, Send, DollarSign, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react';
 import { SellCarFormData } from '../types/vehicle';
 
 export const SellCarSection = () => {
@@ -18,6 +18,7 @@ export const SellCarSection = () => {
   const [errors, setErrors] = useState<Partial<Record<keyof SellCarFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [whatsappRedirectUrl, setWhatsappRedirectUrl] = useState('');
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof SellCarFormData, string>> = {};
@@ -82,7 +83,45 @@ export const SellCarSection = () => {
 
     setIsSubmitting(true);
 
-    // Simulate reliable async submission
+    // Build complete WhatsApp message with all entered data
+    const messageLines = [
+      '🚗 *SOLICITUD DE TASACIÓN / VENTA DE VEHÍCULO - CAMPI MOTORS*',
+      '',
+      `👤 *Nombre y Apellido:* ${formData.nombre.trim()}`,
+      `📱 *Teléfono / WhatsApp:* ${formData.telefono.trim()}`,
+      `✉️ *Email:* ${formData.email.trim()}`,
+      '',
+      '🚘 *Datos del Vehículo a Vender:*',
+      `• *Marca:* ${formData.marca.trim()}`,
+      `• *Modelo / Versión:* ${formData.modelo.trim()}`,
+      `• *Año:* ${formData.anio.trim()}`,
+      `• *Kilometraje:* ${Number(formData.kilometraje).toLocaleString('es-AR')} km`,
+    ];
+
+    if (formData.precioPretendido?.trim()) {
+      messageLines.push(`• *Precio pretendido:* ${formData.precioPretendido.trim()}`);
+    }
+
+    if (formData.comentarios?.trim()) {
+      messageLines.push(`• *Comentarios / Estado:* ${formData.comentarios.trim()}`);
+    }
+
+    messageLines.push('');
+    messageLines.push('Enviado desde el formulario de venta de campimotors.com');
+
+    const fullMessage = encodeURIComponent(messageLines.join('\n'));
+    // Número oficial de WhatsApp: +54 9 11 5592-2000 (formato internacional wa.me/5491155922000)
+    const url = `https://wa.me/5491155922000?text=${fullMessage}`;
+    setWhatsappRedirectUrl(url);
+
+    // Intentar abrir WhatsApp inmediatamente
+    try {
+      window.open(url, '_blank');
+    } catch {
+      // Ignorar bloqueo de popup
+    }
+
+    // Actualizar estado de éxito
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
@@ -97,7 +136,7 @@ export const SellCarSection = () => {
         precioPretendido: '',
         comentarios: '',
       });
-    }, 900);
+    }, 400);
   };
 
   return (
@@ -160,18 +199,31 @@ export const SellCarSection = () => {
                   <div className="w-16 h-16 rounded-full bg-[#161616] text-[#E4E0D8] flex items-center justify-center mx-auto mb-4 border border-[#686868]/40">
                     <CheckCircle className="w-8 h-8 text-[#E4E0D8]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-[#E4E0D8] mb-2">
-                    ¡Solicitud recibida con éxito!
+                  <h3 className="text-2xl font-bold text-[#E4E0D8] mb-2 font-display">
+                    ¡Solicitud enviada a WhatsApp!
                   </h3>
                   <p className="text-[#A6A39E] max-w-md mx-auto text-sm mb-6 leading-relaxed">
-                    Un asesor especializado de <strong className="text-[#E4E0D8]">Campi Motors</strong> se comunicará con vos en las próximas horas para coordinar la inspección y cotización definitiva.
+                    Hemos preparado y enviado toda la información detallada de tu vehículo directamente a nuestro WhatsApp oficial (+54 9 11 5592-2000). Un asesor de <strong className="text-[#E4E0D8]">Campi Motors</strong> te responderá a la brevedad.
                   </p>
-                  <button
-                    onClick={() => setIsSuccess(false)}
-                    className="px-6 py-3 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-bold text-sm transition-colors cursor-pointer shadow-md"
-                  >
-                    Cotizar otro vehículo
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    {whatsappRedirectUrl && (
+                      <a
+                        href={whatsappRedirectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-bold text-sm transition-colors cursor-pointer shadow-md flex items-center justify-center gap-2"
+                      >
+                        <MessageCircle className="w-4 h-4 text-[#161616]" />
+                        <span>Abrir chat de WhatsApp</span>
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setIsSuccess(false)}
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] border border-[#686868]/40 font-bold text-sm transition-colors cursor-pointer"
+                    >
+                      Cotizar otro vehículo
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
@@ -396,15 +448,18 @@ export const SellCarSection = () => {
                     {isSubmitting ? (
                       <span className="inline-flex items-center gap-2">
                         <span className="w-4 h-4 border-2 border-[#161616]/30 border-t-[#161616] rounded-full animate-spin"></span>
-                        Enviando cotización...
+                        Enviando cotización a WhatsApp...
                       </span>
                     ) : (
                       <>
-                        <Send className="w-4 h-4 text-[#161616]" />
-                        <span>Quiero vender mi auto</span>
+                        <MessageCircle className="w-4 h-4 text-[#161616]" />
+                        <span>Quiero vender mi auto (Enviar a WhatsApp)</span>
                       </>
                     )}
                   </button>
+                  <p className="text-center text-[11px] text-[#A6A39E]/80 mt-2">
+                    Toda la información del vehículo se enviará automáticamente a nuestro WhatsApp oficial: <strong>+54 9 11 5592-2000</strong>
+                  </p>
                 </form>
               )}
             </div>

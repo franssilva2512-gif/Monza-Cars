@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { X, Calculator, CheckCircle2, DollarSign, ShieldCheck } from 'lucide-react';
+import { X, Calculator, CheckCircle2, DollarSign, ShieldCheck, MessageCircle } from 'lucide-react';
 import { Vehicle } from '../types/vehicle';
 
 interface FinancingSimulatorModalProps {
@@ -18,6 +18,7 @@ export const FinancingSimulatorModal = ({
   const [applicantPhone, setApplicantPhone] = useState('');
   const [applicantDni, setApplicantDni] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [financingWhatsappUrl, setFinancingWhatsappUrl] = useState('');
 
   const downPaymentAmount = Math.round((basePrice * downPaymentPercent) / 100);
   const financedAmount = basePrice - downPaymentAmount;
@@ -30,6 +31,9 @@ export const FinancingSimulatorModal = ({
   );
 
   const formatCurrency = (val: number) => {
+    if (vehicle.currency === 'USD') {
+      return `USD ${new Intl.NumberFormat('es-AR').format(val)}`;
+    }
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency: 'ARS',
@@ -39,12 +43,35 @@ export const FinancingSimulatorModal = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!applicantName || !applicantPhone) return;
+    if (!applicantName.trim() || !applicantPhone.trim()) return;
+
+    const messageLines = [
+      '🚗 *SOLICITUD DE FINANCIACIÓN - CAMPI MOTORS*',
+      '',
+      `🚘 *Vehículo Seleccionado:* ${vehicle.brand} ${vehicle.model} ${vehicle.version} (${vehicle.year})`,
+      `💰 *Precio de lista:* ${formatCurrency(basePrice)}`,
+      `💵 *Anticipo propuesto:* ${formatCurrency(downPaymentAmount)} (${downPaymentPercent}%)`,
+      `🏦 *Monto a financiar:* ${formatCurrency(financedAmount)}`,
+      `📅 *Plazo elegido:* ${termMonths} meses (~${formatCurrency(estimatedMonthlyInstallment)} por mes)`,
+      '',
+      '👤 *Datos del Solicitante:*',
+      `• *Nombre y Apellido:* ${applicantName.trim()}`,
+      `• *Teléfono / WhatsApp:* ${applicantPhone.trim()}`,
+    ];
+
+    if (applicantDni?.trim()) {
+      messageLines.push(`• *DNI / CUIT:* ${applicantDni.trim()}`);
+    }
+
+    messageLines.push('');
+    messageLines.push('Hola, completé esta simulación en la web y me gustaría recibir la propuesta de cuotas formal. ¡Muchas gracias!');
+
+    const encoded = encodeURIComponent(messageLines.join('\n'));
+    const url = `https://wa.me/5491155922000?text=${encoded}`;
+    setFinancingWhatsappUrl(url);
+
     setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-    }, 3000);
+    window.open(url, '_blank');
   };
 
   return (
@@ -82,11 +109,30 @@ export const FinancingSimulatorModal = ({
           <div className="text-center py-10">
             <CheckCircle2 className="w-14 h-14 text-[#E4E0D8] mx-auto mb-3" />
             <h4 className="text-xl font-bold text-[#E4E0D8] mb-1 font-display">
-              ¡Pre-calificación enviada con éxito!
+              ¡Pre-calificación enviada a WhatsApp!
             </h4>
-            <p className="text-[#A6A39E] text-sm max-w-sm mx-auto">
-              Un asesor de créditos de <strong className="text-[#E4E0D8]">Campi Motors</strong> revisará tu propuesta y te enviará las tasas personalizadas vía WhatsApp.
+            <p className="text-[#A6A39E] text-sm max-w-md mx-auto mb-6 leading-relaxed">
+              Todos los datos de tu simulación crediticia para el <strong className="text-[#E4E0D8]">{vehicle.brand} {vehicle.model}</strong> han sido preparados y enviados a nuestro WhatsApp oficial (+54 9 11 5592-2000).
             </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              {financingWhatsappUrl && (
+                <a
+                  href={financingWhatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#E4E0D8] hover:bg-white text-[#161616] font-bold text-sm transition-colors cursor-pointer shadow-md flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#161616]" />
+                  <span>Abrir chat de WhatsApp</span>
+                </a>
+              )}
+              <button
+                onClick={onClose}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#161616] hover:bg-[#686868]/30 text-[#E4E0D8] border border-[#686868]/40 font-bold text-sm transition-colors cursor-pointer"
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">

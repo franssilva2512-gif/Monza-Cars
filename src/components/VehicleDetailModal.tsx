@@ -13,9 +13,11 @@ import {
   Sparkles,
   PhoneCall,
   CheckCircle2,
+  Maximize2,
 } from 'lucide-react';
 import { Vehicle } from '../types/vehicle';
 import { BrandLogo } from './BrandLogo';
+import { ImageLightboxModal } from './ImageLightboxModal';
 
 interface VehicleDetailModalProps {
   vehicle: Vehicle;
@@ -31,15 +33,16 @@ export const VehicleDetailModal = ({
 }: VehicleDetailModalProps) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<'safety' | 'comfort' | 'multimedia'>('safety');
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   // Handle escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && !isLightboxOpen) onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [onClose, isLightboxOpen]);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -105,26 +108,51 @@ export const VehicleDetailModal = ({
           {/* Left Column: Image Gallery */}
           <div className="lg:col-span-7 bg-[#161616] flex flex-col justify-between p-4 sm:p-6 border-b lg:border-b-0 lg:border-r border-[#686868]/30">
             {/* Main Image Display */}
-            <div className="relative aspect-[16/10] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-black shadow-inner group border border-[#686868]/40">
+            <div
+              className="relative aspect-[16/10] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-black shadow-inner group border border-[#686868]/40 cursor-zoom-in"
+              onClick={() => setIsLightboxOpen(true)}
+              title="Hacé clic para agrandar la foto"
+            >
               <img
                 src={vehicle.images[activeImageIndex]}
                 alt={`${vehicle.brand} ${vehicle.model} - Imagen ${activeImageIndex + 1}`}
-                className="w-full h-full object-cover object-center transition-all duration-300"
+                className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-102"
               />
+
+              {/* Botón Agrandar Foto (Enlarge / Fullscreen) */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsLightboxOpen(true);
+                }}
+                className="absolute top-3 right-3 z-10 px-3 py-1.5 rounded-xl bg-black/75 hover:bg-black text-[#E4E0D8] border border-[#686868]/50 backdrop-blur-md transition-all cursor-pointer flex items-center gap-1.5 text-xs font-semibold shadow-lg hover:scale-105 active:scale-95"
+                title="Agrandar foto en pantalla completa"
+                aria-label="Agrandar foto del vehículo"
+              >
+                <Maximize2 className="w-3.5 h-3.5 text-[#E4E0D8]" />
+                <span>Agrandar foto</span>
+              </button>
 
               {/* Navigation arrows if multiple images */}
               {vehicle.images.length > 1 && (
                 <>
                   <button
-                    onClick={prevImage}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/70 hover:bg-black/90 text-[#E4E0D8] backdrop-blur-md transition-all cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevImage();
+                    }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/70 hover:bg-black/90 text-[#E4E0D8] backdrop-blur-md transition-all cursor-pointer z-10"
                     aria-label="Imagen anterior"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={nextImage}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/70 hover:bg-black/90 text-[#E4E0D8] backdrop-blur-md transition-all cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextImage();
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/70 hover:bg-black/90 text-[#E4E0D8] backdrop-blur-md transition-all cursor-pointer z-10"
                     aria-label="Siguiente imagen"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -133,12 +161,12 @@ export const VehicleDetailModal = ({
               )}
 
               {/* Image counter pill */}
-              <div className="absolute bottom-3 right-3 bg-[#161616]/80 backdrop-blur-md text-[#E4E0D8] text-xs px-2.5 py-1 rounded-full font-medium border border-[#686868]/40">
+              <div className="absolute bottom-3 right-3 bg-[#161616]/80 backdrop-blur-md text-[#E4E0D8] text-xs px-2.5 py-1 rounded-full font-medium border border-[#686868]/40 z-10">
                 {activeImageIndex + 1} / {vehicle.images.length}
               </div>
 
               {/* Badge */}
-              <div className="absolute top-3 left-3 flex gap-2">
+              <div className="absolute top-3 left-3 flex gap-2 z-10">
                 <span className="bg-[#161616] text-[#E4E0D8] border border-[#686868]/40 text-xs font-bold px-3 py-1 rounded-md shadow-md uppercase tracking-wider">
                   {vehicle.condition}
                 </span>
@@ -321,6 +349,15 @@ export const VehicleDetailModal = ({
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Image Lightbox Modal */}
+      <ImageLightboxModal
+        isOpen={isLightboxOpen}
+        images={vehicle.images}
+        initialIndex={activeImageIndex}
+        vehicleTitle={`${vehicle.brand} ${vehicle.model} ${vehicle.version}`}
+        onClose={() => setIsLightboxOpen(false)}
+      />
     </div>
   );
 };
