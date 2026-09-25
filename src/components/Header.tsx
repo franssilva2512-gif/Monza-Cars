@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageCircle, ChevronRight, ShieldCheck } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, ChevronRight } from 'lucide-react';
 
 interface HeaderProps {
   onSelectConditionFilter?: (condition: 'all' | 'Usado') => void;
@@ -43,17 +43,9 @@ export const Header = ({ onSelectConditionFilter, onOpenWhatsApp }: HeaderProps)
 
   return (
     <>
-      {/* Top micro bar for high-end automotive trust */}
+      {/* Top micro bar */}
       <div className="bg-[#161616] text-[#A6A39E] text-xs hidden md:block border-b border-[#686868]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5 text-[#E4E0D8]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#E4E0D8]" />
-              Concesionaria Oficial Multimarca #1 en Argentina
-            </span>
-            <span className="text-[#686868]">•</span>
-            <span className="text-[#A6A39E]">Entrega inmediata &amp; Financiación a tasa preferencial</span>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-end">
           <div className="flex items-center gap-5">
             <a
               href="tel:+5491155922000"

@@ -23,14 +23,6 @@ export const Hero = ({ onBuyClick, onSellClick }: HeroProps) => {
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
         <div className="max-w-3xl">
-          {/* Subtle premium badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#303030]/90 backdrop-blur-md border border-[#686868]/40 text-[#E4E0D8] text-xs sm:text-sm font-medium mb-6 animate-fade-in shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#E4E0D8] animate-pulse"></span>
-            <span className="tracking-wide">Líder Oficial Multimarca en Argentina</span>
-            <span className="text-[#686868]">|</span>
-            <span className="text-[#A6A39E] font-normal">Modelos 2024 &amp; Usados Certificados</span>
-          </div>
-
           {/* Main Title - User exact specification: "Todo lo que te mueve en un solo lugar" */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#E4E0D8] tracking-tight leading-[1.08] mb-6 drop-shadow-sm font-display">
             Todo lo que te mueve <br />
